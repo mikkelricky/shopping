@@ -10,6 +10,7 @@
 
 namespace App\Service;
 
+use RuntimeException;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class FlashActionManager
@@ -42,7 +43,7 @@ class FlashActionManager
             }
 
             return null;
-        } catch (\RuntimeException $e) {
+        } catch (RuntimeException $e) {
             return null;
         }
     }
