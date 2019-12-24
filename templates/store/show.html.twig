@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Store{% endblock %}
+
+{% block body %}
+    <h1>Store</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ store.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ store.name }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ store.description }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ store.address }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ store.createdAt ? store.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ store.updatedAt ? store.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('store_index') }}">back to list</a>
+
+    <a href="{{ path('store_edit', {'id': store.id}) }}">edit</a>
+
+    {{ include('store/_delete_form.html.twig') }}
+{% endblock %}

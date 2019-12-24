@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Add items to list %list%'|trans({'%list%': list.name}) }}{% endblock %}
+
+{% block body %}
+    {% import 'shopping_list/_helpers.html.twig' as helper %}
+    <h1>
+        {{ helper.account_home(account) }}
+        {{ 'Add items to list %list%'|trans({'%list%': list.name}) }}
+    </h1>
+
+    {{ form_start(form) }}
+        {{ form_rest(form) }}
+
+        <div class="buttons">
+            <a class="btn btn-link" href="{{ account ? path('shopping_account_list_items', {account: account.id, list: list.id}) : path('shopping_list_items', {list: list.id}) }}">{{ 'Cancel'|trans }}</a>
+            <button type="submit" class="btn btn-primary" href="{{ path('shopping_list_add_items', {list: list.id}) }}">{{ 'Add items'|trans }}</button>
+        </div>
+    {{ form_end(form) }}
+{% endblock %}

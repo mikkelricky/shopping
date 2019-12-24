@@ -1,0 +1,7 @@
+{{ 'Your shopping list %list% is ready at %url%'|trans({'%list%': list.name, '%url%': url('shopping_account_list_items', {account: list.account.id, list: list.id})}) }}
+
+{{ 'You can find all your shopping lists at %url%'|trans({'%url%': url('shopping_account', {account: list.account.id})}) }}
+
+{{ 'Don\'t share these urls with anybody – they will give access to all your shopping lists!'|trans }}
+
+{{ 'If you wan\'t to share %list% with anyone, go to %url%'|trans({'%list%': list.name, '%url%': url('shopping_account_list_share', {account: list.account.id, list: list.id})}) }}

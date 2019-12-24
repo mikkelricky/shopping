@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Share shopping list'|trans }}{% endblock %}
+
+{% block body %}
+    {% import 'shopping_list/_helpers.html.twig' as helper %}
+    <h1>
+        {{ helper.account_home(account) }}
+        {{ 'Share shopping list %list%'|trans({'%list%': list.name}) }}
+    </h1>
+
+    {{ form_start(form) }}
+        {{ form_rest(form) }}
+
+        <div class="buttons">
+            <a href="{{ path('shopping_account', {account: account.id}) }}">{{ 'Cancel'|trans }}</a>
+            <button class="btn btn-primary">{{ 'Share shopping list'|trans }}</button>
+        </div>
+    {{ form_end(form) }}
+{% endblock %}

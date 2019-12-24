@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Item log'|trans }}{% endblock %}
+
+{% block body %}
+    <h1>
+        {{ 'Log for item %item%'|trans({'%item%': item.name}) }}
+    </h1>
+
+    {% if item.logEntries %}
+        <table class="table">
+            {% for entry in item.logEntries %}
+                <tr>
+                    <td>{{ entry.createdAt|date }}</td>
+                    <td>{{ entry.name }}{% if entry.quantity %} ({{ entry.quantity }}){% endif %}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+{% endblock %}
