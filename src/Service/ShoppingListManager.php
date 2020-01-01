@@ -3,7 +3,7 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2019 Mikkel Ricky
+ * (c) 2018–2020 Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
@@ -20,19 +20,23 @@ use Twig\Environment;
 
 class ShoppingListManager
 {
+    /** @var AccountManager */
+    private $accountRepository;
+
     /** @var MailerInterface */
     private $mailer;
+
+    /** @var string */
+    private $from;
 
     /** @var Environment */
     private $twig;
 
-    /** @var AccountManager */
-    private $accountRepository;
-
-    public function __construct(AccountRepository $accountRepository, MailerInterface $mailer, Environment $twig)
+    public function __construct(AccountRepository $accountRepository, MailerInterface $mailer, string $from, Environment $twig)
     {
         $this->accountRepository = $accountRepository;
         $this->mailer = $mailer;
+        $this->from = $from;
         $this->twig = $twig;
     }
 
@@ -72,6 +76,8 @@ class ShoppingListManager
                 'data' => $data,
             ]));
 
+        $this->send($message, $email);
+
         return true;
     }
 
@@ -97,7 +103,7 @@ class ShoppingListManager
     private function send(Email $email, $addresses)
     {
         $email
-            ->from('shopping@example.com')
+            ->from($this->from)
             ->to($addresses);
 
         return $this->mailer->send($email);

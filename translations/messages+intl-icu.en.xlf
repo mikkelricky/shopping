@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="h1ZnYJM" resname="Hello {name}!">
+        <source>Hello {name}!</source>
+        <target>Hello {name}!</target>
+      </trans-unit>
+      <trans-unit id="Dh_BuMe" resname="Mail sent to {email}.">
+        <source>Mail sent to {email}.</source>
+        <target>Mail sent to {email}.</target>
+      </trans-unit>
+      <trans-unit id="EWNEOmE" resname="Error sending email to {email}">
+        <source>Error sending email to {email}</source>
+        <target>Error sending email to {email}</target>
+      </trans-unit>
+      <trans-unit id="tbaPnUX" resname="Shopping">
+        <source>Shopping</source>
+        <target>Shopping</target>
+      </trans-unit>
+      <trans-unit id="RjbD_vt" resname="Edit shopping list">
+        <source>Edit shopping list</source>
+        <target>Edit shopping list</target>
+      </trans-unit>
+      <trans-unit id="wcEAnT8" resname="Update">
+        <source>Update</source>
+        <target>Update</target>
+      </trans-unit>
+      <trans-unit id="GXZu1sy" resname="Cancel">
+        <source>Cancel</source>
+        <target>Cancel</target>
+      </trans-unit>
+      <trans-unit id="A9_cNdl" resname="Item log">
+        <source>Item log</source>
+        <target>Item log</target>
+      </trans-unit>
+      <trans-unit id="LTiDYaQ" resname="Log for item %item%">
+        <source>Log for item %item%</source>
+        <target>Log for item %item%</target>
+      </trans-unit>
+      <trans-unit id="pELPbQa" resname="Your e-mail address">
+        <source>Your e-mail address</source>
+        <target>Your e-mail address</target>
+      </trans-unit>
+      <trans-unit id="YHweD4C" resname="Shopping list name">
+        <source>Shopping list name</source>
+        <target>Shopping list name</target>
+      </trans-unit>
+      <trans-unit id="F_lTt.q" resname="Shopping list description">
+        <source>Shopping list description</source>
+        <target>Shopping list description</target>
+      </trans-unit>
+      <trans-unit id="dKiDoDe" resname="Settings">
+        <source>Settings</source>
+        <target>Settings</target>
+      </trans-unit>
+      <trans-unit id="pP5lJk7" resname="Language">
+        <source>Language</source>
+        <target>Language</target>
+      </trans-unit>
+      <trans-unit id="buxIRJo" resname="Delete shopping list %list%">
+        <source>Delete shopping list %list%</source>
+        <target>Delete shopping list %list%</target>
+      </trans-unit>
+      <trans-unit id="4bm6wuQ" resname="Shopping list %list%">
+        <source>Shopping list %list%</source>
+        <target>Shopping list %list%</target>
+      </trans-unit>
+      <trans-unit id="DR4kYsJ" resname="Filter applied">
+        <source>Filter applied</source>
+        <target>Filter applied</target>
+      </trans-unit>
+      <trans-unit id="ulni1KX" resname="Clear filter">
+        <source>Clear filter</source>
+        <target>Clear filter</target>
+      </trans-unit>
+      <trans-unit id=".GDkmR." resname="Woohoo! No undone items.">
+        <source>Woohoo! No undone items.</source>
+        <target>Woohoo! No undone items.</target>
+      </trans-unit>
+      <trans-unit id="v154yCI" resname="Show all items">
+        <source>Show all items</source>
+        <target>Show all items</target>
+      </trans-unit>
+      <trans-unit id="_jsaP6H" resname="{count, plural, one {Show one done item.} other {Show # done items.}}">
+        <source>{count, plural, one {Show one done item.} other {Show # done items.}}</source>
+        <target>{count, plural, one {Show one done item.} other {Show # done items.}}</target>
+      </trans-unit>
+      <trans-unit id="_MJijl2" resname="{count, plural, one {Hide one done item.} other {Hide # done items.}}">
+        <source>{count, plural, one {Hide one done item.} other {Hide # done items.}}</source>
+        <target>{count, plural, one {Hide one done item.} other {Hide # done items.}}</target>
+      </trans-unit>
+      <trans-unit id="0aCzKac" resname="Add item">
+        <source>Add item</source>
+        <target>Add item</target>
+      </trans-unit>
+      <trans-unit id="5.60EUD" resname="Item done on {done_at, date, full} at {done_at, time, short}">
+        <source>Item done on {done_at, date, full} at {done_at, time, short}</source>
+        <target>Item done on {done_at, date, full} at {done_at, time, short}</target>
+      </trans-unit>
+      <trans-unit id="RkxP.QG" resname="Edit">
+        <source>Edit</source>
+        <target>Edit</target>
+      </trans-unit>
+      <trans-unit id="NLZoOP5" resname="Show log">
+        <source>Show log</source>
+        <target>Show log</target>
+      </trans-unit>
+      <trans-unit id="XU0DWhc" resname="Create shopping list">
+        <source>Create shopping list</source>
+        <target>Create shopping list</target>
+      </trans-unit>
+      <trans-unit id="Z54Ev1U" resname="Add items to list %list%">
+        <source>Add items to list %list%</source>
+        <target>Add items to list %list%</target>
+      </trans-unit>
+      <trans-unit id="E1g9AxN" resname="Add items">
+        <source>Add items</source>
+        <target>Add items</target>
+      </trans-unit>
+      <trans-unit id="ka1l0id" resname="Shopping lists">
+        <source>Shopping lists</source>
+        <target>Shopping lists</target>
+      </trans-unit>
+      <trans-unit id="qM3_m3y" resname="Find my lists">
+        <source>Find my lists</source>
+        <target>Find my lists</target>
+      </trans-unit>
+      <trans-unit id="EgvUT_P" resname="List items log">
+        <source>List items log</source>
+        <target>List items log</target>
+      </trans-unit>
+      <trans-unit id="IY3YTRN" resname="Items log for list %list%">
+        <source>Items log for list %list%</source>
+        <target>Items log for list %list%</target>
+      </trans-unit>
+      <trans-unit id="wU1xKs8" resname="Show list items">
+        <source>Show list items</source>
+        <target>Show list items</target>
+      </trans-unit>
+      <trans-unit id="kOVW28K" resname="No item log entries">
+        <source>No item log entries</source>
+        <target>No item log entries</target>
+      </trans-unit>
+      <trans-unit id="MLCHest" resname="Add item to list">
+        <source>Add item to list</source>
+        <target>Add item to list</target>
+      </trans-unit>
+      <trans-unit id="bIE_PXD" resname="Share shopping list">
+        <source>Share shopping list</source>
+        <target>Share shopping list</target>
+      </trans-unit>
+      <trans-unit id="qetHEZ2" resname="Share shopping list %list%">
+        <source>Share shopping list %list%</source>
+        <target>Share shopping list %list%</target>
+      </trans-unit>
+      <trans-unit id="3NHVIj9" resname="Name">
+        <source>Name</source>
+        <target>Name</target>
+      </trans-unit>
+      <trans-unit id="Um4Ah8w" resname="Description">
+        <source>Description</source>
+        <target>Description</target>
+      </trans-unit>
+      <trans-unit id="_456Gjy" resname="Items">
+        <source>Items</source>
+        <target>Items</target>
+      </trans-unit>
+      <trans-unit id="voBYIAn" resname="Show items">
+        <source>Show items</source>
+        <target>Show items</target>
+      </trans-unit>
+      <trans-unit id="KYh6X.m" resname="Share">
+        <source>Share</source>
+        <target>Share</target>
+      </trans-unit>
+      <trans-unit id="u2T5mpO" resname="Show items log">
+        <source>Show items log</source>
+        <target>Show items log</target>
+      </trans-unit>
+      <trans-unit id="VsckTZb" resname="No lists found">
+        <source>No lists found</source>
+        <target>No lists found</target>
+      </trans-unit>
+      <trans-unit id="RMGkeIW" resname="Find shopping lists">
+        <source>Find shopping lists</source>
+        <target>Find shopping lists</target>
+      </trans-unit>
+      <trans-unit id="45_rmff" resname="Enter your e-mail address and we'll send information on how to find your shopping lists.">
+        <source>Enter your e-mail address and we'll send information on how to find your shopping lists.</source>
+        <target>Enter your e-mail address and we'll send information on how to find your shopping lists.</target>
+      </trans-unit>
+      <trans-unit id="j9Z.E_U" resname="Recover my shopping lists">
+        <source>Recover my shopping lists</source>
+        <target>Recover my shopping lists</target>
+      </trans-unit>
+      <trans-unit id="k9EYqZs" resname="%sender% has shared the shopping list %list% with you.">
+        <source>%sender% has shared the shopping list %list% with you.</source>
+        <target>%sender% has shared the shopping list %list% with you.</target>
+      </trans-unit>
+      <trans-unit id="wPRc6o7" resname="You now have access to the shopping list %list%.">
+        <source>You now have access to the shopping list %list%.</source>
+        <target>You now have access to the shopping list %list%.</target>
+      </trans-unit>
+      <trans-unit id="aiOxRoj" resname="Go to %url% and start shopping!">
+        <source>Go to %url% and start shopping!</source>
+        <target>Go to %url% and start shopping!</target>
+      </trans-unit>
+      <trans-unit id="I6VbHdQ" resname="You can find your shopping lists at {url}">
+        <source>You can find your shopping lists at {url}</source>
+        <target>You can find your shopping lists at {url}</target>
+      </trans-unit>
+      <trans-unit id="T6y8Ezu" resname="Don't share this url with anyone – it will give access to all your lists!">
+        <source>Don't share this url with anyone – it will give access to all your lists!</source>
+        <target>Don't share this url with anyone – it will give access to all your lists!</target>
+      </trans-unit>
+      <trans-unit id="5h.bI0d" resname="Your shopping list %list% is ready at %url%">
+        <source>Your shopping list %list% is ready at %url%</source>
+        <target>Your shopping list %list% is ready at %url%</target>
+      </trans-unit>
+      <trans-unit id="W2E3AnZ" resname="You can find all your shopping lists at %url%">
+        <source>You can find all your shopping lists at %url%</source>
+        <target>You can find all your shopping lists at %url%</target>
+      </trans-unit>
+      <trans-unit id="iTZTafp" resname="Don't share these urls with anyone – they will give access to all your shopping lists!">
+        <source>Don't share these urls with anyone – they will give access to all your shopping lists!</source>
+        <target>Don't share these urls with anyone – they will give access to all your shopping lists!</target>
+      </trans-unit>
+      <trans-unit id="pXonmlo" resname="If you wan't to share %list% with someone, go to %url%">
+        <source>If you wan't to share %list% with someone, go to %url%</source>
+        <target>If you wan't to share %list% with someone, go to %url%</target>
+      </trans-unit>
+      <trans-unit id="8xJLDhh" resname="Shopping list created">
+        <source>Shopping list created</source>
+        <target>Shopping list created</target>
+      </trans-unit>
+      <trans-unit id="Q_tUayB" resname="Your shopping list %list% has been created.">
+        <source>Your shopping list %list% has been created.</source>
+        <target>Your shopping list %list% has been created.</target>
+      </trans-unit>
+      <trans-unit id="nUs4mCV" resname="Details on how to access the list have been sent to %email%.">
+        <source>Details on how to access the list have been sent to %email%.</source>
+        <target>Details on how to access the list have been sent to %email%.</target>
+      </trans-unit>
+      <trans-unit id="dpAPG.0" resname="Back">
+        <source>Back</source>
+        <target>Back</target>
+      </trans-unit>
+      <trans-unit id="bKatnh5" resname="We will send details on how to access the shopping list to this address.">
+        <source>We will send details on how to access the shopping list to this address.</source>
+        <target>We will send details on how to access the shopping list to this address.</target>
+      </trans-unit>
+      <trans-unit id="C0LhQ0o" resname="Share shopping list {list}">
+        <source>Share shopping list {list}</source>
+        <target>Share shopping list {list}</target>
+      </trans-unit>
+      <trans-unit id="ZtbX.bQ" resname="Log for item {name}">
+        <source>Log for item {name}</source>
+        <target>Log for item {name}</target>
+      </trans-unit>
+      <trans-unit id="eZJS_pc" resname="Delete shopping list {name}">
+        <source>Delete shopping list {name}</source>
+        <target>Delete shopping list {name}</target>
+      </trans-unit>
+      <trans-unit id="GOnkrQV" resname="Shopping list {name}">
+        <source>Shopping list {name}</source>
+        <target>Shopping list {name}</target>
+      </trans-unit>
+      <trans-unit id="9wYHENK" resname="Add items to list {list}">
+        <source>Add items to list {list}</source>
+        <target>Add items to list {list}</target>
+      </trans-unit>
+      <trans-unit id="2CgKbmN" resname="Items log for list {name}">
+        <source>Items log for list {name}</source>
+        <target>Items log for list {name}</target>
+      </trans-unit>
+      <trans-unit id="z1LxbQ_" resname="{sender} has shared the shopping list {list} with you.">
+        <source>{sender} has shared the shopping list {list} with you.</source>
+        <target>{sender} has shared the shopping list {list} with you.</target>
+      </trans-unit>
+      <trans-unit id="lgdjVfW" resname="You now have access to the shopping list {list}.">
+        <source>You now have access to the shopping list {list}.</source>
+        <target>You now have access to the shopping list {list}.</target>
+      </trans-unit>
+      <trans-unit id="2gRaUTx" resname="Go to {url} and start shopping!">
+        <source>Go to {url} and start shopping!</source>
+        <target>Go to {url} and start shopping!</target>
+      </trans-unit>
+      <trans-unit id="m_ekgTJ" resname="Your shopping list {name} is ready at {url}">
+        <source>Your shopping list {name} is ready at {url}</source>
+        <target>Your shopping list {name} is ready at {url}</target>
+      </trans-unit>
+      <trans-unit id="cHLH3ZM" resname="You can find all your shopping lists at {url}">
+        <source>You can find all your shopping lists at {url}</source>
+        <target>You can find all your shopping lists at {url}</target>
+      </trans-unit>
+      <trans-unit id="e2p2F2n" resname="If you wan't to share the list {name} with someone, go to {url}">
+        <source>If you wan't to share the list {name} with someone, go to {url}</source>
+        <target>If you wan't to share the list {name} with someone, go to {url}</target>
+      </trans-unit>
+      <trans-unit id="Wjqu686" resname="Your shopping list {name} has been created.">
+        <source>Your shopping list {name} has been created.</source>
+        <target>Your shopping list {name} has been created.</target>
+      </trans-unit>
+      <trans-unit id="m8L6c75" resname="Details on how to access the list have been sent to {email}.">
+        <source>Details on how to access the list have been sent to {email}.</source>
+        <target>Details on how to access the list have been sent to {email}.</target>
+      </trans-unit>
+      <trans-unit id="8jt7gNd" resname="Add items to list {name}">
+        <source>Add items to list {name}</source>
+        <target>Add items to list {name}</target>
+      </trans-unit>
+      <trans-unit id="l9..uEY" resname="Share shopping list {name}">
+        <source>Share shopping list {name}</source>
+        <target>Share shopping list {name}</target>
+      </trans-unit>
+      <trans-unit id="TiaVugp" resname="{sender} has shared the shopping list {name} with you.">
+        <source>{sender} has shared the shopping list {name} with you.</source>
+        <target>{sender} has shared the shopping list {name} with you.</target>
+      </trans-unit>
+      <trans-unit id="E4IW.tx" resname="You now have access to the shopping list {name}.">
+        <source>You now have access to the shopping list {name}.</source>
+        <target>You now have access to the shopping list {name}.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

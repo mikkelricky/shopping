@@ -3,7 +3,7 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2019 Mikkel Ricky
+ * (c) 2018–2020 Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
@@ -29,6 +29,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * @Route(
+ *     "/{_locale}",
+ *     locale="en",
+ *     requirements={
+ *         "_locale": "da|en"
+ *     }
+ * )
+ */
 class ShoppingListController extends AbstractController
 {
     /** @var ShoppingListManager */
@@ -43,7 +52,7 @@ class ShoppingListController extends AbstractController
     /**
      * @Route("/list", name="shopping_list_index", methods="GET")
      */
-    public function index(): Response
+    public function index(TranslatorInterface $translator): Response
     {
         return $this->render('shopping_list/index.html.twig');
     }
@@ -92,7 +101,7 @@ class ShoppingListController extends AbstractController
     /**
      * @Route("/account/recover", name="shopping_list_recover", methods="GET|POST")
      */
-    public function recover(Request $request): Response
+    public function recover(Request $request, TranslatorInterface $translator): Response
     {
         $form = $this->createForm(ShoppingListRecoverType::class);
         $form->handleRequest($request);
@@ -100,11 +109,11 @@ class ShoppingListController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $email = $form->get('email')->getData();
             if ($this->listManager->recoverLists($email)) {
-                $this->success('Mail sent to %email%.', ['%email%' => $email]);
+                $this->success($translator->trans('Mail sent to {email}.', ['email' => $email]));
 
                 return $this->redirectToRoute('shopping_list_index');
             }
-            $this->error('Error sending email to %email%', ['%email%' => $email]);
+            $this->error($translator->trans('Error sending email to {email}', ['email' => $email]));
         }
 
         return $this->render('shopping_list/recover.html.twig', [
@@ -136,13 +145,13 @@ class ShoppingListController extends AbstractController
             $sender = $form->get('sender')->getData();
             $message = $form->get('message')->getData();
             if ($this->listManager->shareList($list, $email, ['sender' => $sender, 'message' => $message])) {
-                $this->success('List %list% successfully shared with %email%', ['%list%' => $list->getName(), '%email%' => $email]);
+                $this->success('List {list} successfully shared with {email}', ['list' => $list->getName(), 'email' => $email]);
 
                 return $this->redirectToRoute('shopping_account', ['account' => $list->getAccount()->getId()]);
             }
-            $this->error('Error sharing list %list% with %email%', [
-                '%list%' => $list->getName(),
-                '%email%' => $email,
+            $this->error('Error sharing list {list} with {email}', [
+                'list' => $list->getName(),
+                'email' => $email,
             ]);
         }
 

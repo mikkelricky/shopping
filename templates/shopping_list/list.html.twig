@@ -5,7 +5,7 @@
 {% block body %}
     <h1>{{ 'Shopping lists'|trans }}</h1>
 
-    <table class="table">
+    <table class="table shopping-list-items">
         <thead>
             <tr>
                 <th>{{ 'Name'|trans }}</th>
@@ -17,15 +17,26 @@
         <tbody>
         {% for list in lists %}
             <tr>
-                <td>{{ list.name }}</td>
+                <td>
+                    <a href="{{ path('shopping_account_list_items', {account: account.id, list: list.id}) }}">{{ list.name }}</a>
+                </td>
                 <td>{{ list.description }}</td>
                 <td>{{ list.undoneItems|length }}/{{ list.items|length }}</td>
                 <td>
-                    <a class="btn btn-light" href="{{ path('shopping_account_list_items', {account: account.id, list: list.id}) }}">{{ 'Show items'|trans }}</a>
-                    <a class="btn btn-light" href="{{ path('shopping_account_list_share', {account: account.id, list: list.id}) }}">{{ 'Share'|trans }}</a>
-                    <a class="btn btn-light" href="{{ path('shopping_account_list_edit', {account: account.id, list: list.id}) }}">{{ 'Edit'|trans }}</a>
-                    <a class="btn btn-light" href="{{ path('shopping_account_list_add_items', {account: account.id, list: list.id}) }}">{{ 'Add items'|trans }}</a>
-                    <a class="btn btn-light" href="{{ path('shopping_account_list_log', {account: account.id, list: list.id}) }}">{{ 'Show items log'|trans }}</a>
+                    <a class="btn btn-light" href="{{ path_with_referer('shopping_account_list_items', {account: account.id, list: list.id}) }}">
+                        {{ icon('list') }}
+                        {{ 'Show items'|trans }}
+                    </a>
+                    <a class="btn btn-light" href="{{ path_with_referer('shopping_account_list_share', {account: account.id, list: list.id}) }}">
+                        {{ icon('share') }}
+                        {{ 'Share'|trans }}
+                    </a>
+                    <a class="btn btn-light" href="{{ path_with_referer('shopping_account_list_edit', {account: account.id, list: list.id}) }}">
+                        {{ icon('edit') }}
+                        {{ 'Edit'|trans }}
+                    </a>
+                    {# <a class="btn btn-light" href="{{ path_with_referer('shopping_account_list_add_items', {account: account.id, list: list.id}) }}">{{ 'Add items'|trans }}</a> #}
+                    {# <a class="btn btn-light" href="{{ path_with_referer('shopping_account_list_log', {account: account.id, list: list.id}) }}">{{ 'Show items log'|trans }}</a> #}
                 </td>
             </tr>
         {% else %}
@@ -36,5 +47,5 @@
         </tbody>
     </table>
 
-    <a class="btn btn-primary" href="{{ path('shopping_account_list_new', {account: account.id}) }}">{{ 'Create shopping list'|trans }}</a>
+    <a class="btn btn-primary" href="{{ path_with_referer('shopping_account_list_new', {account: account.id}) }}">{{ 'Create shopping list'|trans }}</a>
 {% endblock %}

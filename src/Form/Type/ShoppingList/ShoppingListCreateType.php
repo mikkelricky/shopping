@@ -3,7 +3,7 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2019 Mikkel Ricky
+ * (c) 2018–2020 Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
@@ -32,6 +32,7 @@ class ShoppingListCreateType extends ShoppingListType
         $builder
             ->add('account', EmailType::class, [
                 'label' => 'Your e-mail address',
+                'help' => 'We will send details on how to access the shopping list to this address.',
                 'disabled' => null !== $account,
             ])
             ->add('name', null, [

@@ -6,7 +6,7 @@
     {% import 'shopping_list/_helpers.html.twig' as helper %}
     <h1>
         {{ helper.account_home(account) }}
-        {{ 'Share shopping list %list%'|trans({'%list%': list.name}) }}
+        {{ 'Share shopping list {name}'|trans({'name': list.name}) }}
     </h1>
 
     {{ form_start(form) }}

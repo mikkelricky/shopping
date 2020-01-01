@@ -3,7 +3,7 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2019 Mikkel Ricky
+ * (c) 2018–2020 Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
@@ -17,7 +17,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/list/item/{item}")
+ * @Route(
+ *     "/{_locale}/list/item/{item}",
+ *     locale="en",
+ *     requirements={
+ *         "_locale": "da|en"
+ *     }
+ * )
  */
 class ShoppingListItemController extends AbstractController
 {
