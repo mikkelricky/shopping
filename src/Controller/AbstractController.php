@@ -32,7 +32,7 @@ abstract class AbstractController extends BaseController
     private $flashActionManager;
 
     /** @var TranslatorInterface */
-    private $translator;
+    protected $translator;
 
     public function __construct(EntityManagerInterface $entityManager, FlashActionManager $flashActionManager, TranslatorInterface $translator)
     {

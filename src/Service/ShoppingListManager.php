@@ -12,9 +12,11 @@ namespace App\Service;
 
 use App\Entity\ShoppingList;
 use App\Entity\ShoppingListItem;
+use App\Entity\Store;
 use App\Repository\AccountRepository;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 use Twig\Environment;
 
@@ -26,13 +28,13 @@ class ShoppingListManager
     /** @var MailerInterface */
     private $mailer;
 
-    /** @var string */
+    /** @var array */
     private $from;
 
     /** @var Environment */
     private $twig;
 
-    public function __construct(AccountRepository $accountRepository, MailerInterface $mailer, string $from, Environment $twig)
+    public function __construct(AccountRepository $accountRepository, MailerInterface $mailer, array $from, Environment $twig)
     {
         $this->accountRepository = $accountRepository;
         $this->mailer = $mailer;
@@ -89,11 +91,14 @@ class ShoppingListManager
             }
 
             if (isset($filter['store'])) {
-                if (!\is_array($filter['store'])) {
-                    $filter['store'] = [$filter['store']];
-                }
+                $filter['store'] = (array) $filter['store'];
 
-                return null !== $item->getStore() && \in_array($item->getStore()->getId(), $filter['store'], true);
+                return !empty(array_intersect(
+                    $item->getStores()->map(static function (Store $store) {
+                        return $store->getName();
+                    })->toArray(),
+                    $filter['store']
+                ));
             }
 
             return false;
@@ -102,8 +107,9 @@ class ShoppingListManager
 
     private function send(Email $email, $addresses)
     {
+        $from = new Address($this->from['address'], $this->from['name'] ?? '');
         $email
-            ->from($this->from)
+            ->from($from)
             ->to($addresses);
 
         return $this->mailer->send($email);

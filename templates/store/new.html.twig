@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Store{% endblock %}
+{% block title 'Create store'|trans %}
 
 {% block body %}
-    <h1>Create new Store</h1>
+    <h1>{{ 'Create store'|trans }}</h1>
 
-    {{ include('store/_form.html.twig') }}
-
-    <a href="{{ path('store_index') }}">back to list</a>
+    {{ include('store/_form.html.twig', {
+        'button_label': 'Create store',
+        'cancel_label': 'Cancel'|trans,
+        'cancel_url': path('store_index', {account: account.id}),
+        }) }}
 {% endblock %}

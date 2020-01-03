@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'Edit shopping list'|trans }}{% endblock %}
+{% block title 'Edit shopping list'|trans %}
 
 {% block body %}
     {{ form_start(form) }}
         {{ form_rest(form) }}
 
-        <button class="btn">{{ 'Update'|trans }}</button>
         <a href="{{ path('shopping_list_items', {list: item.list.id}) }}">{{ 'Cancel'|trans }}</a>
+        <button class="btn btn-primary">{{ 'Update'|trans }}</button>
     {{ form_end(form) }}
 {% endblock %}

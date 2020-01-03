@@ -40,8 +40,11 @@
                 {% if item.doneAt %}<br/><small>{{ 'Item done on {done_at, date, full} at {done_at, time, short}'|trans({'done_at': item.doneAt}) }}</small>{% endif %}
             </div>
             <div class="px-2 ml-auto item-store">
-                {% if item.store %}
-                    <a href="{{ _self.current_path({filter: {store: item.store.id}}) }}">{{ item.store.name }}</a>
+                {% if item.stores %}
+                    {{ icon('store') }}
+                    {% for store in item.stores %}
+                        <a class="badge badge-light" href="{{ _self.current_path({filter: {store: store.name}}) }}">{{ store.name }}</a>
+                    {% endfor %}
                 {% endif %}
             </div>
             <div class="item-actions">
@@ -73,7 +76,13 @@
     {% if filter %}
         <div class="alert alert-info">
             <div class="d-flex justify-content-between align-items-baseline">
-                <div class="message">{{ 'Filter applied'|trans }}</a></div>
+                <div class="message">
+                    {{ 'Filter applied'|trans }}
+                    ({%- for key, value in filter -%}
+                    {%- if loop.index0 > 0 %}; {% endif -%}
+                    {{ ('filter.'~key)|trans }}: {{ value|json_encode(constant('JSON_UNESCAPED_UNICODE')) }}
+                    {%- endfor -%})
+                </div>
                 <a href="{{ _self.current_path({filter: null}) }}">{{ 'Clear filter'|trans }}</a>
             </div>
         </div>

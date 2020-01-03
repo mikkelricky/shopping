@@ -12,6 +12,7 @@ namespace App\Form\Type;
 
 use App\Entity\Store;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -21,8 +22,10 @@ class StoreType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('address')
-            ->add('description');
+            ->add('description')
+            ->add('locations', CollectionType::class, [
+                'allow_add' => true,
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

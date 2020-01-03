@@ -10,13 +10,17 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\StoreRepository")
  * @ORM\Table(name="shopping_store")
+ * @UniqueEntity("name")
  */
 class Store implements TimestampableInterface
 {
@@ -40,13 +44,23 @@ class Store implements TimestampableInterface
     private $description;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Account", inversedBy="stores")
      */
-    private $address;
+    private $account;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Location", mappedBy="store", orphanRemoval=true)
+     */
+    private $locations;
+
+    public function __construct()
+    {
+        $this->locations = new ArrayCollection();
+    }
 
     public function __toString()
     {
-        return $this->name.($this->address ? '; '.$this->address : '');
+        return $this->name ?? self::class;
     }
 
     public function getId(): ?string
@@ -78,14 +92,45 @@ class Store implements TimestampableInterface
         return $this;
     }
 
-    public function getAddress(): ?string
+    public function getAccount(): ?Account
     {
-        return $this->address;
+        return $this->account;
     }
 
-    public function setAddress(?string $address): self
+    public function setAccount(?Account $account): self
     {
-        $this->address = $address;
+        $this->account = $account;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Location[]
+     */
+    public function getLocations(): Collection
+    {
+        return $this->locations;
+    }
+
+    public function addLocation(Location $location): self
+    {
+        if (!$this->locations->contains($location)) {
+            $this->locations[] = $location;
+            $location->setStore($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLocation(Location $location): self
+    {
+        if ($this->locations->contains($location)) {
+            $this->locations->removeElement($location);
+            // set the owning side to null (unless already changed)
+            if ($location->getStore() === $this) {
+                $location->setStore(null);
+            }
+        }
 
         return $this;
     }
