@@ -21,7 +21,9 @@
                 <td>{{ store.description }}</td>
                 <td>{{ store.locations|length }}</td>
                 <td>
-                    <a href="{{ path('store_edit', {id: store.id, account: account.id}) }}">{{ 'Edit'|trans }}</a>
+                    {% if is_granted('edit', store) %}
+                        <a href="{{ path('store_edit', {id: store.id, account: account.id}) }}">{{ 'Edit'|trans }}</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -32,5 +34,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('store_new', {account: account.id}) }}">{{ 'Create new store'|trans }}</a>
+    {% if account %}
+        <a href="{{ path('store_new_account', {account: account.id}) }}">{{ 'Create new store'|trans }}</a>
+    {% else %}
+        <a href="{{ path('store_new') }}">{{ 'Create new store'|trans }}</a>
+    {% endif %}
 {% endblock %}

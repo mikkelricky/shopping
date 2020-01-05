@@ -52,7 +52,7 @@ class ShoppingListController extends AbstractController
     /**
      * @Route("/list", name="shopping_list_index", methods="GET")
      */
-    public function index(TranslatorInterface $translator): Response
+    public function index(): Response
     {
         return $this->render('shopping_list/index.html.twig');
     }

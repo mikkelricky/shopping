@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Account'|trans %}
+
+{% block body %}
+    <h1>{{ 'Account'|trans }} <a href="{{ path('account_edit', {account: account.id}) }}" class="btn btn-secondary btn-small">{{ 'Edit'|trans }}</a></h1>
+
+    <div class="list-group">
+        <a class="list-group-item list-group-item-action" href="{{ path('shopping_account', {account: account.id}) }}">{{ icon('list') }} {{ 'Shopping lists'|trans }}</a>
+        <a class="list-group-item list-group-item-action" href="{{ path('store_index', {account: account.id}) }}">{{ icon('store') }} {{ 'Stores'|trans }}</a>
+    </div>
+{% endblock %}

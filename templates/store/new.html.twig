@@ -8,6 +8,6 @@
     {{ include('store/_form.html.twig', {
         'button_label': 'Create store',
         'cancel_label': 'Cancel'|trans,
-        'cancel_url': path('store_index', {account: account.id}),
+        'cancel_url': account ? path('store_index_account', {account: account.id}) : path('store_index'),
         }) }}
 {% endblock %}

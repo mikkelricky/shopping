@@ -39,14 +39,14 @@
                 {% endif %}
                 {% if item.doneAt %}<br/><small>{{ 'Item done on {done_at, date, full} at {done_at, time, short}'|trans({'done_at': item.doneAt}) }}</small>{% endif %}
             </div>
-            <div class="px-2 ml-auto item-store">
-                {% if item.stores %}
+            {% if item.stores|length > 0 %}
+                <div class="px-2 ml-auto item-stores">
                     {{ icon('store') }}
                     {% for store in item.stores %}
                         <a class="badge badge-light" href="{{ _self.current_path({filter: {store: store.name}}) }}">{{ store.name }}</a>
                     {% endfor %}
-                {% endif %}
-            </div>
+                </div>
+            {% endif %}
             <div class="item-actions">
                 <div class="dropdown">
                     <a class="btn btn-light" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

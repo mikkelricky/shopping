@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Edit account'|trans %}
+
+{% block body %}
+    {% import 'shopping_list/_helpers.html.twig' as helper %}
+    <h1>
+        {{ helper.account_home(account) }}
+        {{ 'Edit account'|trans }}
+    </h1>
+
+    {{ form_start(form) }}
+        {{ form_rest(form) }}
+
+        <div class="buttons">
+            <a class="btn btn-link" href="{{ path('account_show', {account: account.id}) }}">{{ 'Cancel'|trans }}</a>
+            <button class="btn btn-primary">{{ 'Update'|trans }}</button>
+        </div>
+    {{ form_end(form) }}
+{% endblock %}
