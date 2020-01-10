@@ -292,10 +292,10 @@ class ShoppingListController extends AbstractController
                 $list->addItem($item);
             }
 
-            $existingItems = $items->filter(function (ShoppingListItem $item) {
+            $existingItems = $items->filter(static function (ShoppingListItem $item) {
                 return null !== $item->getId();
             });
-            $newItems = $items->filter(function (ShoppingListItem $item) {
+            $newItems = $items->filter(static function (ShoppingListItem $item) {
                 return null === $item->getId();
             });
 
