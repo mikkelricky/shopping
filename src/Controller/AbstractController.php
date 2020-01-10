@@ -41,7 +41,7 @@ abstract class AbstractController extends BaseController
         $this->translator = $translator;
     }
 
-    protected function error($message, $parameters = [])
+    protected function error($message, $parameters = []): AbstractController
     {
         return $this->danger($message, $parameters);
     }
