@@ -60,8 +60,8 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="{{ path('shopping_list_item_edit', {item: item.id}) }}">{{ 'Edit'|trans }}</a>
-                        <a class="dropdown-item" href="{{ path('shopping_list_item_log', {item: item.id}) }}">{{ 'Show log'|trans }}</a>
+                        <a class="dropdown-item" href="{{ path_with_referer('shopping_list_item_edit', {item: item.id}) }}">{{ 'Edit'|trans }}</a>
+                        <a class="dropdown-item" href="{{ path_with_referer('shopping_list_item_log', {item: item.id}) }}">{{ 'Show log'|trans }}</a>
                     </div>
                 </div>
             </div>

@@ -13,7 +13,7 @@
         {{ form_rest(form) }}
 
         <div class="buttons">
-            <a class="btn btn-link" href="{{ path('shopping_account', {account: account.id}) }}">{{ 'Cancel'|trans }}</a>
+            <a class="btn btn-link" href="{{ path_from_referer('shopping_account', {account: account.id}) }}">{{ 'Cancel'|trans }}</a>
             <button class="btn btn-primary">{{ 'Update'|trans }}</button>
         </div>
     {{ form_end(form) }}
