@@ -83,17 +83,13 @@ abstract class AbstractController extends BaseController
         return $this->translator->trans($message, $parameters);
     }
 
-    protected function goBack(Request $request, $route, $parameters = []): RedirectResponse
+    protected function goBack(Request $request, $defaultUrl): RedirectResponse
     {
         $referer = $request->headers->get('referer');
         if (null !== $referer) {
             return $this->redirect($referer);
         }
 
-        if (null !== $this->container->get('router')->getRouteCollection()->get($route)) {
-            return $this->redirectToRoute($route, $parameters);
-        }
-
-        return new RedirectResponse($route);
+        return new RedirectResponse($defaultUrl);
     }
 }

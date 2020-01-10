@@ -45,7 +45,7 @@ class AppExtension extends AbstractExtension
 
         return $this->router->generate(
             $request->attributes->get('_route'),
-            $params + $request->attributes->get('_route_params') + $request->query->all()
+            array_merge($params, $request->attributes->get('_route_params'), $request->query->all())
         );
     }
 
@@ -60,7 +60,7 @@ class AppExtension extends AbstractExtension
             $request = $this->requestStack->getCurrentRequest();
             $parameters['referer'] = $this->router->generate(
                 $request->get('_route'),
-                $request->get('_route_params') + $request->query->all()
+                array_merge($request->get('_route_params'), $request->query->all())
             );
         }
 
