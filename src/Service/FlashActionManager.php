@@ -25,7 +25,7 @@ class FlashActionManager
         $this->session = $session;
     }
 
-    public function addFlashAction(array $action, string $type, string $message)
+    public function addFlashAction(array $action, string $type, string $message): void
     {
         $actions = $this->session->get(self::$sessionKey, []);
         $actions[$type][$message][] = $action;

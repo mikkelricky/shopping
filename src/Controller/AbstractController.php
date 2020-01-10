@@ -46,21 +46,21 @@ abstract class AbstractController extends BaseController
         return $this->danger($message, $parameters);
     }
 
-    protected function danger($message, $parameters = [])
+    protected function danger($message, $parameters = []): AbstractController
     {
         $this->addFlash(__FUNCTION__, $this->translate($message, $parameters));
 
         return $this;
     }
 
-    protected function info($message, $parameters = [])
+    protected function info($message, $parameters = []): AbstractController
     {
         $this->addFlash(__FUNCTION__, $this->translate($message, $parameters));
 
         return $this;
     }
 
-    protected function success($message, $parameters = [])
+    protected function success($message, $parameters = []): AbstractController
     {
         $this->addFlash(__FUNCTION__, $this->translate($message, $parameters));
 
@@ -73,17 +73,17 @@ abstract class AbstractController extends BaseController
         parent::addFlash($type, $message);
     }
 
-    protected function addFlashAction(array $action = null)
+    protected function addFlashAction(array $action = null): void
     {
         $this->flashActionManager->addFlashAction($action, $this->lastFlashType, $this->lastFlashMessage);
     }
 
-    protected function translate($message, array $parameters = [])
+    protected function translate($message, array $parameters = []): string
     {
         return $this->translator->trans($message, $parameters);
     }
 
-    protected function goBack(Request $request, $route, $parameters = [])
+    protected function goBack(Request $request, $route, $parameters = []): RedirectResponse
     {
         $referer = $request->headers->get('referer');
         if (null !== $referer) {

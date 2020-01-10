@@ -37,7 +37,7 @@ class SallingGroup implements StoreFetcherInterface
         $this->options = $resolver->resolve($sallingGroupConfig);
     }
 
-    private function configureOptions(OptionsResolver $resolver)
+    private function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired([
             'bearer',

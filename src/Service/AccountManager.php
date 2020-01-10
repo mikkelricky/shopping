@@ -35,7 +35,7 @@ class AccountManager
      *
      * @return Account
      */
-    public function getAccount(string $email)
+    public function getAccount(string $email): Account
     {
         $account = $this->accountRepository->findOneBy(['email' => $email]);
         if (null === $account) {

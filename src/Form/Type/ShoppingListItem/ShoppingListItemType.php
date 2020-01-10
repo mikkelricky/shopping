@@ -12,7 +12,6 @@ namespace App\Form\Type\ShoppingListItem;
 
 use App\Entity\ShoppingListItem;
 use App\Entity\Store;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -33,10 +32,6 @@ class ShoppingListItemType extends AbstractType
             ->add('description')
             ->add('stores', EntityType::class, [
                 'class' => Store::class,
-//                'query_builder' => function (EntityRepository $er) {
-//                    return $er->createQueryBuilder('s')
-//                        ->orderBy('s.name', 'ASC');
-//                },
                 'expanded' => true,
                 'multiple' => true,
             ]);

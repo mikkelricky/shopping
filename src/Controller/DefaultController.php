@@ -10,6 +10,7 @@
 
 namespace App\Controller;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
@@ -17,7 +18,7 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", name="frontpage", methods="GET")
      */
-    public function index()
+    public function index(): RedirectResponse
     {
         return $this->redirectToRoute('shopping_list_index');
     }

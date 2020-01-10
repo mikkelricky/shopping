@@ -18,7 +18,7 @@ class AppVariable extends BaseAppVariable
     /** @var FlashActionManager */
     private $flashActionManager;
 
-    public function setFlashActionManager(FlashActionManager $flashActionManager)
+    public function setFlashActionManager(FlashActionManager $flashActionManager): void
     {
         $this->flashActionManager = $flashActionManager;
     }
