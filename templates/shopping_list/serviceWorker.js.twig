@@ -1,5 +1,3 @@
-{% set route_params = app.request.attributes.get('_route_params')|default({}) %}
-
 var CACHE_NAME = 'mikkelricky-shopping'
 var urlsToCache = {{ [
   path('shopping_list_offline', {list: list.id})
