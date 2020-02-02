@@ -397,6 +397,54 @@
         <source>You now have access to the shopping list {name}.</source>
         <target>__You now have access to the shopping list {name}.</target>
       </trans-unit>
+      <trans-unit id="TpOnMXp" resname="Store {name} created">
+        <source>Store {name} created</source>
+        <target>__Store {name} created</target>
+      </trans-unit>
+      <trans-unit id="64bwqCy" resname="Store {name} updated">
+        <source>Store {name} updated</source>
+        <target>__Store {name} updated</target>
+      </trans-unit>
+      <trans-unit id="lP9yvfR" resname="filter.store">
+        <source>filter.store</source>
+        <target>__filter.store</target>
+      </trans-unit>
+      <trans-unit id="cNX0MMo" resname="Item name">
+        <source>Item name</source>
+        <target>__Item name</target>
+      </trans-unit>
+      <trans-unit id="q2oWS_D" resname="Edit account">
+        <source>Edit account</source>
+        <target>__Edit account</target>
+      </trans-unit>
+      <trans-unit id="fhsNVkH" resname="Account">
+        <source>Account</source>
+        <target>__Account</target>
+      </trans-unit>
+      <trans-unit id="818Itzx" resname="Stores">
+        <source>Stores</source>
+        <target>__Stores</target>
+      </trans-unit>
+      <trans-unit id="Xaj3_8K" resname="Back to list">
+        <source>Back to list</source>
+        <target>__Back to list</target>
+      </trans-unit>
+      <trans-unit id="n83WwtP" resname="Create store">
+        <source>Create store</source>
+        <target>__Create store</target>
+      </trans-unit>
+      <trans-unit id="lcYRcDG" resname="Locations">
+        <source>Locations</source>
+        <target>__Locations</target>
+      </trans-unit>
+      <trans-unit id="80oBtV3" resname="No stores found">
+        <source>No stores found</source>
+        <target>__No stores found</target>
+      </trans-unit>
+      <trans-unit id="8Wi7Fhc" resname="Create new store">
+        <source>Create new store</source>
+        <target>__Create new store</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -373,6 +373,10 @@
         <source>Locations</source>
         <target>Locations</target>
       </trans-unit>
+      <trans-unit id="cNX0MMo" resname="Item name">
+        <source>Item name</source>
+        <target>Item name</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
