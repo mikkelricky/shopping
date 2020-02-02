@@ -4,6 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    version: 1.0.0
 
 services:
     # default configuration for services in *this* file
@@ -26,6 +27,28 @@ services:
                     - '@App\Service\StoreFetcher\Coop'
                     - '@App\Service\StoreFetcher\Rema1000'
                     - '@App\Service\StoreFetcher\SallingGroup'
+
+            $pwaConfig:
+                icons:
+                    20x20: build/images/icon_20x20.png
+                    29x29: build/images/icon_29x29.png
+                    40x40: build/images/icon_40x40.png
+                    48x48: build/images/icon_48x48.png
+                    58x58: build/images/icon_58x58.png
+                    60x60: build/images/icon_60x60.png
+                    72x72: build/images/icon_72x72.png
+                    76x76: build/images/icon_76x76.png
+                    80x80: build/images/icon_80x80.png
+                    87x87: build/images/icon_87x87.png
+                    96x96: build/images/icon_96x96.png
+                    120x120: build/images/icon_120x120.png
+                    144x144: build/images/icon_144x144.png
+                    152x152: build/images/icon_152x152.png
+                    167x167: build/images/icon_167x167.png
+                    180x180: build/images/icon_180x180.png
+                    192x192: build/images/icon_192x192.png
+                    512x512: build/images/icon_512x512.png
+                    1024x1024: build/images/icon_1024x1024.png
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name

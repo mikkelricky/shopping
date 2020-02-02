@@ -445,6 +445,18 @@
         <source>Create new store</source>
         <target>__Create new store</target>
       </trans-unit>
+      <trans-unit id=".8jyb.y" resname="No network connection">
+        <source>No network connection</source>
+        <target>__No network connection</target>
+      </trans-unit>
+      <trans-unit id="JdjX2mV" resname="Check your device network connection and try again">
+        <source>Check your device network connection and try again</source>
+        <target>__Check your device network connection and try again</target>
+      </trans-unit>
+      <trans-unit id="oXlHg6q" resname="Offline">
+        <source>Offline</source>
+        <target>__Offline</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
