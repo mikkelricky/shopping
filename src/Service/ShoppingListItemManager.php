@@ -37,8 +37,6 @@ class ShoppingListItemManager
      * Get an shopping list item by name..
      *
      * If no account with the given email exists, one will be created.
-     *
-     * @return ShoppingListItem
      */
     public function getItem(ShoppingList $list, string $name): ShoppingListItem
     {
@@ -63,8 +61,6 @@ class ShoppingListItemManager
 
     /**
      * Get shopping list items by names.
-     *
-     * @return Collection
      */
     public function getItems(ShoppingList $list, array $names): Collection
     {
