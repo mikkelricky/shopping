@@ -45,7 +45,7 @@ class AppExtension extends AbstractExtension
 
         return $this->router->generate(
             $request->attributes->get('_route'),
-            array_merge($params, $request->attributes->get('_route_params'), $request->query->all())
+            array_merge($request->attributes->get('_route_params'), $request->query->all(), $params)
         );
     }
 
