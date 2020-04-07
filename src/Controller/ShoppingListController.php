@@ -80,7 +80,7 @@ class ShoppingListController extends AbstractController
 
             return $this->redirectToRoute('shopping_account_list_created', [
                 'account' => $list->getAccount()->getId(),
-                'list' => $list->getId(),
+                'id' => $list->getId(),
             ]);
         }
 
@@ -91,7 +91,7 @@ class ShoppingListController extends AbstractController
     }
 
     /**
-     * @Route("/{account}/list/{list}/created", name="shopping_account_list_created", methods="GET")
+     * @Route("/{account}/list/{id}/created", name="shopping_account_list_created", methods="GET")
      */
     public function created(Account $account, ShoppingList $list): Response
     {
@@ -136,7 +136,7 @@ class ShoppingListController extends AbstractController
     }
 
     /**
-     * @Route("/{account}/list/{list}/share", name="shopping_account_list_share", methods="GET|POST")
+     * @Route("/{account}/list/{id}/share", name="shopping_account_list_share", methods="GET|POST")
      */
     public function share(Request $request, Account $account, ShoppingList $list): Response
     {
@@ -148,11 +148,11 @@ class ShoppingListController extends AbstractController
             $sender = $form->get('sender')->getData();
             $message = $form->get('message')->getData();
             if ($this->listManager->shareList($list, $email, ['sender' => $sender, 'message' => $message])) {
-                $this->success('List {list} successfully shared with {email}', ['list' => $list->getName(), 'email' => $email]);
+                $this->success('List {id} successfully shared with {email}', ['list' => $list->getName(), 'email' => $email]);
 
                 return $this->redirectToRoute('shopping_account', ['account' => $list->getAccount()->getId()]);
             }
-            $this->error('Error sharing list {list} with {email}', [
+            $this->error('Error sharing list {id} with {email}', [
                 'list' => $list->getName(),
                 'email' => $email,
             ]);
@@ -166,8 +166,8 @@ class ShoppingListController extends AbstractController
     }
 
     /**
-     * @Route("/list/{list}/items", name="shopping_list_items", methods="GET|POST")
-     * @Route("/{account}/list/{list}/items", name="shopping_account_list_items", methods="GET|POST")
+     * @Route("/list/{id}/items", name="shopping_list_items", methods="GET|POST")
+     * @Route("/{account}/list/{id}/items", name="shopping_account_list_items", methods="GET|POST")
      */
     public function items(Request $request, ShoppingList $list, ShoppingListItemManager $itemManager, Account $account = null): Response
     {
@@ -189,8 +189,8 @@ class ShoppingListController extends AbstractController
                 ]);
 
             return null !== $account
-                ? $this->redirectToRoute('shopping_account_list_items', ['account' => $account->getId(), 'list' => $list->getId()])
-                : $this->redirectToRoute('shopping_list_items', ['list' => $list->getId()]);
+                ? $this->redirectToRoute('shopping_account_list_items', ['account' => $account->getId(), 'id' => $list->getId()])
+                : $this->redirectToRoute('shopping_list_items', ['id' => $list->getId()]);
         }
 
         $filter = $request->get('filter');
@@ -207,7 +207,7 @@ class ShoppingListController extends AbstractController
     }
 
     /**
-     * @Route("/list/{list}/manifest.json", name="shopping_list_manifest", methods="GET")
+     * @Route("/list/{id}/manifest.json", name="shopping_list_manifest", methods="GET")
      */
     public function itemsManifest(Request $request, ShoppingList $list, Packages $packages, array $pwaConfig): JsonResponse
     {
@@ -225,7 +225,7 @@ class ShoppingListController extends AbstractController
             'name' => $list->getName(),
             'icons' => array_values($icons),
             'start_url' => $this->generateUrl('shopping_list_items', [
-                'list' => $list->getId(),
+                'id' => $list->getId(),
                 // 'utm_source' => 'homescreen',
             ]),
             'display' => 'standalone',
@@ -239,7 +239,7 @@ class ShoppingListController extends AbstractController
     }
 
     /**
-     * @Route("/list/{list}/serviceWorker.js", name="shopping_list_serviceworker", methods="GET")
+     * @Route("/list/{id}/serviceWorker.js", name="shopping_list_serviceworker", methods="GET")
      */
     public function serviceWorker(Request $request, ShoppingList $list): Response
     {
@@ -251,7 +251,7 @@ class ShoppingListController extends AbstractController
     }
 
     /**
-     * @Route("/list/{list}/offline", name="shopping_list_offline", methods="GET")
+     * @Route("/list/{id}/offline", name="shopping_list_offline", methods="GET")
      */
     public function offline(Request $request, ShoppingList $list): Response
     {
@@ -259,7 +259,7 @@ class ShoppingListController extends AbstractController
     }
 
     /**
-     * @Route("/{account}/list/{list}/edit", name="shopping_account_list_edit", methods="GET|POST")
+     * @Route("/{account}/list/{id}/edit", name="shopping_account_list_edit", methods="GET|POST")
      */
     public function edit(Request $request, Account $account, ShoppingList $list): Response
     {
@@ -269,7 +269,7 @@ class ShoppingListController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('shopping_account_list_edit', ['list' => $list->getId()]);
+            return $this->redirectToRoute('shopping_account_list_edit', ['id' => $list->getId()]);
         }
 
         return $this->render('shopping_list/edit.html.twig', [
@@ -280,7 +280,7 @@ class ShoppingListController extends AbstractController
     }
 
     /**
-     * @Route("/{account}/list/{list}", name="shopping_account_list_delete", methods="DELETE")
+     * @Route("/{account}/list/{id}", name="shopping_account_list_delete", methods="DELETE")
      */
     public function delete(Request $request, ShoppingList $list): Response
     {
@@ -294,8 +294,8 @@ class ShoppingListController extends AbstractController
     }
 
     /**
-     * @Route("/list/{list}/log", name="shopping_list_log", methods="GET")
-     * @Route("/{account}/list/{list}/log", name="shopping_account_list_log", methods="GET")
+     * @Route("/list/{id}/log", name="shopping_list_log", methods="GET")
+     * @Route("/{account}/list/{id}/log", name="shopping_account_list_log", methods="GET")
      */
     public function log(ShoppingList $list, Account $account = null): Response
     {
@@ -306,8 +306,8 @@ class ShoppingListController extends AbstractController
     }
 
     /**
-     * @Route("/list/{list}/item/add", name="shopping_list_add_item", methods="POST")
-     * @Route("/{account}/list/{list}/item/add", name="shopping_account_list_add_item", methods="POST")
+     * @Route("/list/{id}/item/add", name="shopping_list_add_item", methods="POST")
+     * @Route("/{account}/list/{id}/item/add", name="shopping_account_list_add_item", methods="POST")
      */
     public function addItem(Request $request, ShoppingList $list, ShoppingListItemManager $itemManager, Account $account = null): RedirectResponse
     {
@@ -325,13 +325,13 @@ class ShoppingListController extends AbstractController
         }
 
         return $this->goBack($request, null !== $account
-            ? $this->generateUrl('shopping_account_list_add_item', ['account' => $account->getId(), 'list' => $list->getId()])
-            : $this->generateUrl('shopping_list_add_item', ['list' => $list->getId()]));
+            ? $this->generateUrl('shopping_account_list_add_item', ['account' => $account->getId(), 'id' => $list->getId()])
+            : $this->generateUrl('shopping_list_add_item', ['id' => $list->getId()]));
     }
 
     /**
-     * @Route("/list/{list}/items/add", name="shopping_list_add_items", methods="GET|POST")
-     * @Route("/{account}/list/{list}/items/add", name="shopping_account_list_add_items", methods="GET|POST")
+     * @Route("/list/{id}/items/add", name="shopping_list_add_items", methods="GET|POST")
+     * @Route("/{account}/list/{id}/items/add", name="shopping_account_list_add_items", methods="GET|POST")
      *
      * @return RedirectResponse|Response
      */
@@ -369,11 +369,11 @@ class ShoppingListController extends AbstractController
             if (null !== $account) {
                 return $this->redirectToRoute('shopping_account_list_items', [
                     'account' => $account->getId(),
-                    'list' => $list->getId(),
+                    'id' => $list->getId(),
                 ]);
             }
 
-            return $this->redirectToRoute('shopping_list_items', ['list' => $list->getId()]);
+            return $this->redirectToRoute('shopping_list_items', ['id' => $list->getId()]);
         }
 
         return $this->render('shopping_list/add_items.html.twig', [

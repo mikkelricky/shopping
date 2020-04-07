@@ -130,4 +130,9 @@ class Account implements TimestampableInterface
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return sprintf('%s#%s', self::class, $this->getId());
+    }
 }

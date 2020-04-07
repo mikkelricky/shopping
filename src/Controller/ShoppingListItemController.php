@@ -42,7 +42,7 @@ class ShoppingListItemController extends AbstractController
             $this->entityManager->flush();
             $this->info('Item %item% updated', ['%item%' => (string) $item]);
 
-            return $this->redirectToRoute('shopping_list_items', ['list' => $item->getList()->getId()]);
+            return $this->redirectToRoute('shopping_list_items', ['id' => $item->getList()->getId()]);
         }
 
         return $this->render('shopping_list_item/edit.html.twig', [
@@ -77,7 +77,7 @@ class ShoppingListItemController extends AbstractController
             $this->error('Error marking %item% as done', ['%item%' => (string) $item]);
         }
 
-        return $this->redirectToRoute('shopping_list_items', ['list' => $item->getList()->getId()] + $request->query->all());
+        return $this->redirectToRoute('shopping_list_items', ['id' => $item->getList()->getId()] + $request->query->all());
     }
 
     /**
