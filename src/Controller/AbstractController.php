@@ -67,7 +67,7 @@ abstract class AbstractController extends BaseController
         return $this;
     }
 
-    protected function addFlash(string $type, string $message): void
+    protected function addFlash(string $type, $message): void
     {
         [$this->lastFlashType, $this->lastFlashMessage] = [$type, $message];
         parent::addFlash($type, $message);
