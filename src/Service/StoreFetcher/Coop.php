@@ -83,7 +83,7 @@ class Coop implements StoreFetcherInterface
             if (isset(self::$brands[$item['RetailGroupName']])) {
                 $stores[self::$brands[$item['RetailGroupName']]][] = [
                     'name' => $item['Name'],
-                    'address' => implode(PHP_EOL, [
+                    'address' => implode(\PHP_EOL, [
                         $item['Address'],
                         $item['Zipcode'].' '.$item['City'],
                     ]),

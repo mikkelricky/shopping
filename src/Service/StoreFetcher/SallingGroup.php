@@ -78,7 +78,7 @@ class SallingGroup implements StoreFetcherInterface
             if (isset(self::$brands[$item['brand']])) {
                 $stores[self::$brands[$item['brand']]][] = [
                     'name' => $item['name'],
-                    'address' => implode(PHP_EOL, [
+                    'address' => implode(\PHP_EOL, [
                         $item['address']['street'],
                         $item['address']['zip'].' '.$item['address']['city'],
                     ]),

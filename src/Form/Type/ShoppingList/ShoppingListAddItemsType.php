@@ -36,10 +36,10 @@ class ShoppingListAddItemsType extends ShoppingListType
         $builder->get('items')
             ->addModelTransformer(new CallbackTransformer(
                 static function (array $items = null) {
-                    return implode(PHP_EOL, $items ?? []);
+                    return implode(\PHP_EOL, $items ?? []);
                 },
                 function (string $items) use ($options) {
-                    $names = array_filter(array_map('trim', explode(PHP_EOL, $items)));
+                    $names = array_filter(array_map('trim', explode(\PHP_EOL, $items)));
 
                     return $this->itemManager->getItems($options['list'], $names);
                 }
