@@ -3,7 +3,7 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2020 Mikkel Ricky
+ * (c) 2018– Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
@@ -11,6 +11,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LocationRepository")
@@ -20,8 +21,7 @@ class Location
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="UUID")
-     * @ORM\Column(type="guid")
+     * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
 
@@ -51,7 +51,12 @@ class Location
      */
     private $store;
 
-    public function getId(): ?string
+    public function __construct()
+    {
+        $this->id = Uuid::v4();
+    }
+
+    public function getId(): ?Uuid
     {
         return $this->id;
     }
