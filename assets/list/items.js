@@ -1,11 +1,11 @@
 // @see http://aerendir.me/2018/04/06/managin-static-images-webpack-encore/
-const imagesContext = require.context('../../images', true, /\.(png|jpg|jpeg|gif|ico|svg|webp)$/)
-imagesContext.keys().forEach(imagesContext)
-
-require('../../css/list/items.scss')
-
 import $ from 'jquery'
 import 'corejs-typeahead'
+
+const imagesContext = require.context('../images', true, /\.(png|jpg|jpeg|gif|ico|svg|webp)$/)
+imagesContext.keys().forEach(imagesContext)
+
+require('../styles/list/items.scss')
 
 // JS is equivalent to the normal "bootstrap" package
 // no need to set this to a variable, just require it
@@ -43,23 +43,23 @@ $(() => {
       $(el)
         .attr('autocomplete', 'off')
         .typeahead({
-            hint: true,
-            highlight: true,
-            minLength: 1
-          },
-          {
-            name: 'items',
-            source: substringMatcher(items),
-            limit: 1000
-          })
+          hint: true,
+          highlight: true,
+          minLength: 1
+        },
+        {
+          name: 'items',
+          source: substringMatcher(items),
+          limit: 1000
+        })
     } catch (ex) {
       // console.log(ex)
     }
   }
 
-  $('form').on('submit', function() {
+  $('form').on('submit', function () {
     $('#add-item')
       .prop('disabled', true)
-      .html('Adding '+$('input', this).first().val()+' …')
+      .html('Adding ' + $('input', this).first().val() + ' …')
   })
 })
