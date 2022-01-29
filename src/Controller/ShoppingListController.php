@@ -72,9 +72,8 @@ class ShoppingListController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($list);
-            $em->flush();
+            $this->entityManager->persist($list);
+            $this->entityManager->flush();
 
             $this->listManager->notifyListCreated($list);
 
@@ -179,8 +178,8 @@ class ShoppingListController extends AbstractController
             $item = $itemManager->getItem($list, $item->getName());
             $item->setDoneAt(null);
             $list->addItem($item);
-            $this->getDoctrine()->getManager()->persist($list);
-            $this->getDoctrine()->getManager()->flush();
+            $this->entityManager->persist($list);
+            $this->entityManager->flush();
 
             $this->success('Item %item% added', ['%item%' => $item->getName()])
                 ->addFlashAction([
@@ -270,7 +269,7 @@ class ShoppingListController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('shopping_account_list_edit', ['id' => $list->getId()]);
         }
@@ -288,9 +287,8 @@ class ShoppingListController extends AbstractController
     public function delete(Request $request, ShoppingList $list): Response
     {
         if ($this->isCsrfTokenValid('delete'.$list->getId(), $request->request->get('_token'))) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($list);
-            $em->flush();
+            $this->entityManager>remove($list);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('shopping_list_index');
@@ -361,8 +359,8 @@ class ShoppingListController extends AbstractController
                 return null === $item->getId();
             });
 
-            $this->getDoctrine()->getManager()->persist($list);
-            $this->getDoctrine()->getManager()->flush();
+            $this->entityManager->persist($list);
+            $this->entityManager->flush();
 
             $this->info('Items added; %count_existing% existing; %count_new% new', [
                 '%count_existing%' => \count($existingItems),
