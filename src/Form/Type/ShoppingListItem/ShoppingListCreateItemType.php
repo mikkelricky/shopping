@@ -17,6 +17,9 @@ use Symfony\Component\Translation\TranslatableMessage;
 
 class ShoppingListCreateItemType extends ShoppingListItemType
 {
+    /**
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

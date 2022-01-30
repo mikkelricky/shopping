@@ -26,6 +26,9 @@ class ShoppingListAddItemsType extends ShoppingListType
         $this->itemManager = $itemManager;
     }
 
+    /**
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -46,6 +49,9 @@ class ShoppingListAddItemsType extends ShoppingListType
             ));
     }
 
+    /**
+     * @return void
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setRequired('list');

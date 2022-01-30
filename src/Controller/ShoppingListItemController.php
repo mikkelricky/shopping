@@ -30,9 +30,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class ShoppingListItemController extends AbstractController
 {
     /**
-     * @Route("/edit", name="shopping_list_item_edit")
+     * @Route ("/edit", name="shopping_list_item_edit")
      */
-    public function edit(Request $request, ShoppingListItem $item)
+    public function edit(Request $request, ShoppingListItem $item): Response
     {
         $form = $this->createForm(ShoppingListItemType::class, $item);
         $form->handleRequest($request);

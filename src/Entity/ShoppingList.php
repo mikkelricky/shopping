@@ -58,7 +58,7 @@ class ShoppingList
         $this->items = new ArrayCollection();
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->name ?? self::class;
     }
@@ -104,9 +104,6 @@ class ShoppingList
         return $this;
     }
 
-    /**
-     * @return Collection|ShoppingListItem[]
-     */
     public function getItems(): Collection
     {
         return $this->items;

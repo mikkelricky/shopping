@@ -39,9 +39,9 @@ class AccountController extends AbstractController
     }
 
     /**
-     * @Route("/edit", name="edit")
+     * @Route ("/edit", name="edit")
      */
-    public function edit(Request $request, Account $account)
+    public function edit(Request $request, Account $account): Response
     {
         $form = $this->createForm(AccountType::class, $account);
         $form->handleRequest($request);

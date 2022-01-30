@@ -29,12 +29,12 @@ class StoreFetchCommand extends Command
         $this->storeManager = $storeManager;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $logger = new ConsoleLogger($output);
         $this->storeManager->setLogger($logger);
         $this->storeManager->updateStores();
 
-        return 0;
+        return static::SUCCESS;
     }
 }
