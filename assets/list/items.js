@@ -9,10 +9,16 @@ require('../styles/list/items.scss')
 
 // JS is equivalent to the normal "bootstrap" package
 // no need to set this to a variable, just require it
-require('bootstrap')
+const bootstrap = require('bootstrap')
 
 $(() => {
-  $('[data-toggle="tooltip"]').tooltip({ container: 'article' })
+  // https://getbootstrap.com/docs/5.1/components/tooltips/#example-enable-tooltips-everywhere
+  [].slice.call(document.querySelectorAll('article [data-bs-toggle="tooltip"]'))
+    .map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl, {
+        boundary: tooltipTriggerEl.parentNode
+          })
+    })
 
   const el = document.getElementById('shopping_list_create_item_name')
   if (el) {
@@ -24,6 +30,13 @@ $(() => {
         return function findMatches (q, cb) {
           // an array that will be populated with substring matches
           const matches = []
+
+          q = q
+          // Remove any leading numbers.
+            .replace(/^[0-9]+/, '')
+          // Trim
+            .trim()
+          console.debug({q})
 
           // regex used to determine if a string contains the substring `q`
           const substrRegex = new RegExp(q, 'i')
@@ -57,9 +70,9 @@ $(() => {
     }
   }
 
-  $('form').on('submit', function () {
-    $('#add-item')
+  $('form[name="shopping_list_create_item"]').on('submit', function (event) {
+    $(this).find('[type="submit"]')
       .prop('disabled', true)
-      .html('Adding ' + $('input', this).first().val() + ' …')
+      .html('Adding ' + $(this).find('[name="shopping_list_create_item[name]"]').val() + ' …')
   })
 })

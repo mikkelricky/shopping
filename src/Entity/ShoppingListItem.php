@@ -10,6 +10,7 @@
 
 namespace App\Entity;
 
+use App\Validator\ItemName;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -33,6 +34,7 @@ class ShoppingListItem
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @ItemName()
      */
     private $name;
 
