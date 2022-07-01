@@ -3,18 +3,20 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2020 Mikkel Ricky
+ * (c) 2018– Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
 
 namespace App\Entity;
 
+use App\Validator\ItemName;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ShoppingListItemRepository")
@@ -26,13 +28,13 @@ class ShoppingListItem
 
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="UUID")
-     * @ORM\Column(type="guid")
+     * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @ItemName()
      */
     private $name;
 
@@ -70,11 +72,12 @@ class ShoppingListItem
 
     public function __construct()
     {
+        $this->id = Uuid::v4();
         $this->logEntries = new ArrayCollection();
         $this->stores = new ArrayCollection();
     }
 
-    public function getId(): ?string
+    public function getId(): ?Uuid
     {
         return $this->id;
     }
@@ -144,22 +147,16 @@ class ShoppingListItem
         return $this;
     }
 
-    /**
-     * @return Collection|ShoppingListItemLogEntry[]
-     */
     public function getLogEntries(): Collection
     {
         return $this->logEntries;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->name ?? self::class;
     }
 
-    /**
-     * @return Collection|Store[]
-     */
     public function getStores(): Collection
     {
         return $this->stores;

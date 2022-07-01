@@ -3,7 +3,7 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2020 Mikkel Ricky
+ * (c) 2018– Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
@@ -91,7 +91,12 @@ class SallingGroup implements StoreFetcherInterface
         return $stores;
     }
 
-    private function getLinks(ResponseInterface $response)
+    /**
+     * @return string[]|null
+     *
+     * @psalm-return array<string>|null
+     */
+    private function getLinks(ResponseInterface $response): array|null
     {
         $headers = $response->getHeaders();
         if (!isset($headers['link'])) {

@@ -3,7 +3,7 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2020 Mikkel Ricky
+ * (c) 2018– Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
@@ -41,33 +41,45 @@ abstract class AbstractController extends BaseController
         $this->translator = $translator;
     }
 
-    protected function error($message, $parameters = []): self
+    /**
+     * @param (null|scalar)[] $parameters
+     */
+    protected function error(string $message, array $parameters = []): self
     {
         return $this->danger($message, $parameters);
     }
 
-    protected function danger($message, $parameters = []): self
+    /**
+     * @param (null|scalar)[] $parameters
+     */
+    protected function danger(string $message, array $parameters = []): self
     {
         $this->addFlash(__FUNCTION__, $this->translate($message, $parameters));
 
         return $this;
     }
 
-    protected function info($message, $parameters = []): self
+    /**
+     * @param (int|string)[] $parameters
+     */
+    protected function info(string $message, array $parameters = []): self
     {
         $this->addFlash(__FUNCTION__, $this->translate($message, $parameters));
 
         return $this;
     }
 
-    protected function success($message, $parameters = []): self
+    /**
+     * @param (null|string)[] $parameters
+     */
+    protected function success(string $message, array $parameters = []): self
     {
         $this->addFlash(__FUNCTION__, $this->translate($message, $parameters));
 
         return $this;
     }
 
-    protected function addFlash(string $type, $message): void
+    protected function addFlash(string $type, mixed $message): void
     {
         [$this->lastFlashType, $this->lastFlashMessage] = [$type, $message];
         parent::addFlash($type, $message);
@@ -78,12 +90,12 @@ abstract class AbstractController extends BaseController
         $this->flashActionManager->addFlashAction($action, $this->lastFlashType, $this->lastFlashMessage);
     }
 
-    protected function translate($message, array $parameters = []): string
+    protected function translate(string $message, array $parameters = []): string
     {
         return $this->translator->trans($message, $parameters);
     }
 
-    protected function goBack(Request $request, $defaultUrl): RedirectResponse
+    protected function goBack(Request $request, string|RedirectResponse $defaultUrl): RedirectResponse
     {
         $referer = $request->headers->get('referer');
         if (null !== $referer) {

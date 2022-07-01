@@ -3,7 +3,7 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2020 Mikkel Ricky
+ * (c) 2018– Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
@@ -23,6 +23,7 @@ use App\Repository\ShoppingListRepository;
 use App\Service\FlashActionManager;
 use App\Service\ShoppingListItemManager;
 use App\Service\ShoppingListManager;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -72,9 +73,8 @@ class ShoppingListController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($list);
-            $em->flush();
+            $this->entityManager->persist($list);
+            $this->entityManager->flush();
 
             $this->listManager->notifyListCreated($list);
 
@@ -179,8 +179,8 @@ class ShoppingListController extends AbstractController
             $item = $itemManager->getItem($list, $item->getName());
             $item->setDoneAt(null);
             $list->addItem($item);
-            $this->getDoctrine()->getManager()->persist($list);
-            $this->getDoctrine()->getManager()->flush();
+            $this->entityManager->persist($list);
+            $this->entityManager->flush();
 
             $this->success('Item %item% added', ['%item%' => $item->getName()])
                 ->addFlashAction([
@@ -199,13 +199,13 @@ class ShoppingListController extends AbstractController
         $filter = $request->get('filter');
         $order = $request->get('order');
 
-        return $this->render('shopping_list/items.html.twig', [
+        return $this->renderForm('shopping_list/items.html.twig', [
             'account' => $account,
             'list' => $list,
             'undone_items' => $this->listManager->applyFilter($list->getUndoneItems(), $filter, $order)->getValues(),
             'done_items' => $this->listManager->applyFilter($list->getDoneItems(), $filter, $order)->getValues(),
             'filter' => $filter,
-            'add_item_form' => $form->createView(),
+            'add_item_form' => $form,
         ]);
     }
 
@@ -270,7 +270,7 @@ class ShoppingListController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('shopping_account_list_edit', ['id' => $list->getId()]);
         }
@@ -288,9 +288,8 @@ class ShoppingListController extends AbstractController
     public function delete(Request $request, ShoppingList $list): Response
     {
         if ($this->isCsrfTokenValid('delete'.$list->getId(), $request->request->get('_token'))) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($list);
-            $em->flush();
+            $this->entityManager->remove($list);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('shopping_list_index');
@@ -346,9 +345,8 @@ class ShoppingListController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var ShoppingListItem[] $items */
+            /** @var Collection|ShoppingListItem[] $items */
             $items = $form->get('items')->getData();
-
             foreach ($items as $item) {
                 $item->setDoneAt(null);
                 $list->addItem($item);
@@ -361,8 +359,8 @@ class ShoppingListController extends AbstractController
                 return null === $item->getId();
             });
 
-            $this->getDoctrine()->getManager()->persist($list);
-            $this->getDoctrine()->getManager()->flush();
+            $this->entityManager->persist($list);
+            $this->entityManager->flush();
 
             $this->info('Items added; %count_existing% existing; %count_new% new', [
                 '%count_existing%' => \count($existingItems),

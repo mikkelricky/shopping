@@ -3,7 +3,7 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2020 Mikkel Ricky
+ * (c) 2018– Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
@@ -13,6 +13,7 @@ namespace App\Entity;
 use DateTime;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ShoppingListItemLogEntryRepository")
@@ -22,8 +23,7 @@ class ShoppingListItemLogEntry
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="UUID")
-     * @ORM\Column(type="guid")
+     * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
 
@@ -56,6 +56,7 @@ class ShoppingListItemLogEntry
 
     public function __construct(ShoppingListItem $item)
     {
+        $this->id = Uuid::v4();
         $this->createdAt = new DateTime();
         $this->item = $item;
         $this->list = $item->getList();
@@ -63,7 +64,7 @@ class ShoppingListItemLogEntry
         $this->quantity = $item->getQuantity();
     }
 
-    public function getId()
+    public function getId(): ?Uuid
     {
         return $this->id;
     }

@@ -3,7 +3,7 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2020 Mikkel Ricky
+ * (c) 2018– Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
@@ -11,18 +11,18 @@
 namespace App\Service;
 
 use RuntimeException;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class FlashActionManager
 {
-    /** @var SessionInterface */
-    protected $session;
-
     private static $sessionKey = '_flash_actions';
 
-    public function __construct(SessionInterface $session)
+    private SessionInterface $session;
+
+    public function __construct(RequestStack $requestStack)
     {
-        $this->session = $session;
+        $this->session = $requestStack->getSession();
     }
 
     public function addFlashAction(array $action, string $type, string $message): void

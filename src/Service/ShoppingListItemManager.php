@@ -3,7 +3,7 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2020 Mikkel Ricky
+ * (c) 2018– Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
@@ -38,13 +38,16 @@ class ShoppingListItemManager
      *
      * If no account with the given email exists, one will be created.
      */
-    public function getItem(ShoppingList $list, string $name): ShoppingListItem
+    public function getItem(ShoppingList $list, string $name): ?ShoppingListItem
     {
         $items = $this->getItems($list, [$name]);
 
         return ($items && \count($items) > 0) ? $items[0] : null;
     }
 
+    /**
+     * @param scalar|null $item
+     */
     public function addToList($item, ShoppingList $list): ShoppingListItem
     {
         if (!$item instanceof ShoppingListItem) {

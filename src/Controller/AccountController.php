@@ -3,7 +3,7 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2020 Mikkel Ricky
+ * (c) 2018– Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
@@ -39,15 +39,15 @@ class AccountController extends AbstractController
     }
 
     /**
-     * @Route("/edit", name="edit")
+     * @Route ("/edit", name="edit")
      */
-    public function edit(Request $request, Account $account)
+    public function edit(Request $request, Account $account): Response
     {
         $form = $this->createForm(AccountType::class, $account);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('account_show', ['account' => $account->getId()]);
         }

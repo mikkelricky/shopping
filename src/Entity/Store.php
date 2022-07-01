@@ -3,7 +3,7 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2020 Mikkel Ricky
+ * (c) 2018– Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
@@ -15,6 +15,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\StoreRepository")
@@ -27,8 +28,7 @@ class Store
 
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="UUID")
-     * @ORM\Column(type="guid")
+     * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
 
@@ -54,15 +54,16 @@ class Store
 
     public function __construct()
     {
+        $this->id = Uuid::v4();
         $this->locations = new ArrayCollection();
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->name ?? self::class;
     }
 
-    public function getId(): ?string
+    public function getId(): ?Uuid
     {
         return $this->id;
     }
@@ -103,9 +104,6 @@ class Store
         return $this;
     }
 
-    /**
-     * @return Collection|Location[]
-     */
     public function getLocations(): Collection
     {
         return $this->locations;

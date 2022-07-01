@@ -3,7 +3,7 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2020 Mikkel Ricky
+ * (c) 2018– Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
@@ -24,8 +24,7 @@ use Twig\Environment;
 
 class ShoppingListManager
 {
-    /** @var AccountManager */
-    private $accountRepository;
+    private AccountRepository $accountRepository;
 
     /** @var MailerInterface */
     private $mailer;
@@ -128,7 +127,7 @@ class ShoppingListManager
         return $items;
     }
 
-    private function send(Email $email, $addresses): void
+    private function send(Email $email, string|null $addresses): void
     {
         $from = new Address($this->from['address'], $this->from['name'] ?? '');
         $email

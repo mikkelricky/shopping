@@ -3,7 +3,7 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2020 Mikkel Ricky
+ * (c) 2018– Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
@@ -67,7 +67,10 @@ class AppExtension extends AbstractExtension
         return $this->router->generate($route, $parameters);
     }
 
-    public function getPathFromReferer(string $defaultPath): string
+    /**
+     * @return scalar|null
+     */
+    public function getPathFromReferer(string $defaultPath)
     {
         $request = $this->requestStack->getCurrentRequest();
 
