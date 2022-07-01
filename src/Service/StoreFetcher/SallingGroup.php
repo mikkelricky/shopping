@@ -92,7 +92,7 @@ class SallingGroup implements StoreFetcherInterface
     }
 
     /**
-     * @return null|string[]
+     * @return string[]|null
      *
      * @psalm-return array<string>|null
      */

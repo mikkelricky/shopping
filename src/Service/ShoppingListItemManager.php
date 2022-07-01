@@ -46,7 +46,7 @@ class ShoppingListItemManager
     }
 
     /**
-     * @param null|scalar $item
+     * @param scalar|null $item
      */
     public function addToList($item, ShoppingList $list): ShoppingListItem
     {

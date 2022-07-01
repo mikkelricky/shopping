@@ -43,8 +43,6 @@ abstract class AbstractController extends BaseController
 
     /**
      * @param (null|scalar)[] $parameters
-     *
-     * @psalm-param array{list?: null|string, email?: string, '%item%'?: null|scalar} $parameters
      */
     protected function error(string $message, array $parameters = []): self
     {
@@ -53,8 +51,6 @@ abstract class AbstractController extends BaseController
 
     /**
      * @param (null|scalar)[] $parameters
-     *
-     * @psalm-param array{list?: null|string, email?: string, '%item%'?: null|scalar} $parameters
      */
     protected function danger(string $message, array $parameters = []): self
     {
@@ -65,9 +61,6 @@ abstract class AbstractController extends BaseController
 
     /**
      * @param (int|string)[] $parameters
-     *
-     * @psalm-param 'Item %item% updated'|'Items added; %count_existing% existing; %count_new% new' $message
-     * @psalm-param array{'%count_existing%'?: int, '%count_new%'?: int, '%item%'?: string} $parameters
      */
     protected function info(string $message, array $parameters = []): self
     {
@@ -78,8 +71,6 @@ abstract class AbstractController extends BaseController
 
     /**
      * @param (null|string)[] $parameters
-     *
-     * @psalm-param array{list?: null|string, email?: string, '%item%'?: null|string} $parameters
      */
     protected function success(string $message, array $parameters = []): self
     {
@@ -99,17 +90,11 @@ abstract class AbstractController extends BaseController
         $this->flashActionManager->addFlashAction($action, $this->lastFlashType, $this->lastFlashMessage);
     }
 
-    /**
-     * @psalm-param 'Edit item %item%'|'Undo item %item% marked as done' $message
-     */
     protected function translate(string $message, array $parameters = []): string
     {
         return $this->translator->trans($message, $parameters);
     }
 
-    /**
-     * @param RedirectResponse|string $defaultUrl
-     */
     protected function goBack(Request $request, string|RedirectResponse $defaultUrl): RedirectResponse
     {
         $referer = $request->headers->get('referer');
