@@ -18,6 +18,7 @@ use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ShoppingListRepository")
+ *
  * @ORM\Table(name="shopping_shopping_list")
  */
 class ShoppingList
@@ -26,6 +27,7 @@ class ShoppingList
 
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
@@ -42,12 +44,14 @@ class ShoppingList
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Account", inversedBy="lists")
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private $account;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ShoppingListItem", mappedBy="list", cascade={"persist"}, orphanRemoval=true)
+     *
      * @ORM\OrderBy({"name":"ASC"})
      */
     private $items;

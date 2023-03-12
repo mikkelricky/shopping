@@ -11,24 +11,26 @@
 namespace App\Entity;
 
 use DateTime;
-use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ShoppingListItemLogEntryRepository")
+ *
  * @ORM\Table(name="shopping_shopping_list_log_entry")
  */
 class ShoppingListItemLogEntry
 {
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\ShoppingListItem", inversedBy="logEntries")
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private $item;
@@ -50,6 +52,7 @@ class ShoppingListItemLogEntry
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\ShoppingList", inversedBy="logEntries")
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private $list;
@@ -57,7 +60,7 @@ class ShoppingListItemLogEntry
     public function __construct(ShoppingListItem $item)
     {
         $this->id = Uuid::v4();
-        $this->createdAt = new DateTime();
+        $this->createdAt = new \DateTime();
         $this->item = $item;
         $this->list = $item->getList();
         $this->name = $item->getName();
@@ -84,7 +87,7 @@ class ShoppingListItemLogEntry
         return $this->quantity;
     }
 
-    public function getCreatedAt(): ?DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }

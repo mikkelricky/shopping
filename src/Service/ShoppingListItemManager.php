@@ -14,7 +14,6 @@ use App\Entity\ShoppingList;
 use App\Entity\ShoppingListItem;
 use App\Entity\ShoppingListItemLogEntry;
 use App\Repository\ShoppingListItemRepository;
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
@@ -88,7 +87,7 @@ class ShoppingListItemManager
         $logEntry = new ShoppingListItemLogEntry($item);
         $this->entityManager->persist($logEntry);
 
-        $item->setDoneAt(new DateTime());
+        $item->setDoneAt(new \DateTime());
         $this->entityManager->persist($item);
 
         $this->entityManager->flush();

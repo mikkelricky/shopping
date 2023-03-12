@@ -34,14 +34,14 @@ class ShoppingListCrudController extends AbstractCrudController
         return $actions
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
             ->add(Crud::PAGE_INDEX, $viewList)
-            ;
+        ;
     }
 
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
             ->showEntityActionsInlined()
-            ;
+        ;
     }
 
     public function configureFields(string $pageName): iterable
