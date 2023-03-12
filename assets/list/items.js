@@ -17,7 +17,7 @@ $(() => {
     .map(function (tooltipTriggerEl) {
       return new bootstrap.Tooltip(tooltipTriggerEl, {
         boundary: tooltipTriggerEl.parentNode
-          })
+      })
     })
 
   const el = document.getElementById('shopping_list_create_item_name')
@@ -36,7 +36,6 @@ $(() => {
             .replace(/^[0-9]+/, '')
           // Trim
             .trim()
-          console.debug({q})
 
           // regex used to determine if a string contains the substring `q`
           const substrRegex = new RegExp(q, 'i')
