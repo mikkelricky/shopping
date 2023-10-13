@@ -7,12 +7,12 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 }
 
 Encore
-// directory where compiled assets will be stored
-  .setOutputPath('public/build/')
-// public path used by the web server to access the output path
-  .setPublicPath('/build')
-// only needed for CDN's or sub-directory deploy
-// .setManifestKeyPrefix('build/')
+    // directory where compiled assets will be stored
+    .setOutputPath('public/build/')
+    // public path used by the web server to access the output path
+    .setPublicPath('/build')
+    // only needed for CDN's or subdirectory deploy
+    //.setManifestKeyPrefix('build/')
 
 /*
      * ENTRY CONFIG
@@ -23,11 +23,8 @@ Encore
   .addEntry('app', './assets/app.js')
   .addEntry('list/items', './assets/list/items.js')
 
-// enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
-// .enableStimulusBridge('./assets/controllers.json')
-
-// When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
-  .splitEntryChunks()
+    // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
+    .splitEntryChunks()
 
 // will require an extra script tag for runtime.js
 // but, you probably want this, unless you're building a single-page app
@@ -46,15 +43,16 @@ Encore
 // enables hashed filenames (e.g. app.abc123.css)
   .enableVersioning(Encore.isProduction())
 
-  .configureBabel((config) => {
-    config.plugins.push('@babel/plugin-proposal-class-properties')
-  })
+    // configure Babel
+    // .configureBabel((config) => {
+    //     config.plugins.push('@babel/a-babel-plugin');
+    // })
 
-// enables @babel/preset-env polyfills
-  .configureBabelPresetEnv((config) => {
-    config.useBuiltIns = 'usage'
-    config.corejs = 3
-  })
+    // enables and configure @babel/preset-env polyfills
+    .configureBabelPresetEnv((config) => {
+        config.useBuiltIns = 'usage';
+        config.corejs = '3.23';
+    })
 
 // enables Sass/SCSS support
   .enableSassLoader()
