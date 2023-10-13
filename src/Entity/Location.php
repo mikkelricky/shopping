@@ -13,45 +13,31 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\LocationRepository")
- *
- * @ORM\Table(name="shopping_location")
- */
+
+#[ORM\Table(name: 'shopping_location')]
+#[ORM\Entity(repositoryClass: 'App\Repository\LocationRepository')]
 class Location
 {
-    /**
-     * @ORM\Id
-     *
-     * @ORM\Column(type="uuid", unique=true)
-     */
+    
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private $name;
 
-    /**
-     * @ORM\Column(type="text")
-     */
+    #[ORM\Column(type: 'text')]
     private $address;
 
-    /**
-     * @ORM\Column(type="decimal", precision=10, scale=7, nullable=true)
-     */
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 7, nullable: true)]
     private $latitude;
 
-    /**
-     * @ORM\Column(type="decimal", precision=10, scale=7, nullable=true)
-     */
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 7, nullable: true)]
     private $longitude;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Store", inversedBy="locations")
-     *
-     * @ORM\JoinColumn(nullable=false)
-     */
+    
+    #[ORM\ManyToOne(targetEntity: 'App\Entity\Store', inversedBy: 'locations')]
+    #[ORM\JoinColumn(nullable: false)]
     private $store;
 
     public function __construct()
