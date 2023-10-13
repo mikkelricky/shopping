@@ -10,44 +10,37 @@
 
 namespace App\Entity;
 
-use DateTime;
+use App\Repository\ShoppingListItemLogEntryRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
-
 #[ORM\Table(name: 'shopping_shopping_list_log_entry')]
-#[ORM\Entity(repositoryClass: 'App\Repository\ShoppingListItemLogEntryRepository')]
+#[ORM\Entity(repositoryClass: ShoppingListItemLogEntryRepository::class)]
 class ShoppingListItemLogEntry
 {
-    
     #[ORM\Id]
     #[ORM\Column(type: 'uuid', unique: true)]
-    private $id;
-
-    
-    #[ORM\ManyToOne(targetEntity: 'App\Entity\ShoppingListItem', inversedBy: 'logEntries')]
-    #[ORM\JoinColumn(nullable: false)]
-    private $item;
+    private ?Uuid $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $name;
+    private ?string $name = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $quantity;
+    private ?string $quantity = null;
 
     #[ORM\Column(type: 'datetime')]
-    private $createdAt;
+    private \DateTime $createdAt;
 
-    
-    #[ORM\ManyToOne(targetEntity: 'App\Entity\ShoppingList', inversedBy: 'logEntries')]
+    #[ORM\ManyToOne(targetEntity: ShoppingList::class, inversedBy: 'logEntries')]
     #[ORM\JoinColumn(nullable: false)]
-    private $list;
+    private ?ShoppingList $list = null;
 
-    public function __construct(ShoppingListItem $item)
+    public function __construct(#[ORM\ManyToOne(targetEntity: ShoppingListItem::class, inversedBy: 'logEntries')]
+        #[ORM\JoinColumn(nullable: false)]
+        private ShoppingListItem $item)
     {
         $this->id = Uuid::v4();
         $this->createdAt = new \DateTime();
-        $this->item = $item;
         $this->list = $item->getList();
         $this->name = $item->getName();
         $this->quantity = $item->getQuantity();

@@ -20,16 +20,8 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class ShoppingListItemManager
 {
-    /** @var ShoppingListItemRepository */
-    private $itemRepository;
-
-    /** @var EntityManagerInterface */
-    private $entityManager;
-
-    public function __construct(ShoppingListItemRepository $itemRepository, EntityManagerInterface $entityManager)
+    public function __construct(private readonly ShoppingListItemRepository $itemRepository, private readonly EntityManagerInterface $entityManager)
     {
-        $this->itemRepository = $itemRepository;
-        $this->entityManager = $entityManager;
     }
 
     /**
@@ -118,7 +110,7 @@ class ShoppingListItemManager
             'g', 'gram', 'grams',
         ];
         if (null !== $quantity && \count($tokens) > 1
-            && \in_array(strtolower($tokens[0]), $units, true)) {
+            && \in_array(strtolower((string) $tokens[0]), $units, true)) {
             $quantity .= ' '.array_shift($tokens);
         }
 

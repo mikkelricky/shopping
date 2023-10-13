@@ -28,21 +28,17 @@ abstract class AbstractController extends BaseController
     /** @var string */
     private $lastFlashMessage;
 
-    /** @var FlashActionManager */
-    private $flashActionManager;
-
     /** @var TranslatorInterface */
     protected $translator;
 
-    public function __construct(EntityManagerInterface $entityManager, FlashActionManager $flashActionManager, TranslatorInterface $translator)
+    public function __construct(EntityManagerInterface $entityManager, private readonly FlashActionManager $flashActionManager, TranslatorInterface $translator)
     {
         $this->entityManager = $entityManager;
-        $this->flashActionManager = $flashActionManager;
         $this->translator = $translator;
     }
 
     /**
-     * @param (null|scalar)[] $parameters
+     * @param (scalar|null)[] $parameters
      */
     protected function error(string $message, array $parameters = []): self
     {
@@ -50,7 +46,7 @@ abstract class AbstractController extends BaseController
     }
 
     /**
-     * @param (null|scalar)[] $parameters
+     * @param (scalar|null)[] $parameters
      */
     protected function danger(string $message, array $parameters = []): self
     {
@@ -70,7 +66,7 @@ abstract class AbstractController extends BaseController
     }
 
     /**
-     * @param (null|string)[] $parameters
+     * @param (string|null)[] $parameters
      */
     protected function success(string $message, array $parameters = []): self
     {

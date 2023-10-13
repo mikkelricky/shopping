@@ -49,6 +49,6 @@ class ShoppingListCrudController extends AbstractCrudController
         yield IdField::new('id');
         yield TextField::new('name');
         yield AssociationField::new('items');
-//            TextEditorField::new('description'),
+        // TextEditorField::new('description'),
     }
 }

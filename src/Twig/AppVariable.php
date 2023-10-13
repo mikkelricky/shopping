@@ -15,8 +15,7 @@ use Symfony\Bridge\Twig\AppVariable as BaseAppVariable;
 
 class AppVariable extends BaseAppVariable
 {
-    /** @var FlashActionManager */
-    private $flashActionManager;
+    private ?FlashActionManager $flashActionManager = null;
 
     public function setFlashActionManager(FlashActionManager $flashActionManager): void
     {

@@ -31,7 +31,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 )]
 class UserPasswordCommand extends Command
 {
-    public function __construct(private UserProviderInterface $userProvider, private UserPasswordHasherInterface $passwordHasher, private EntityManagerInterface $entityManager)
+    public function __construct(private readonly UserProviderInterface $userProvider, private readonly UserPasswordHasherInterface $passwordHasher, private readonly EntityManagerInterface $entityManager)
     {
         parent::__construct(null);
     }
@@ -82,7 +82,7 @@ class UserPasswordCommand extends Command
             $this->entityManager->flush();
 
             $io->success(sprintf('Password for user %s updated', $user->getUserIdentifier()));
-        } catch (UserNotFoundException $userNotFoundException) {
+        } catch (UserNotFoundException) {
             throw new InvalidArgumentException(sprintf('User with identifier %s does not exist', $identifier));
         }
 
