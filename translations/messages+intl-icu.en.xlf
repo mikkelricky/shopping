@@ -181,10 +181,6 @@
         <source>Shopping list created</source>
         <target>Shopping list created</target>
       </trans-unit>
-      <trans-unit id="dpAPG.0" resname="Back">
-        <source>Back</source>
-        <target>Back</target>
-      </trans-unit>
       <trans-unit id="bKatnh5" resname="We will send details on how to access the shopping list to this address.">
         <source>We will send details on how to access the shopping list to this address.</source>
         <target>We will send details on how to access the shopping list to this address.</target>
@@ -316,6 +312,10 @@
       <trans-unit id="ijel8Hr" resname="Order by">
         <source>Order by</source>
         <target>Order by</target>
+      </trans-unit>
+      <trans-unit id="VlDY11Q" resname="Go to {name}">
+        <source>Go to {name}</source>
+        <target>Go to {name}</target>
       </trans-unit>
     </body>
   </file>

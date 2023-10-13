@@ -6,7 +6,6 @@
 
 require('./styles/app.scss')
 
-const $ = require('jquery')
 const bootstrap = require('bootstrap')
 
 // https://getbootstrap.com/docs/5.1/components/tooltips/#example-enable-tooltips-everywhere
