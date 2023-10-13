@@ -180,7 +180,8 @@
             {% endif %}
 
             {% if done_items|length > 0 %}
-                {% if current_display != 'all' %}
+                <div class="d-grid gap-2">
+                    {% if current_display != 'all' %}
                     <a class="btn btn-light btn-block" href="{{ current_path({display: 'all'}) }}">
                         {{ '{count, plural, one {Show one done item.} other {Show # done items.}}'|trans({'count': done_items|length}) }}
                     </a>
@@ -189,6 +190,7 @@
                         {{ '{count, plural, one {Hide one done item.} other {Hide # done items.}}'|trans({'count': done_items|length}) }}
                     </a>
                 {% endif %}
+                </div>
             {% endif %}
 
             {% if current_display == 'all' %}
