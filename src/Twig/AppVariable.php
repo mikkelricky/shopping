@@ -22,7 +22,7 @@ class AppVariable extends BaseAppVariable
         $this->flashActionManager = $flashActionManager;
     }
 
-    public function getFlashActions(string $type, string $message)
+    public function getFlashActions(string $type, string $message): ?array
     {
         return $this->flashActionManager->getFlashActions($type, $message);
     }
