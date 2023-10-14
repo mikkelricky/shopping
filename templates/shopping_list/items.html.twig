@@ -31,15 +31,15 @@
     <form method="post" action="{{ path('shopping_list_item_done', app.request.query.all|merge({item: item.id})) }}" class="single-action">
         <input type="hidden" name="_method" value="PUT">
         <input type="hidden" name="_token" value="{{ csrf_token('item_done' ~ item.id) }}">
-        <button class="btn btn-light">{{ icon('square') }}</button>
+        <button class="btn btn-light">{{ icon('square') }} <span class="visually-hidden">{{ 'Mark {name} as done'|trans({'name': item.name}) }}</span></button>
     </form>
 {% endmacro %}
 
-{% macro item_undone(item) %}
+{% macro item_not_done(item) %}
     <form method="post" action="{{ path('shopping_list_item_done', app.request.query.all|merge({item: item.id})) }}" class="single-action">
         <input type="hidden" name="_method" value="PUT">
         <input type="hidden" name="_token" value="{{ csrf_token('item_done_undo' ~ item.id) }}">
-        <button class="btn btn-light">{{ icon('check-square') }}</button>
+        <button class="btn btn-light">{{ icon('check-square') }} <span class="visually-hidden">{{ 'Mark {name} as not done'|trans({'name': item.name}) }}</span></button>
     </form>
 {% endmacro %}
 
@@ -48,7 +48,7 @@
         <div class="d-flex my-3 justify-content-between align-items-baseline">
             <div class="item-state">
                 {% if item.doneAt %}
-                    <span class="item-done">{{ _self.item_undone(item) }}</span>
+                    <span class="item-done">{{ _self.item_not_done(item) }}</span>
                 {% else %}
                     <span class="item-not-done">{{ _self.item_done(item) }}</span>
                 {% endif %}
@@ -93,7 +93,7 @@
 {% block container %}
     {% import 'shopping_list/_helpers.html.twig' as helper %}
 
-    {% set current_display = app.request.get('display')|default('undone') %}
+    {% set current_display = app.request.get('display')|default('not_done') %}
 
     <div class="shopping-list-items container-fluid">
         <header class="d-flex justify-content-between">
@@ -168,11 +168,11 @@
                 </div>
             {% endif %}
 
-            {% if undone_items|length > 0 %}
-                {{ _self.show_items(undone_items) }}
+            {% if not_done_items|length > 0 %}
+                {{ _self.show_items(not_done_items) }}
             {% else %}
                 <div class="alert alert-success">
-                    {{ 'Woohoo! No undone items.'|trans }}
+                    {{ 'Woohoo! No not done items.'|trans }}
                     {% if done_items|length > 0 %}
                         <a href="{{ current_path({display: 'all'}) }}">{{ 'Show all items'|trans }}</a>
                     {% endif %}
@@ -204,8 +204,10 @@
             {{ form_start(add_item_form) }}
                 <div class="d-flex flex-row">
                     <div class="flex-grow-1">
-                        {{ form_widget(add_item_form.name, {attr: {'data-typeahead-dataset-selector': '#done-items-names'}}) }}
-                        {{ form_errors(add_item_form.name) }}
+                        {{ form_row(add_item_form.name, {
+                            label_attr: {'class': 'visually-hidden'},
+                            attr: {'data-typeahead-dataset-selector': '#done-items-names'}
+                            }) }}
                     </div>
                     <div>
                         {{ form_widget(add_item_form.add) }}

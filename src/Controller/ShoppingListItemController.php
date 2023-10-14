@@ -59,8 +59,8 @@ class ShoppingListItemController extends AbstractController
                 'message' => $this->translate('Undo item %item% marked as done', ['%item%' => (string) $item]),
             ]);
         } elseif ($this->isCsrfTokenValid('item_done_undo'.$item->getId(), $request->request->get('_token'))) {
-            $itemManager->setUndone($item);
-            $this->success('Item %item% marked as undone', ['%item%' => (string) $item]);
+            $itemManager->setNotDone($item);
+            $this->success('Item %item% marked as not done', ['%item%' => (string) $item]);
         } else {
             $this->error('Error marking %item% as done', ['%item%' => (string) $item]);
         }

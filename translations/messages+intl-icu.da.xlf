@@ -141,10 +141,6 @@
         <source>Clear filter</source>
         <target state="translated">Ryd filter</target>
       </trans-unit>
-      <trans-unit id=".GDkmR." resname="Woohoo! No undone items.">
-        <source>Woohoo! No undone items.</source>
-        <target state="translated">Hurra! Du mangler ikke noget!</target>
-      </trans-unit>
       <trans-unit id="v154yCI" resname="Show all items">
         <source>Show all items</source>
         <target state="translated">Vis alle indkøb</target>
@@ -316,6 +312,18 @@
       <trans-unit id="VlDY11Q" resname="Go to {name}">
         <source>Go to {name}</source>
         <target state="translated">Gå til {name}</target>
+      </trans-unit>
+      <trans-unit id="5YB9iAZ" resname="Mark {name} as done">
+        <source>Mark {name} as done</source>
+        <target state="translated">Markér {name} som købt</target>
+      </trans-unit>
+      <trans-unit id="2Kf1s51" resname="Mark {name} as not done">
+        <source>Mark {name} as not done</source>
+        <target state="translated">Markér {name} som ikke købt</target>
+      </trans-unit>
+      <trans-unit id="5xRUnJV" resname="Woohoo! No not done items.">
+        <source>Woohoo! No not done items.</source>
+        <target state="translated">Hurra! Du mangler ikke noget.</target>
       </trans-unit>
     </body>
   </file>

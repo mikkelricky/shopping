@@ -85,7 +85,7 @@ class ShoppingListItemManager
         $this->entityManager->flush();
     }
 
-    public function setUndone(ShoppingListItem $item): void
+    public function setNotDone(ShoppingListItem $item): void
     {
         $item->setDoneAt(null);
         $this->entityManager->persist($item);
