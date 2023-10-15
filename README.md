@@ -43,6 +43,10 @@ docker compose run --rm node yarn coding-standards-check
 docker compose run --rm node yarn coding-standards-apply
 ```
 
+```sh
+docker run --volume ${PWD}:/code --rm pipelinecomponents/yamllint yamllint fixtures
+```
+
 ## Testing
 
 ```sh
