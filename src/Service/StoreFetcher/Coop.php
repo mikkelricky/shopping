@@ -3,7 +3,7 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2020 Mikkel Ricky
+ * (c) 2018– Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
@@ -15,7 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class Coop implements StoreFetcherInterface
 {
-    private static $brands = [
+    private static array $brands = [
         'SuperBrugsen' => 'SuperBrugsen',
         'Dagli\'Brugsen' => 'Dagli\'Brugsen',
         'Kvickly' => 'Kvickly',
@@ -27,8 +27,7 @@ class Coop implements StoreFetcherInterface
         // 'COOP MAD' => 'COOP MAD',
     ];
 
-    /** @var array */
-    private $options;
+    private array $options;
 
     public function __construct(array $coopConfig)
     {

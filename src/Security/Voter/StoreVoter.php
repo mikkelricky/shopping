@@ -3,7 +3,7 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2020 Mikkel Ricky
+ * (c) 2018– Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
@@ -17,25 +17,21 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class StoreVoter extends Voter
 {
-    /** @var RequestStack */
-    private $requestStack;
-
     // these strings are just invented: you can use anything
-    public const VIEW = 'view';
-    public const EDIT = 'edit';
+    final public const VIEW = 'view';
+    final public const EDIT = 'edit';
 
-    public function __construct(RequestStack $requestStack)
+    public function __construct(private readonly RequestStack $requestStack)
     {
-        $this->requestStack = $requestStack;
     }
 
-    protected function supports($attribute, $subject)
+    protected function supports($attribute, $subject): bool
     {
         return \in_array($attribute, [self::EDIT, self::VIEW])
             && $subject instanceof Store;
     }
 
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
+    protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
         switch ($attribute) {
             case self::EDIT:

@@ -3,55 +3,47 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2020 Mikkel Ricky
+ * (c) 2018– Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
 
 namespace App\Entity;
 
+use App\Repository\LocationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Uid\Uuid;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\LocationRepository")
- * @ORM\Table(name="shopping_location")
- */
-class Location
+#[ORM\Table(name: 'shopping_location')]
+#[ORM\Entity(repositoryClass: LocationRepository::class)]
+class Location implements \Stringable
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="UUID")
-     * @ORM\Column(type="guid")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private ?Uuid $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $name = null;
 
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $address;
+    #[ORM\Column(type: 'text')]
+    private ?string $address = null;
 
-    /**
-     * @ORM\Column(type="decimal", precision=10, scale=7, nullable=true)
-     */
-    private $latitude;
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 7, nullable: true)]
+    private ?string $latitude = null;
 
-    /**
-     * @ORM\Column(type="decimal", precision=10, scale=7, nullable=true)
-     */
-    private $longitude;
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 7, nullable: true)]
+    private ?string $longitude = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Store", inversedBy="locations")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $store;
+    #[ORM\ManyToOne(targetEntity: Store::class, inversedBy: 'locations')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Store $store = null;
 
-    public function getId(): ?string
+    public function __construct()
+    {
+        $this->id = Uuid::v4();
+    }
+
+    public function getId(): ?Uuid
     {
         return $this->id;
     }
@@ -116,8 +108,8 @@ class Location
         return $this;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->address ?? self::class;
+        return (string) ($this->address ?? self::class);
     }
 }

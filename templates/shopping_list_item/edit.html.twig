@@ -6,7 +6,7 @@
     {{ form_start(form) }}
         {{ form_rest(form) }}
 
-        <a href="{{ path_from_referer('shopping_list_items', {list: item.list.id}) }}">{{ 'Cancel'|trans }}</a>
+        <a href="{{ path_from_referer('shopping_list_items', {id: item.list.id}) }}">{{ 'Cancel'|trans }}</a>
         <button class="btn btn-primary">{{ 'Update'|trans }}</button>
     {{ form_end(form) }}
 {% endblock %}

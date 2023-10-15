@@ -3,7 +3,7 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2020 Mikkel Ricky
+ * (c) 2018– Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
@@ -18,14 +18,13 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class ShoppingListCreateType extends ShoppingListType
 {
-    /** @var AccountManager */
-    private $accountManager;
-
-    public function __construct(AccountManager $accountManager)
+    public function __construct(private readonly AccountManager $accountManager)
     {
-        $this->accountManager = $accountManager;
     }
 
+    /**
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $account = $builder->getData()->getAccount();
@@ -44,12 +43,8 @@ class ShoppingListCreateType extends ShoppingListType
 
         $builder->get('account')
             ->addModelTransformer(new CallbackTransformer(
-                static function (Account $account = null) {
-                    return $account ? $account->getEmail() : null;
-                },
-                function (string $email) {
-                    return $this->accountManager->getAccount($email);
-                }
+                static fn (Account $account = null) => $account ? $account->getEmail() : null,
+                fn (string $email) => $this->accountManager->getAccount($email)
             ));
     }
 }

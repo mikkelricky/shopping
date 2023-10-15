@@ -31,15 +31,15 @@
     <form method="post" action="{{ path('shopping_list_item_done', app.request.query.all|merge({item: item.id})) }}" class="single-action">
         <input type="hidden" name="_method" value="PUT">
         <input type="hidden" name="_token" value="{{ csrf_token('item_done' ~ item.id) }}">
-        <button class="btn btn-light">{{ icon('square') }}</button>
+        <button class="btn btn-light">{{ icon('square') }} <span class="visually-hidden">{{ 'Mark {name} as done'|trans({'name': item.name}) }}</span></button>
     </form>
 {% endmacro %}
 
-{% macro item_undone(item) %}
+{% macro item_not_done(item) %}
     <form method="post" action="{{ path('shopping_list_item_done', app.request.query.all|merge({item: item.id})) }}" class="single-action">
         <input type="hidden" name="_method" value="PUT">
         <input type="hidden" name="_token" value="{{ csrf_token('item_done_undo' ~ item.id) }}">
-        <button class="btn btn-light">{{ icon('check-square') }}</button>
+        <button class="btn btn-light">{{ icon('check-square') }} <span class="visually-hidden">{{ 'Mark {name} as not done'|trans({'name': item.name}) }}</span></button>
     </form>
 {% endmacro %}
 
@@ -48,14 +48,14 @@
         <div class="d-flex my-3 justify-content-between align-items-baseline">
             <div class="item-state">
                 {% if item.doneAt %}
-                    <span class="item-done">{{ _self.item_undone(item) }}</span>
+                    <span class="item-done">{{ _self.item_not_done(item) }}</span>
                 {% else %}
                     <span class="item-not-done">{{ _self.item_done(item) }}</span>
                 {% endif %}
             </div>
             <div class="item-name">
                 {% if item.description %}
-                    <span data-toggle="tooltip" title="{{ item.description }}" data-trigger="click" data-placement="right">
+                    <span title="{{ item.description }}" data-bs-toggle="tooltip" data-bs-trigger="click" data-bs-placement="right">
                         {{ item.name }} <span class="fas fa-info-circle"></span>
                     </span>
                 {% else %}
@@ -66,17 +66,17 @@
                 {% endif %}
                 {% if item.doneAt %}<br/><small>{{ 'Item done on {done_at, date, full} at {done_at, time, short}'|trans({'done_at': item.doneAt}) }}</small>{% endif %}
             </div>
-            <div class="px-2 ml-auto item-stores">
+            <div class="px-2 ms-auto item-stores">
                 {% if item.stores|length > 0 %}
                     {{ icon('store') }}
                     {% for store in item.stores %}
-                        <a class="badge badge-light" href="{{ current_path({filter: {store: store.name}}) }}">{{ store.name }}</a>
+                        <a class="badge bg-light text-dark" href="{{ current_path({filter: {store: store.name}}) }}">{{ store.name }}</a>
                     {% endfor %}
                 {% endif %}
             </div>
             <div class="item-actions">
                 <div class="dropdown">
-                    <a class="btn btn-light" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="btn btn-light" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{ icon('ellipsis-v') }}
                     </a>
 
@@ -93,7 +93,7 @@
 {% block container %}
     {% import 'shopping_list/_helpers.html.twig' as helper %}
 
-    {% set current_display = app.request.get('display')|default('undone') %}
+    {% set current_display = app.request.get('display')|default('not_done') %}
 
     <div class="shopping-list-items container-fluid">
         <header class="d-flex justify-content-between">
@@ -106,7 +106,7 @@
                 <div class="p-2">
                     {#% set items = items|sort((a, b) => b.updatedAt <=> a.updatedAt) %#}
                     <div id="order-by">
-                        <button id="order-by-toggle" type="button" class="btn btn-link" data-toggle="modal" data-target="#order-by-modal" title="{{ 'Order-By'|trans }}">
+                        <button id="order-by-toggle" type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#order-by-modal" title="{{ 'Order-By'|trans }}">
                             <span class="fas fa-sort-amount-up-alt"></span>
                         </button>
 
@@ -115,14 +115,12 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="order-by-modal-label">{{ 'Order by'|trans }}</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         <table class="table table-borderless">
                                         {% for label, property in {
-                                            'Name':'name',
+                                            'Name': 'name',
                                             'Updated at': 'updatedAt'
                                             } %}
                                             <tr>
@@ -170,11 +168,11 @@
                 </div>
             {% endif %}
 
-            {% if undone_items|length > 0 %}
-                {{ _self.show_items(undone_items) }}
+            {% if not_done_items|length > 0 %}
+                {{ _self.show_items(not_done_items) }}
             {% else %}
                 <div class="alert alert-success">
-                    {{ 'Woohoo! No undone items.'|trans }}
+                    {{ 'Woohoo! No not done items.'|trans }}
                     {% if done_items|length > 0 %}
                         <a href="{{ current_path({display: 'all'}) }}">{{ 'Show all items'|trans }}</a>
                     {% endif %}
@@ -182,7 +180,8 @@
             {% endif %}
 
             {% if done_items|length > 0 %}
-                {% if current_display != 'all' %}
+                <div class="d-grid gap-2">
+                    {% if current_display != 'all' %}
                     <a class="btn btn-light btn-block" href="{{ current_path({display: 'all'}) }}">
                         {{ '{count, plural, one {Show one done item.} other {Show # done items.}}'|trans({'count': done_items|length}) }}
                     </a>
@@ -191,6 +190,7 @@
                         {{ '{count, plural, one {Hide one done item.} other {Hide # done items.}}'|trans({'count': done_items|length}) }}
                     </a>
                 {% endif %}
+                </div>
             {% endif %}
 
             {% if current_display == 'all' %}
@@ -204,10 +204,13 @@
             {{ form_start(add_item_form) }}
                 <div class="d-flex flex-row">
                     <div class="flex-grow-1">
-                        {{ form_widget(add_item_form.name, {attr: {'data-typeahead-dataset-selector': '#done-items-names'}}) }}
+                        {{ form_row(add_item_form.name, {
+                            label_attr: {'class': 'visually-hidden'},
+                            attr: {'data-typeahead-dataset-selector': '#done-items-names'}
+                            }) }}
                     </div>
-                    <div class="ml-2">
-                        <button type="submit" class="btn btn-primary" id="add-item">{{ 'Add item'|trans }}</button>
+                    <div>
+                        {{ form_widget(add_item_form.add) }}
                     </div>
                 </div>
                 <script id="done-items-names" type="application/json">{{ done_items|map(item => item.name)|json_encode|raw }}</script>

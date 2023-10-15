@@ -9,9 +9,13 @@
         {{ 'Your shopping list {name} has been created.'|trans({'name': list.name}) }}
     </div>
 
+    <div class="d-grid gap-2">
+        <a href="{{ path('shopping_list_items', {id: list.id}) }}" class="btn btn-primary btn-lg">{{ 'Go to {name}'|trans({'name': list.name}) }}</a>
+    </div>
+
     <p>
         {{ 'Details on how to access the list have been sent to {email}.'|trans({'email': account.email}) }}
     </p>
 
-    <a class="btn btn-primary" href="{{ path('shopping_list_index') }}">{{ 'Back'|trans }}</a>
+    {# <a class="btn btn-primary" href="{{ path('shopping_list_index') }}">{{ 'Back'|trans }}</a> #}
 {% endblock %}

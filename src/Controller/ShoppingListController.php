@@ -3,7 +3,7 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2020 Mikkel Ricky
+ * (c) 2018– Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
@@ -23,6 +23,7 @@ use App\Repository\ShoppingListRepository;
 use App\Service\FlashActionManager;
 use App\Service\ShoppingListItemManager;
 use App\Service\ShoppingListManager;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -32,38 +33,22 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- * @Route(
- *     "/{_locale}",
- *     locale="en",
- *     requirements={
- *         "_locale": "da|en"
- *     }
- * )
- */
+#[Route(path: '/{_locale}', locale: 'en', requirements: ['_locale' => 'da|en'])]
 class ShoppingListController extends AbstractController
 {
-    /** @var ShoppingListManager */
-    private $listManager;
-
-    public function __construct(EntityManagerInterface $entityManager, FlashActionManager $flashActionManager, TranslatorInterface $translator, ShoppingListManager $listManager)
+    public function __construct(EntityManagerInterface $entityManager, FlashActionManager $flashActionManager, TranslatorInterface $translator, private readonly ShoppingListManager $listManager)
     {
         parent::__construct($entityManager, $flashActionManager, $translator);
-        $this->listManager = $listManager;
     }
 
-    /**
-     * @Route("/list", name="shopping_list_index", methods="GET")
-     */
+    #[Route(path: '/list', name: 'shopping_list_index', methods: 'GET')]
     public function index(): Response
     {
         return $this->render('shopping_list/index.html.twig');
     }
 
-    /**
-     * @Route("/list/new", name="shopping_list_new", methods="GET|POST")
-     * @Route("/{account}/list/new", name="shopping_account_list_new", methods="GET|POST")
-     */
+    #[Route(path: '/list/new', name: 'shopping_list_new', methods: 'GET|POST')]
+    #[Route(path: '/{account}/list/new', name: 'shopping_account_list_new', methods: 'GET|POST')]
     public function new(Request $request, Account $account = null): Response
     {
         $list = new ShoppingList();
@@ -72,9 +57,8 @@ class ShoppingListController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($list);
-            $em->flush();
+            $this->entityManager->persist($list);
+            $this->entityManager->flush();
 
             $this->listManager->notifyListCreated($list);
 
@@ -90,9 +74,7 @@ class ShoppingListController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{account}/list/{id}/created", name="shopping_account_list_created", methods="GET")
-     */
+    #[Route(path: '/{account}/list/{id}/created', name: 'shopping_account_list_created', methods: 'GET')]
     public function created(Account $account, ShoppingList $list): Response
     {
         return $this->render('shopping_list/created.html.twig', [
@@ -101,9 +83,7 @@ class ShoppingListController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/account/recover", name="shopping_list_recover", methods="GET|POST")
-     */
+    #[Route(path: '/account/recover', name: 'shopping_list_recover', methods: 'GET|POST')]
     public function recover(Request $request, TranslatorInterface $translator): Response
     {
         $form = $this->createForm(ShoppingListRecoverType::class);
@@ -124,9 +104,7 @@ class ShoppingListController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{account}/list", name="shopping_account", methods="GET")
-     */
+    #[Route(path: '/{account}/list', name: 'shopping_account', methods: 'GET')]
     public function list(Account $account, ShoppingListRepository $listRepository): Response
     {
         return $this->render('shopping_list/list.html.twig', [
@@ -135,9 +113,7 @@ class ShoppingListController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{account}/list/{id}/share", name="shopping_account_list_share", methods="GET|POST")
-     */
+    #[Route(path: '/{account}/list/{id}/share', name: 'shopping_account_list_share', methods: 'GET|POST')]
     public function share(Request $request, Account $account, ShoppingList $list): Response
     {
         $form = $this->createForm(ShoppingListShareType::class);
@@ -165,10 +141,8 @@ class ShoppingListController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/list/{id}/items", name="shopping_list_items", methods="GET|POST")
-     * @Route("/{account}/list/{id}/items", name="shopping_account_list_items", methods="GET|POST")
-     */
+    #[Route(path: '/list/{id}/items', name: 'shopping_list_items', methods: 'GET|POST')]
+    #[Route(path: '/{account}/list/{id}/items', name: 'shopping_account_list_items', methods: 'GET|POST')]
     public function items(Request $request, ShoppingList $list, ShoppingListItemManager $itemManager, Account $account = null): Response
     {
         $item = new ShoppingListItem();
@@ -179,8 +153,8 @@ class ShoppingListController extends AbstractController
             $item = $itemManager->getItem($list, $item->getName());
             $item->setDoneAt(null);
             $list->addItem($item);
-            $this->getDoctrine()->getManager()->persist($list);
-            $this->getDoctrine()->getManager()->flush();
+            $this->entityManager->persist($list);
+            $this->entityManager->flush();
 
             $this->success('Item %item% added', ['%item%' => $item->getName()])
                 ->addFlashAction([
@@ -199,19 +173,17 @@ class ShoppingListController extends AbstractController
         $filter = $request->get('filter');
         $order = $request->get('order');
 
-        return $this->render('shopping_list/items.html.twig', [
+        return $this->renderForm('shopping_list/items.html.twig', [
             'account' => $account,
             'list' => $list,
-            'undone_items' => $this->listManager->applyFilter($list->getUndoneItems(), $filter, $order)->getValues(),
+            'not_done_items' => $this->listManager->applyFilter($list->getNotDoneItems(), $filter, $order)->getValues(),
             'done_items' => $this->listManager->applyFilter($list->getDoneItems(), $filter, $order)->getValues(),
             'filter' => $filter,
-            'add_item_form' => $form->createView(),
+            'add_item_form' => $form,
         ]);
     }
 
-    /**
-     * @Route("/list/{id}/manifest.json", name="shopping_list_manifest", methods="GET")
-     */
+    #[Route(path: '/list/{id}/manifest.json', name: 'shopping_list_manifest', methods: 'GET')]
     public function itemsManifest(Request $request, ShoppingList $list, Packages $packages, array $pwaConfig): JsonResponse
     {
         $icons = $pwaConfig['icons'];
@@ -241,9 +213,7 @@ class ShoppingListController extends AbstractController
         return new JsonResponse($manifest);
     }
 
-    /**
-     * @Route("/list/{id}/serviceWorker.js", name="shopping_list_serviceworker", methods="GET")
-     */
+    #[Route(path: '/list/{id}/serviceWorker.js', name: 'shopping_list_serviceworker', methods: 'GET')]
     public function serviceWorker(Request $request, ShoppingList $list): Response
     {
         $content = $this->renderView('shopping_list/serviceWorker.js.twig', [
@@ -253,26 +223,22 @@ class ShoppingListController extends AbstractController
         return new Response($content, 200, ['content-type' => 'text/javascript']);
     }
 
-    /**
-     * @Route("/list/{id}/offline", name="shopping_list_offline", methods="GET")
-     */
+    #[Route(path: '/list/{id}/offline', name: 'shopping_list_offline', methods: 'GET')]
     public function offline(Request $request, ShoppingList $list): Response
     {
         return $this->render('shopping_list/offline.html.twig');
     }
 
-    /**
-     * @Route("/{account}/list/{id}/edit", name="shopping_account_list_edit", methods="GET|POST")
-     */
+    #[Route(path: '/{account}/list/{id}/edit', name: 'shopping_account_list_edit', methods: 'GET|POST')]
     public function edit(Request $request, Account $account, ShoppingList $list): Response
     {
         $form = $this->createForm(ShoppingListType::class, $list);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $this->entityManager->flush();
 
-            return $this->redirectToRoute('shopping_account_list_edit', ['id' => $list->getId()]);
+            return $this->redirectToRoute('shopping_account_list_edit', ['account' => $account->getId(), 'id' => $list->getId()]);
         }
 
         return $this->render('shopping_list/edit.html.twig', [
@@ -282,24 +248,19 @@ class ShoppingListController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{account}/list/{id}", name="shopping_account_list_delete", methods="DELETE")
-     */
+    #[Route(path: '/{account}/list/{id}', name: 'shopping_account_list_delete', methods: 'DELETE')]
     public function delete(Request $request, ShoppingList $list): Response
     {
         if ($this->isCsrfTokenValid('delete'.$list->getId(), $request->request->get('_token'))) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($list);
-            $em->flush();
+            $this->entityManager->remove($list);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('shopping_list_index');
     }
 
-    /**
-     * @Route("/list/{id}/log", name="shopping_list_log", methods="GET")
-     * @Route("/{account}/list/{id}/log", name="shopping_account_list_log", methods="GET")
-     */
+    #[Route(path: '/list/{id}/log', name: 'shopping_list_log', methods: 'GET')]
+    #[Route(path: '/{account}/list/{id}/log', name: 'shopping_account_list_log', methods: 'GET')]
     public function log(ShoppingList $list, Account $account = null): Response
     {
         return $this->render('shopping_list/log.html.twig', [
@@ -308,10 +269,8 @@ class ShoppingListController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/list/{id}/item/add", name="shopping_list_add_item", methods="POST")
-     * @Route("/{account}/list/{id}/item/add", name="shopping_account_list_add_item", methods="POST")
-     */
+    #[Route(path: '/list/{id}/item/add', name: 'shopping_list_add_item', methods: 'POST')]
+    #[Route(path: '/{account}/list/{id}/item/add', name: 'shopping_account_list_add_item', methods: 'POST')]
     public function addItem(Request $request, ShoppingList $list, ShoppingListItemManager $itemManager, Account $account = null): RedirectResponse
     {
         $name = $request->request->get('name');
@@ -333,11 +292,10 @@ class ShoppingListController extends AbstractController
     }
 
     /**
-     * @Route("/list/{id}/items/add", name="shopping_list_add_items", methods="GET|POST")
-     * @Route("/{account}/list/{id}/items/add", name="shopping_account_list_add_items", methods="GET|POST")
-     *
      * @return RedirectResponse|Response
      */
+    #[Route(path: '/list/{id}/items/add', name: 'shopping_list_add_items', methods: 'GET|POST')]
+    #[Route(path: '/{account}/list/{id}/items/add', name: 'shopping_account_list_add_items', methods: 'GET|POST')]
     public function addItems(Request $request, ShoppingList $list, Account $account = null)
     {
         $form = $this->createForm(ShoppingListAddItemsType::class, null, [
@@ -346,23 +304,18 @@ class ShoppingListController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var ShoppingListItem[] $items */
+            /** @var Collection|ShoppingListItem[] $items */
             $items = $form->get('items')->getData();
-
             foreach ($items as $item) {
                 $item->setDoneAt(null);
                 $list->addItem($item);
             }
 
-            $existingItems = $items->filter(static function (ShoppingListItem $item) {
-                return null !== $item->getId();
-            });
-            $newItems = $items->filter(static function (ShoppingListItem $item) {
-                return null === $item->getId();
-            });
+            $existingItems = $items->filter(static fn (ShoppingListItem $item) => null !== $item->getId());
+            $newItems = $items->filter(static fn (ShoppingListItem $item) => null === $item->getId());
 
-            $this->getDoctrine()->getManager()->persist($list);
-            $this->getDoctrine()->getManager()->flush();
+            $this->entityManager->persist($list);
+            $this->entityManager->flush();
 
             $this->info('Items added; %count_existing% existing; %count_new% new', [
                 '%count_existing%' => \count($existingItems),
