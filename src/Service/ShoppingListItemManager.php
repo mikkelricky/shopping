@@ -92,16 +92,19 @@ class ShoppingListItemManager
         $this->entityManager->flush();
     }
 
+    /**
+     * Parse item name into name and quantity, e.g.
+     * '2 l milk' => ['milk', '2 l']
+     * '3 French hens' => ['French hens', '3']
+     */
     private function parseName(string $name): array
     {
-        $quantity = null;
-
         $tokens = preg_split('/\s+/', $name, 3);
 
         // Quantity
-        if ((\count($tokens) > 1) && preg_match('/(?:\d*[,.])?\d+/', $tokens[0])) {
-            $quantity = array_shift($tokens);
-        }
+        $quantity = (\count($tokens) > 1) && preg_match('/^(\d*[,.])?\d+$/', $tokens[0])
+                  ? array_shift($tokens)
+                  : null;
 
         // Unit
         $units = [

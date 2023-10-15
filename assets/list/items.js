@@ -20,6 +20,29 @@ $(() => {
       })
     })
 
+  // @see \App\Service\ShoppingListItemManager\parseName
+  const parseName = (name) => {
+    const tokens = name.split(/\s+/, 3)
+
+    let quantity = (tokens.length > 1) && /^(\d*[,.])?\d+$/.test(tokens[0])
+      ? tokens.shift()
+      : null
+
+    const units = [
+      'l', 'liter', 'litre', 'litres',
+      'kg', 'kilo', 'kilos',
+      'g', 'gram', 'grams'
+    ]
+    if (quantity !== null && tokens.length > 1 &&
+        units.includes(tokens[0].toLowerCase())) {
+      quantity += ' ' + tokens.shift()
+    }
+
+    name = tokens.join(' ').trim()
+
+    return [name, quantity]
+  }
+
   const el = document.getElementById('shopping_list_create_item_name')
   if (el) {
     try {
@@ -29,26 +52,14 @@ $(() => {
       const substringMatcher = (strs) => {
         return function findMatches (q, cb) {
           // an array that will be populated with substring matches
-          const matches = []
 
-          q = q
-          // Remove any leading numbers.
-            .replace(/^[0-9]+/, '')
-          // Trim
-            .trim()
+          const [name, quantity] = parseName(q)
 
-          // regex used to determine if a string contains the substring `q`
-          const substrRegex = new RegExp(q, 'i')
-
-          // iterate through the pool of strings and for any string that
-          // contains the substring `q`, add it to the `matches` array
-          $.each(strs, (i, str) => {
-            if (substrRegex.test(str)) {
-              matches.push(str)
-            }
-          })
-
-          cb(matches)
+          cb(
+            strs
+              .filter(str => str.includes(name))
+              .map(name => quantity ? quantity + ' ' + name : name)
+          )
         }
       }
 

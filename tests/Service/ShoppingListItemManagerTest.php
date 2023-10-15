@@ -40,6 +40,9 @@ class ShoppingListItemManagerTest extends KernelTestCase
         return [
             ['Noget med et meget langt navn', ['Noget med et meget langt navn', null]],
 
+            ['2 l milk', ['milk', '2 l']],
+            ['3 French hens', ['French hens', '3']],
+
             ['7 æbler', ['æbler', '7']],
 
             ['2 l mælk', ['mælk', '2 l']],
@@ -54,10 +57,15 @@ class ShoppingListItemManagerTest extends KernelTestCase
             ['500 grams flour', ['flour', '500 grams']],
 
             ['2 lime med skal', ['lime med skal', '2']],
+            ['2 lime med skal ', ['lime med skal', '2']],
+            ['2  lime med skal ', ['lime med skal', '2']],
 
             ['luft ', ['luft', null]],
             [' luft ', ['luft', null]],
             [' luft', ['luft', null]],
+
+            ['2 l ', ['', '2 l']],
+            ['2 li ', ['li', '2']],
         ];
     }
 }
