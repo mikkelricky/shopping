@@ -25,6 +25,14 @@ docker compose run --rm node yarn build
 docker compose run --rm node yarn watch
 ```
 
+## Fixtures
+
+```sh
+docker compose exec phpfpm bin/console hautelook:fixtures:load
+# or (for the impatient, but brave):
+docker compose exec phpfpm bin/console hautelook:fixtures:load --no-interaction
+```
+
 ## Coding standards
 
 ```sh
