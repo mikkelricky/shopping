@@ -19,7 +19,7 @@ class Rema1000 implements StoreFetcherInterface
         $client = HttpClient::create();
 
         $response = $client->request('GET', 'https://rema1000.dk/wp-content/themes/rema1000/get_stores.php');
-        $items = json_decode($response->getContent(), true);
+        $items = $response->toArray();
 
         $locations = array_map(static function (array $item) {
             return [

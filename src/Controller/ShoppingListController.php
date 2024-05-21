@@ -213,7 +213,7 @@ class ShoppingListController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('shopping_list_edit', ['list' => $list->getId()]);
+            return $this->redirectToRoute('shopping_account_list_edit', ['list' => $list->getId()]);
         }
 
         return $this->render('shopping_list/edit.html.twig', [

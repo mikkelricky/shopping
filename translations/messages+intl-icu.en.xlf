@@ -331,7 +331,7 @@
       </trans-unit>
       <trans-unit id="lP9yvfR" resname="filter.store">
         <source>filter.store</source>
-        <target state="translated">store</target>
+        <target>store</target>
       </trans-unit>
       <trans-unit id="Xaj3_8K" resname="Back to list">
         <source>Back to list</source>
@@ -356,6 +356,22 @@
       <trans-unit id="8Wi7Fhc" resname="Create new store">
         <source>Create new store</source>
         <target>Create new store</target>
+      </trans-unit>
+      <trans-unit id="TpOnMXp" resname="Store {name} created">
+        <source>Store {name} created</source>
+        <target>Store {name} created</target>
+      </trans-unit>
+      <trans-unit id="q2oWS_D" resname="Edit account">
+        <source>Edit account</source>
+        <target>Edit account</target>
+      </trans-unit>
+      <trans-unit id="fhsNVkH" resname="Account">
+        <source>Account</source>
+        <target>Account</target>
+      </trans-unit>
+      <trans-unit id="lcYRcDG" resname="Locations">
+        <source>Locations</source>
+        <target>Locations</target>
       </trans-unit>
     </body>
   </file>
