@@ -21,7 +21,7 @@
                     <a href="{{ path('shopping_account_list_items', {account: account.id, id: list.id}) }}">{{ list.name }}</a>
                 </td>
                 <td>{{ list.description }}</td>
-                <td>{{ list.undoneItems|length }}/{{ list.items|length }}</td>
+                <td>{{ list.notDoneItems|length }}/{{ list.items|length }}</td>
                 <td>
                     <a class="btn btn-light" href="{{ path_with_referer('shopping_account_list_items', {account: account.id, id: list.id}) }}">
                         {{ icon('list') }}

@@ -176,7 +176,7 @@ class ShoppingListController extends AbstractController
         return $this->renderForm('shopping_list/items.html.twig', [
             'account' => $account,
             'list' => $list,
-            'undone_items' => $this->listManager->applyFilter($list->getUndoneItems(), $filter, $order)->getValues(),
+            'not_done_items' => $this->listManager->applyFilter($list->getNotDoneItems(), $filter, $order)->getValues(),
             'done_items' => $this->listManager->applyFilter($list->getDoneItems(), $filter, $order)->getValues(),
             'filter' => $filter,
             'add_item_form' => $form,
