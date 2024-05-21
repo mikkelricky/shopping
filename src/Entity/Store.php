@@ -49,7 +49,7 @@ class Store implements TimestampableInterface
     private $account;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Location", mappedBy="store", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Location", mappedBy="store", cascade={"persist"}, orphanRemoval=true)
      */
     private $locations;
 
