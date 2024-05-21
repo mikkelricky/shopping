@@ -43,7 +43,7 @@ class AppExtension extends AbstractExtension
 
     public function icon($name = 'stroopwafel'): string
     {
-        return '<span class="fas fa-'.$name.'"></span>';
+        return '<span class="bi-'.$name.'"></span>';
     }
 
     public function getPathWithReferer(string $route, array $parameters = []): string
