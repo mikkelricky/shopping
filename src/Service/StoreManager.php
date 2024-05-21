@@ -73,7 +73,7 @@ class StoreManager implements LoggerAwareInterface
                                 && $l->getLongitude() === $location->getLongitude();
                         });
                         // Keep existing location or add new.
-                        $store->addLocation($existingLocations->first() ? $existingLocations->first() : $location);
+                        $store->addLocation($existingLocations->first() ?: $location);
                     }
                     $this->entityManager->persist($store);
                 }
@@ -84,7 +84,7 @@ class StoreManager implements LoggerAwareInterface
         }
     }
 
-    private function configureOptions(OptionsResolver $resolver)
+    private function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setRequired([
@@ -105,7 +105,7 @@ class StoreManager implements LoggerAwareInterface
             });
     }
 
-    public function log($level, $message, array $context = [])
+    public function log($level, $message, array $context = []): void
     {
         if (null !== $this->logger) {
             $this->logger->log($level, $message, $context);

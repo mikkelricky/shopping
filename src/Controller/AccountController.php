@@ -13,6 +13,7 @@ namespace App\Controller;
 use App\Entity\Account;
 use App\Form\Type\AccountType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -30,7 +31,7 @@ class AccountController extends AbstractController
     /**
      * @Route("/", name="show")
      */
-    public function show(Account $account)
+    public function show(Account $account): Response
     {
         return $this->render('account/show.html.twig', [
             'account' => $account,

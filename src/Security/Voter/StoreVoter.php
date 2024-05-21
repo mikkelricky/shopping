@@ -39,8 +39,8 @@ class StoreVoter extends Voter
     {
         switch ($attribute) {
             case self::EDIT:
-                $request = $this->requestStack->getCurrentRequest();
-                $account = $this->requestStack->getCurrentRequest();
+                // $request = $this->requestStack->getCurrentRequest();
+                // $account = $this->requestStack->getCurrentRequest();
                 // logic to determine if the user can EDIT
                 // return true or false
                 break;

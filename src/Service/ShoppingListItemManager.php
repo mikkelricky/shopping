@@ -40,14 +40,14 @@ class ShoppingListItemManager
      *
      * @return ShoppingListItem
      */
-    public function getItem(ShoppingList $list, string $name)
+    public function getItem(ShoppingList $list, string $name): ShoppingListItem
     {
         $items = $this->getItems($list, [$name]);
 
         return ($items && \count($items) > 0) ? $items[0] : null;
     }
 
-    public function addToList($item, ShoppingList $list)
+    public function addToList($item, ShoppingList $list): ShoppingListItem
     {
         if (!$item instanceof ShoppingListItem) {
             $item = $this->getItem($list, $item);
@@ -66,7 +66,7 @@ class ShoppingListItemManager
      *
      * @return Collection
      */
-    public function getItems(ShoppingList $list, array $names)
+    public function getItems(ShoppingList $list, array $names): Collection
     {
         $items = new ArrayCollection();
 
@@ -84,7 +84,7 @@ class ShoppingListItemManager
         return $items;
     }
 
-    public function setDone(ShoppingListItem $item)
+    public function setDone(ShoppingListItem $item): void
     {
         $logEntry = new ShoppingListItemLogEntry($item);
         $this->entityManager->persist($logEntry);
@@ -95,14 +95,14 @@ class ShoppingListItemManager
         $this->entityManager->flush();
     }
 
-    public function setUndone(ShoppingListItem $item)
+    public function setUndone(ShoppingListItem $item): void
     {
         $item->setDoneAt(null);
         $this->entityManager->persist($item);
         $this->entityManager->flush();
     }
 
-    private function parseName(string $name)
+    private function parseName(string $name): array
     {
         $quantity = null;
 

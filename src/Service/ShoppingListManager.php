@@ -42,7 +42,7 @@ class ShoppingListManager
         $this->twig = $twig;
     }
 
-    public function notifyListCreated(ShoppingList $list)
+    public function notifyListCreated(ShoppingList $list): void
     {
         $message = (new Email())
             ->subject('Shopping list created')
@@ -53,7 +53,7 @@ class ShoppingListManager
         $this->send($message, $list->getAccount()->getEmail());
     }
 
-    public function recoverLists(string $email)
+    public function recoverLists(string $email): bool
     {
         $account = $this->accountRepository->findOneByEmail($email);
         if (null !== $account) {
@@ -69,7 +69,7 @@ class ShoppingListManager
         return true;
     }
 
-    public function shareList(ShoppingList $list, string $email, array $data = [])
+    public function shareList(ShoppingList $list, string $email, array $data = []): bool
     {
         $message = (new Email())
             ->subject('Shared shopping list')
@@ -83,7 +83,7 @@ class ShoppingListManager
         return true;
     }
 
-    public function applyFilter(Collection $items, array $filter = null)
+    public function applyFilter(Collection $items, array $filter = null): Collection
     {
         return $items->filter(static function (ShoppingListItem $item) use ($filter) {
             if (null === $filter) {
@@ -105,7 +105,7 @@ class ShoppingListManager
         });
     }
 
-    private function send(Email $email, $addresses)
+    private function send(Email $email, $addresses): void
     {
         $from = new Address($this->from['address'], $this->from['name'] ?? '');
         $email
