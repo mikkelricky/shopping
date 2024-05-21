@@ -85,7 +85,7 @@ class ShoppingListManager
 
     public function applyFilter(Collection $items, array $filter = null)
     {
-        return $items->filter(function (ShoppingListItem $item) use ($filter) {
+        return $items->filter(static function (ShoppingListItem $item) use ($filter) {
             if (null === $filter) {
                 return true;
             }

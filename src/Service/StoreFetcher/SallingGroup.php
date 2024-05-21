@@ -13,6 +13,7 @@ namespace App\Service\StoreFetcher;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\HttpClient\ResponseInterface;
+use function GuzzleHttp\Psr7\parse_header;
 
 class SallingGroup implements StoreFetcherInterface
 {
@@ -96,7 +97,7 @@ class SallingGroup implements StoreFetcherInterface
         if (!isset($headers['link'])) {
             return null;
         }
-        $data = \GuzzleHttp\Psr7\parse_header(reset($headers['link']));
+        $data = parse_header(reset($headers['link']));
 
         $links = [];
 
