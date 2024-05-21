@@ -17,25 +17,17 @@ use Twig\TwigFunction;
 
 class AppExtension extends AbstractExtension
 {
-    /** @var RequestStack */
-    private $requestStack;
-
-    /** @var RouterInterface */
-    private $router;
-
-    public function __construct(RequestStack $requestStack, RouterInterface $router)
+    public function __construct(private readonly RequestStack $requestStack, private readonly RouterInterface $router)
     {
-        $this->requestStack = $requestStack;
-        $this->router = $router;
     }
 
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('current_path', [$this, 'currentPath'], ['is_safe' => ['all']]),
-            new TwigFunction('icon', [$this, 'icon'], ['is_safe' => ['all']]),
-            new TwigFunction('path_with_referer', [$this, 'getPathWithReferer']),
-            new TwigFunction('path_from_referer', [$this, 'getPathFromReferer']),
+            new TwigFunction('current_path', $this->currentPath(...), ['is_safe' => ['all']]),
+            new TwigFunction('icon', $this->icon(...), ['is_safe' => ['all']]),
+            new TwigFunction('path_with_referer', $this->getPathWithReferer(...)),
+            new TwigFunction('path_from_referer', $this->getPathFromReferer(...)),
         ];
     }
 

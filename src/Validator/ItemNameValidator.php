@@ -20,7 +20,7 @@ class ItemNameValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
-        /* @var $constraint \App\Validator\ItemName */
+        \assert($constraint instanceof ItemName);
 
         if (empty($value) || is_numeric($value)) {
             $this->context->buildViolation($constraint->message)

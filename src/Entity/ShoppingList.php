@@ -10,39 +10,36 @@
 
 namespace App\Entity;
 
+use App\Repository\ShoppingListRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Uid\Uuid;
 
-
 #[ORM\Table(name: 'shopping_shopping_list')]
-#[ORM\Entity(repositoryClass: 'App\Repository\ShoppingListRepository')]
-class ShoppingList
+#[ORM\Entity(repositoryClass: ShoppingListRepository::class)]
+class ShoppingList implements \Stringable
 {
     use TimestampableEntity;
 
-    
     #[ORM\Id]
     #[ORM\Column(type: 'uuid', unique: true)]
-    private $id;
+    private ?Uuid $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $name;
+    private ?string $name = null;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    private $description;
+    private ?string $description = null;
 
-    
-    #[ORM\ManyToOne(targetEntity: 'App\Entity\Account', inversedBy: 'lists')]
+    #[ORM\ManyToOne(targetEntity: Account::class, inversedBy: 'lists')]
     #[ORM\JoinColumn(nullable: false)]
-    private $account;
+    private ?Account $account = null;
 
-    
-    #[ORM\OneToMany(targetEntity: 'App\Entity\ShoppingListItem', mappedBy: 'list', cascade: ['persist'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: ShoppingListItem::class, mappedBy: 'list', cascade: ['persist'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
-    private $items;
+    private Collection $items;
 
     public function __construct()
     {
@@ -52,7 +49,7 @@ class ShoppingList
 
     public function __toString(): string
     {
-        return $this->name ?? self::class;
+        return (string) ($this->name ?? self::class);
     }
 
     public function getId(): ?Uuid
@@ -103,16 +100,12 @@ class ShoppingList
 
     public function getDoneItems(): Collection
     {
-        return $this->getItems()->filter(static function (ShoppingListItem $item) {
-            return $item->isDone();
-        });
+        return $this->getItems()->filter(static fn (ShoppingListItem $item) => $item->isDone());
     }
 
     public function getUndoneItems(): Collection
     {
-        return $this->getItems()->filter(static function (ShoppingListItem $item) {
-            return !$item->isDone();
-        });
+        return $this->getItems()->filter(static fn (ShoppingListItem $item) => !$item->isDone());
     }
 
     public function addItem(ShoppingListItem $item): self

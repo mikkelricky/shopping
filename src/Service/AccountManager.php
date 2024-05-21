@@ -16,16 +16,8 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class AccountManager
 {
-    /** @var AccountRepository */
-    private $accountRepository;
-
-    /** @var EntityManagerInterface */
-    private $entityManager;
-
-    public function __construct(AccountRepository $accountRepository, EntityManagerInterface $entityManager)
+    public function __construct(private readonly AccountRepository $accountRepository, private readonly EntityManagerInterface $entityManager)
     {
-        $this->accountRepository = $accountRepository;
-        $this->entityManager = $entityManager;
     }
 
     /**

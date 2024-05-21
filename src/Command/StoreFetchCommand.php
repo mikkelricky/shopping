@@ -20,13 +20,9 @@ class StoreFetchCommand extends Command
 {
     protected static $defaultName = 'app:store:fetch';
 
-    /** @var StoreManager */
-    private $storeManager;
-
-    public function __construct(StoreManager $storeManager)
+    public function __construct(private readonly StoreManager $storeManager)
     {
         parent::__construct();
-        $this->storeManager = $storeManager;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
