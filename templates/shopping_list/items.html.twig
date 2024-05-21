@@ -125,10 +125,15 @@
 
     {{ form_start(add_item_form) }}
         <div class="input-group my-3">
-            {{ form_widget(add_item_form.name) }}
+            {{ form_widget(add_item_form.name, {attr: {list: 'done-items-names'}}) }}
             <div class="input-group-append">
                 <button type="submit" class="btn btn-primary">{{ 'Add item'|trans }}</button>
             </div>
         </div>
+        <datalist id="done-items-names">
+            {% for item in done_items %}
+                <option value="{{ item.name }}">
+            {% endfor %}
+        </datalist>
     {{ form_end(add_item_form) }}
 {% endblock %}
