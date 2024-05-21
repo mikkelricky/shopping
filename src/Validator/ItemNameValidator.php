@@ -15,6 +15,9 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class ItemNameValidator extends ConstraintValidator
 {
+    /**
+     * @return void
+     */
     public function validate($value, Constraint $constraint)
     {
         /* @var $constraint \App\Validator\ItemName */

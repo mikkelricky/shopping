@@ -121,7 +121,7 @@ class Location
         return $this;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->address ?? self::class;
     }

@@ -69,9 +69,6 @@ class Account
         return $this;
     }
 
-    /**
-     * @return Collection|ShoppingList[]
-     */
     public function getLists(): Collection
     {
         return $this->lists;
@@ -100,9 +97,6 @@ class Account
         return $this;
     }
 
-    /**
-     * @return Collection|Store[]
-     */
     public function getStores(): Collection
     {
         return $this->stores;

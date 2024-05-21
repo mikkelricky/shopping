@@ -21,8 +21,8 @@ class ShoppingListItemManagerTest extends KernelTestCase
     public function testParseName($name, $expected)
     {
         self::bootKernel();
-
-        $service = self::$container->get(ShoppingListItemManager::class);
+        $container = static::getContainer();
+        $service = $container->get(ShoppingListItemManager::class);
         $method = new \ReflectionMethod($service, 'parseName');
         $method->setAccessible(true);
         $actual = $method->invoke($service, $name);

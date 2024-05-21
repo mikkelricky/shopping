@@ -23,6 +23,7 @@ use App\Repository\ShoppingListRepository;
 use App\Service\FlashActionManager;
 use App\Service\ShoppingListItemManager;
 use App\Service\ShoppingListManager;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -344,9 +345,8 @@ class ShoppingListController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var ShoppingListItem[] $items */
+            /** @var Collection|ShoppingListItem[] $items */
             $items = $form->get('items')->getData();
-
             foreach ($items as $item) {
                 $item->setDoneAt(null);
                 $list->addItem($item);

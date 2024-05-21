@@ -14,14 +14,15 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
-use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 #[AsCommand(
@@ -50,11 +51,30 @@ class UserPasswordCommand extends Command
         $password = $input->getOption('password');
 
         if (empty($password)) {
-            throw new RuntimeException('Missing option --password');
+            $helper = $this->getHelper('question');
+
+            $question = new Question(sprintf('Password for %s? ', $identifier));
+            $question->setHidden(true);
+            $question->setHiddenFallback(false);
+            $question->setValidator(function ($answer) {
+                if (empty($answer)) {
+                    throw new \RuntimeException(
+                            'The password cannot be empty'
+                        );
+                    }
+
+                    return $answer;
+                });
+
+            $password = $helper->ask($input, $output, $question);
         }
 
-        try {
+        if (empty($password)) {
+        }
+
+            try {
             $user = $this->userProvider->loadUserByIdentifier($identifier);
+            assert($user instanceof PasswordAuthenticatedUserInterface);
             $user->setPassword($this->passwordHasher->hashPassword(
                 $user,
                 $password
@@ -68,6 +88,6 @@ class UserPasswordCommand extends Command
             throw new InvalidArgumentException(sprintf('User with identifier %s does not exist', $identifier));
         }
 
-        return Command::SUCCESS;
+        return static::SUCCESS;
     }
 }

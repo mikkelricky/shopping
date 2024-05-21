@@ -58,7 +58,7 @@ class Store
         $this->locations = new ArrayCollection();
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->name ?? self::class;
     }
@@ -104,9 +104,6 @@ class Store
         return $this;
     }
 
-    /**
-     * @return Collection|Location[]
-     */
     public function getLocations(): Collection
     {
         return $this->locations;

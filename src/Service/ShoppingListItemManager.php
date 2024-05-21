@@ -38,13 +38,16 @@ class ShoppingListItemManager
      *
      * If no account with the given email exists, one will be created.
      */
-    public function getItem(ShoppingList $list, string $name): ShoppingListItem
+    public function getItem(ShoppingList $list, string $name): ?ShoppingListItem
     {
         $items = $this->getItems($list, [$name]);
 
         return ($items && \count($items) > 0) ? $items[0] : null;
     }
 
+    /**
+     * @param null|scalar $item
+     */
     public function addToList($item, ShoppingList $list): ShoppingListItem
     {
         if (!$item instanceof ShoppingListItem) {
