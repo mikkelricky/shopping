@@ -1,0 +1,39 @@
+<div id="settings">
+    <button id="settings-toggle" type="button" class="btn" data-toggle="modal" data-target="#settings-modal" title="{{ 'Settings'|trans }}">
+        <span class="fas fa-cog"></span>
+    </button>
+
+    <div class="modal fade" id="settings-modal" tabindex="-1" role="dialog" aria-labelledby="settings-modal-label" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="settings-modal-label">{{ 'Settings'|trans }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {#{ icon('language') }#}
+                    {{ 'Language'|trans }}
+
+                    {% set current_locale = app.request.attributes.get('_route_params')['_locale']|default('en') %}
+
+                    <div class="btn-group" role="group" aria-label="Language">
+                    {% for name, locale in {
+                        'Dansk': 'da',
+                        'English': 'en'
+                        } %}
+                        <a class="btn {{ locale == current_locale ? 'btn-primary' : 'btn-secondary' }}" href="{{ current_path({'_locale': locale}) }}">{{ name }} ({{ locale }})</a>
+                    {% endfor %}
+                    </div>
+                </div>
+                {#
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ 'Close'|trans }}</button>
+                    <button type="submit" class="btn btn-primary">{{ 'Apply settings'|trans }}</button>
+                </div>
+                #}
+            </div>
+        </div>
+    </div>
+</div>

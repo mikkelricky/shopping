@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'Shopping list %list%'|trans({'%list%': list.name}) }}{% endblock %}
+{% block title %}{{ 'Shopping list {name}'|trans({'name': list.name}) }}{% endblock %}
 
 {% macro item_done(item) %}
     <form method="post" action="{{ path('shopping_list_item_done', app.request.query.all|merge({item: item.id})) }}" class="single-action">
@@ -37,7 +37,7 @@
                 {% if item.quantity %}
                     <span class="item-quantity">({{ item.quantity }})</span>
                 {% endif %}
-                {% if item.doneAt %}<br/><small>{{ 'Item done at %done_at%'|trans({'%done_at%': item.doneAt|date}) }}</small>{% endif %}
+                {% if item.doneAt %}<br/><small>{{ 'Item done on {done_at, date, full} at {done_at, time, short}'|trans({'done_at': item.doneAt}) }}</small>{% endif %}
             </div>
             <div class="px-2 ml-auto item-store">
                 {% if item.store %}
@@ -93,15 +93,11 @@
     {% if done_items|length > 0 %}
         {% if current_display != 'all' %}
             <a class="btn btn-light btn-block" href="{{ _self.current_path({display: 'all'}) }}">
-                {% transchoice done_items|length %}
-                {1} Show one done item|[0,Inf[ Show %count% done items
-                {% endtranschoice %}
+                {{ '{count, plural, one {Show one done item.} other {Show # done items.}}'|trans({'count': done_items|length}) }}
             </a>
         {% else %}
             <a class="btn btn-light btn-block" href="{{ _self.current_path({display: null}) }}">
-                {% transchoice done_items|length %}
-                {1} Hide one done item|[0,Inf[ Hide %count% done items
-                {% endtranschoice %}
+                {{ '{count, plural, one {Hide one done item.} other {Hide # done items.}}'|trans({'count': done_items|length}) }}
             </a>
         {% endif %}
     {% endif %}

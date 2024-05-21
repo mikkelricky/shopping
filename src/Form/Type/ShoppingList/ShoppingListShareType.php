@@ -3,7 +3,7 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2019 Mikkel Ricky
+ * (c) 2018–2020 Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
@@ -22,10 +22,12 @@ class ShoppingListShareType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
-                'label' => 'E-mail',
+                'label' => 'E-mail address',
+                'help' => 'Enter address of the person you want to share your shopping list with.',
             ])
             ->add('sender', TextType::class, [
                 'required' => false,
+//                'help' => ''
             ])
             ->add('message', TextareaType::class, [
                 'required' => false,

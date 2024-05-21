@@ -5,12 +5,14 @@
 {% block body %}
     <h1>{{ 'Find shopping lists'|trans }}</h1>
 
+    <p>{{ 'Enter your e-mail address and we\'ll send information on how to find your shopping lists.'|trans }}</p>
+
     {{ form_start(form) }}
         {{ form_rest(form) }}
 
         <div class="buttons">
             <a classs="btn btn-link" href="{{ path('shopping_list_index') }}">{{ 'Cancel'|trans }}</a>
-            <button class="btn btn-primary">{{ 'Recover'|trans }}</button>
+            <button class="btn btn-primary">{{ 'Recover my shopping lists'|trans }}</button>
         </div>
     {{ form_end(form) }}
 {% endblock %}

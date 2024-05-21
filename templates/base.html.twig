@@ -45,6 +45,9 @@
                         {% endfor %}
                     </div>
                 {% endblock %}
+                {% block settings %}
+                    {% include '_settings.html.twig' %}
+                {% endblock %}
                 {% block body %}{% endblock %}
 			</div>
 		{% endblock %}
