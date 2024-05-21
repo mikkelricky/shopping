@@ -2,19 +2,18 @@
 
 ```sh
 docker-compose up -d
-# https://github.com/dunglas/symfony-docker#editing-permissions-on-linux
-docker-compose exec phpfpm chown -R daemon /app/var
+symfony local:server:start
 ```
 
 ```sh
-docker-compose exec phpfpm composer install
-docker-compose exec phpfpm bin/console doctrine:migrations:migrate --no-interaction
+composer install
+bin/console doctrine:migrations:migrate --no-interaction
 ```
 
 ```sh
 # Force the default translations to use ICU MessageFormat
-docker-compose exec phpfpm bin/console translation:update --force en --prefix=''
-docker-compose exec phpfpm bin/console translation:update --force da
+bin/console translation:update --force en --prefix=''
+bin/console translation:update --force da
 ```
 
 
