@@ -49,7 +49,8 @@ $(() => {
           },
           {
             name: 'items',
-            source: substringMatcher(items)
+            source: substringMatcher(items),
+            limit: 1000
           })
     } catch (ex) {
       // console.log(ex)
