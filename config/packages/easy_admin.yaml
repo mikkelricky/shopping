@@ -25,3 +25,8 @@ easy_admin:
             list:
                 title: Stores
                 sort: ['name', 'ASC']
+
+            form:
+                fields:
+                    - property: name
+                    - property: description
