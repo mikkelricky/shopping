@@ -2,38 +2,39 @@
 
 ```sh
 docker compose up --detach
-symfony local:server:start
+open "http://$(docker compose port nginx 8080)"
+open "http://$(docker compose port mailhog 8025)"
 ```
 
 ```sh
-symfony composer install
-symfony console doctrine:migrations:migrate --no-interaction
+docker compose exec phpfpm composer install
+docker compose exec phpfpm bin/console doctrine:migrations:migrate --no-interaction
 ```
 
 ```sh
-symfony composer update-translations
+docker compose exec phpfpm composer update-translations
 ```
 
 ```sh
-docker run --volume ${PWD}:/app --workdir /app --tty --interactive node:latest yarn install
-docker run --volume ${PWD}:/app --workdir /app --tty --interactive node:latest yarn build
-docker run --volume ${PWD}:/app --workdir /app --tty --interactive node:latest yarn watch
+docker compose run --rm node yarn install
+docker compose run --rm node yarn build
+docker compose run --rm node yarn watch
 ```
 
 ## Coding standards
 
 ```sh
-symfony composer coding-standards-check
+docker compose exec phpfpm composer coding-standards-check
 ```
 
 ```sh
-symfony composer coding-standards-apply
+docker compose exec phpfpm composer coding-standards-apply
 ```
 
 ```sh
-docker run --volume ${PWD}:/app --workdir /app --tty --interactive node:latest yarn coding-standards-check
+docker compose run --rm node yarn coding-standards-check
 ```
 
 ```sh
-docker run --volume ${PWD}:/app --workdir /app --tty --interactive node:latest yarn coding-standards-apply
+docker compose run --rm node yarn coding-standards-apply
 ```
