@@ -1,0 +1,9 @@
+{% if data.sender|default(false) %}
+{{ '%sender% has shared the shopping list %list% with you.'|trans({'%sender%': data.sender, '%list%': list.name}) }}
+{% else %}
+{{ 'You now have access to the shopping list %list%.'|trans({'%list%': list.name}) }}
+{% endif %}
+
+{{ 'Go to %url% and start shopping!'|trans({'%url%': url('shopping_list_items', {list: list.id})}) }}
+
+{{ data.message|default('') }}

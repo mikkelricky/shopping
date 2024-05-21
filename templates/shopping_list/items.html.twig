@@ -1,0 +1,123 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Shopping list %list%'|trans({'%list%': list.name}) }}{% endblock %}
+
+{% macro item_done(item) %}
+    <form method="post" action="{{ path('shopping_list_item_done', app.request.query.all|merge({item: item.id})) }}" class="single-action">
+        <input type="hidden" name="_method" value="PUT">
+        <input type="hidden" name="_token" value="{{ csrf_token('item_done' ~ item.id) }}">
+        <button class="btn btn-light">{{ icon('square') }}</button>
+    </form>
+{% endmacro %}
+
+{% macro item_undone(item) %}
+    <form method="post" action="{{ path('shopping_list_item_done', app.request.query.all|merge({item: item.id})) }}" class="single-action">
+        <input type="hidden" name="_method" value="PUT">
+        <input type="hidden" name="_token" value="{{ csrf_token('item_done_undo' ~ item.id) }}">
+        <button class="btn btn-light">{{ icon('check-square') }}</button>
+    </form>
+{% endmacro %}
+
+{% macro current_path(parameters = {}) %}
+    {{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge(app.request.query.all|merge(parameters))) }}
+{% endmacro %}
+
+{% macro show_items(items) %}
+    {% for item in items %}
+        <div class="d-flex my-3 justify-content-between align-items-baseline">
+            <div class="item-state">
+                {% if item.doneAt %}
+                    <span class="item-done">{{ _self.item_undone(item) }}</span>
+                {% else %}
+                    <span class="item-done">{{ _self.item_done(item) }}</span>
+                {% endif %}
+            </div>
+            <div class="item-name">
+                {{ item.name }}
+                {% if item.quantity %}
+                    <span class="item-quantity">({{ item.quantity }})</span>
+                {% endif %}
+                {% if item.doneAt %}<br/><small>{{ 'Item done at %done_at%'|trans({'%done_at%': item.doneAt|date}) }}</small>{% endif %}
+            </div>
+            <div class="px-2 ml-auto item-store">
+                {% if item.store %}
+                    <a href="{{ _self.current_path({filter: {store: item.store.id}}) }}">{{ item.store.name }}</a>
+                {% endif %}
+            </div>
+            <div class="item-actions">
+                <div class="dropdown">
+                    <a class="btn btn-light" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ icon('ellipsis-v') }}
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="{{ path('shopping_list_item_edit', {item: item.id}) }}">{{ 'Edit'|trans }}</a>
+                        <a class="dropdown-item" href="{{ path('shopping_list_item_log', {item: item.id}) }}">{{ 'Show log'|trans }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endmacro %}
+
+{% block body %}
+    {% import 'shopping_list/_helpers.html.twig' as helper %}
+
+    {% set current_display = app.request.get('display')|default('undone') %}
+
+    <h1>
+        {{ helper.account_home(account) }}
+        {{ list.name }}
+    </h1>
+
+    {% if filter %}
+        <div class="alert alert-info">
+            <div class="d-flex justify-content-between align-items-baseline">
+                <div class="message">{{ 'Filter applied'|trans }}</a></div>
+                <a href="{{ _self.current_path({filter: null}) }}">{{ 'Clear filter'|trans }}</a>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if undone_items|length > 0 %}
+        {{ _self.show_items(undone_items) }}
+    {% else %}
+        <div class="alert alert-success">
+            {{ 'Woohoo! No undone items.'|trans }}
+            {% if done_items|length > 0 %}
+                <a href="{{ _self.current_path({display: 'all'}) }}">{{ 'Show all items'|trans }}</a>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {% if done_items|length > 0 %}
+        {% if current_display != 'all' %}
+            <a class="btn btn-light btn-block" href="{{ _self.current_path({display: 'all'}) }}">
+                {% transchoice done_items|length %}
+                {1} Show one done item|[0,Inf[ Show %count% done items
+                {% endtranschoice %}
+            </a>
+        {% else %}
+            <a class="btn btn-light btn-block" href="{{ _self.current_path({display: null}) }}">
+                {% transchoice done_items|length %}
+                {1} Hide one done item|[0,Inf[ Hide %count% done items
+                {% endtranschoice %}
+            </a>
+        {% endif %}
+    {% endif %}
+
+    {% if current_display == 'all' %}
+        {% if done_items|length > 0 %}
+            {{ _self.show_items(done_items) }}
+        {% endif %}
+    {% endif %}
+
+    {{ form_start(add_item_form) }}
+        <div class="input-group my-3">
+            {{ form_widget(add_item_form.name) }}
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-primary">{{ 'Add item'|trans }}</button>
+            </div>
+        </div>
+    {{ form_end(add_item_form) }}
+{% endblock %}

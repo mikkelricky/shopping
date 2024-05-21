@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Find shopping lists'|trans }}{% endblock %}
+
+{% block body %}
+    <h1>{{ 'Find shopping lists'|trans }}</h1>
+
+    {{ form_start(form) }}
+        {{ form_rest(form) }}
+
+        <div class="buttons">
+            <a classs="btn btn-link" href="{{ path('shopping_list_index') }}">{{ 'Cancel'|trans }}</a>
+            <button class="btn btn-primary">{{ 'Recover'|trans }}</button>
+        </div>
+    {{ form_end(form) }}
+{% endblock %}

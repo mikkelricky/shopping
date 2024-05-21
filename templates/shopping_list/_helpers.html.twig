@@ -1,0 +1,6 @@
+{% macro account_home(account) %}
+    {% if account %}
+        <a class="link-unstyled" href="{{ path('shopping_account', {account: account.id}) }}">{{ 'Shopping lists'|trans }}</a>
+        »
+    {% endif %}
+{% endmacro %}
