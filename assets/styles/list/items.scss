@@ -118,3 +118,20 @@ label.required {
   color: #fff;
   background-color: #0097cf;
 }
+
+a.badge {
+  text-decoration: none;
+}
+
+[name="shopping_list_create_item"] {
+  [name="shopping_list_create_item[name]"] {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: none;
+  }
+
+  button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}

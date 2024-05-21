@@ -10,8 +10,10 @@
 
 namespace App\Form\Type\ShoppingListItem;
 
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Translation\TranslatableMessage;
 
 class ShoppingListCreateItemType extends ShoppingListItemType
 {
@@ -20,8 +22,12 @@ class ShoppingListCreateItemType extends ShoppingListItemType
         $builder
             ->add('name', TextType::class, [
                 'attr' => [
-                    'placeholder' => 'Item name',
+                    'placeholder' => new TranslatableMessage('Item name. Prefix with a number to set a quantity, e.g. “12 monkeys”.'),
                 ],
-            ]);
+            ])
+            ->add('add', SubmitType::class, [
+                'label' => new TranslatableMessage('Add item'),
+            ])
+        ;
     }
 }
