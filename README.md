@@ -1,9 +1,10 @@
 # Shopping
 
 ```sh
-docker compose up --detach
+docker compose pull
+docker compose up --detach --wait
 open "http://$(docker compose port nginx 8080)"
-open "http://$(docker compose port mailhog 8025)"
+open "http://$(docker compose port mail 8025)"
 ```
 
 ```sh
@@ -18,6 +19,9 @@ docker compose exec phpfpm composer update-translations
 ```sh
 docker compose run --rm node yarn install
 docker compose run --rm node yarn build
+```
+
+```sh
 docker compose run --rm node yarn watch
 ```
 
