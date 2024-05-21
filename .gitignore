@@ -17,6 +17,12 @@
 /phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
+###> friendsofphp/php-cs-fixer ###
+/.php_cs
+/.php-cs-fixer.cache
+###< friendsofphp/php-cs-fixer ###
+.docker-sync
+.idea
 
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
@@ -24,10 +30,3 @@
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
-
-###> friendsofphp/php-cs-fixer ###
-/.php_cs
-/.php-cs-fixer.cache
-###< friendsofphp/php-cs-fixer ###
-.docker-sync
-.idea
