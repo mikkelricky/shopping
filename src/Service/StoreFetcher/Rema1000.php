@@ -24,7 +24,7 @@ class Rema1000 implements StoreFetcherInterface
         $locations = array_map(static function (array $item) {
             return [
                 'name' => 'REMA 1000',
-                'address' => implode(PHP_EOL, [
+                'address' => implode(\PHP_EOL, [
                     $item['address'],
                     $item['zipcode'].' '.$item['city'],
                 ]),
