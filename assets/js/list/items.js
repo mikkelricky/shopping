@@ -15,7 +15,8 @@ $(() => {
   $('[data-toggle="tooltip"]').tooltip()
 
   $('form').on('submit', function() {
-    $('form input, form button').prop('disabled', true)
-    $('#add-item').html('Adding '+$('input', this).first().val()+' …')
+    $('#add-item')
+      .prop('disabled', true)
+      .html('Adding '+$('input', this).first().val()+' …')
   })
 })
