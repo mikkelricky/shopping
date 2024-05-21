@@ -147,22 +147,16 @@ class ShoppingListItem
         return $this;
     }
 
-    /**
-     * @return Collection|ShoppingListItemLogEntry[]
-     */
     public function getLogEntries(): Collection
     {
         return $this->logEntries;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->name ?? self::class;
     }
 
-    /**
-     * @return Collection|Store[]
-     */
     public function getStores(): Collection
     {
         return $this->stores;

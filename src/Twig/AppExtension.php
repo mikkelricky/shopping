@@ -67,7 +67,10 @@ class AppExtension extends AbstractExtension
         return $this->router->generate($route, $parameters);
     }
 
-    public function getPathFromReferer(string $defaultPath): string
+    /**
+     * @return null|scalar
+     */
+    public function getPathFromReferer(string $defaultPath)
     {
         $request = $this->requestStack->getCurrentRequest();
 

@@ -70,6 +70,6 @@ class UserCreateCommand extends Command
 
         $io->success(sprintf('User %s created', $user->getUserIdentifier()));
 
-        return Command::SUCCESS;
+        return static::SUCCESS;
     }
 }

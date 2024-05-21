@@ -41,33 +41,54 @@ abstract class AbstractController extends BaseController
         $this->translator = $translator;
     }
 
-    protected function error($message, $parameters = []): self
+    /**
+     * @param (null|scalar)[] $parameters
+     *
+     * @psalm-param array{list?: null|string, email?: string, '%item%'?: null|scalar} $parameters
+     */
+    protected function error(string $message, array $parameters = []): self
     {
         return $this->danger($message, $parameters);
     }
 
-    protected function danger($message, $parameters = []): self
+    /**
+     * @param (null|scalar)[] $parameters
+     *
+     * @psalm-param array{list?: null|string, email?: string, '%item%'?: null|scalar} $parameters
+     */
+    protected function danger(string $message, array $parameters = []): self
     {
         $this->addFlash(__FUNCTION__, $this->translate($message, $parameters));
 
         return $this;
     }
 
-    protected function info($message, $parameters = []): self
+    /**
+     * @param (int|string)[] $parameters
+     *
+     * @psalm-param 'Item %item% updated'|'Items added; %count_existing% existing; %count_new% new' $message
+     * @psalm-param array{'%count_existing%'?: int, '%count_new%'?: int, '%item%'?: string} $parameters
+     */
+    protected function info(string $message, array $parameters = []): self
     {
         $this->addFlash(__FUNCTION__, $this->translate($message, $parameters));
 
         return $this;
     }
 
-    protected function success($message, $parameters = []): self
+    /**
+     * @param (null|string)[] $parameters
+     *
+     * @psalm-param array{list?: null|string, email?: string, '%item%'?: null|string} $parameters
+     */
+    protected function success(string $message, array $parameters = []): self
     {
         $this->addFlash(__FUNCTION__, $this->translate($message, $parameters));
 
         return $this;
     }
 
-    protected function addFlash(string $type, $message): void
+    protected function addFlash(string $type, mixed $message): void
     {
         [$this->lastFlashType, $this->lastFlashMessage] = [$type, $message];
         parent::addFlash($type, $message);
@@ -78,12 +99,18 @@ abstract class AbstractController extends BaseController
         $this->flashActionManager->addFlashAction($action, $this->lastFlashType, $this->lastFlashMessage);
     }
 
-    protected function translate($message, array $parameters = []): string
+    /**
+     * @psalm-param 'Edit item %item%'|'Undo item %item% marked as done' $message
+     */
+    protected function translate(string $message, array $parameters = []): string
     {
         return $this->translator->trans($message, $parameters);
     }
 
-    protected function goBack(Request $request, $defaultUrl): RedirectResponse
+    /**
+     * @param RedirectResponse|string $defaultUrl
+     */
+    protected function goBack(Request $request, string|RedirectResponse $defaultUrl): RedirectResponse
     {
         $referer = $request->headers->get('referer');
         if (null !== $referer) {

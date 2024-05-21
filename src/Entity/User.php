@@ -51,7 +51,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->id = Uuid::v4();
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->getUsername() ?? static::class;
     }
@@ -140,6 +140,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @see UserInterface
+     *
+     * @return void
      */
     public function eraseCredentials()
     {

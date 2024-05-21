@@ -24,8 +24,7 @@ use Twig\Environment;
 
 class ShoppingListManager
 {
-    /** @var AccountManager */
-    private $accountRepository;
+    private AccountRepository $accountRepository;
 
     /** @var MailerInterface */
     private $mailer;
@@ -128,7 +127,10 @@ class ShoppingListManager
         return $items;
     }
 
-    private function send(Email $email, $addresses): void
+    /**
+     * @param null|string $addresses
+     */
+    private function send(Email $email, string|null $addresses): void
     {
         $from = new Address($this->from['address'], $this->from['name'] ?? '');
         $email

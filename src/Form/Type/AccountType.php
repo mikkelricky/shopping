@@ -15,6 +15,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class AccountType extends AbstractType
 {
+    /**
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('email');

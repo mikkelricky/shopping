@@ -26,6 +26,9 @@ class ShoppingListCreateType extends ShoppingListType
         $this->accountManager = $accountManager;
     }
 
+    /**
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $account = $builder->getData()->getAccount();

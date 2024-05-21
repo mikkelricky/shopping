@@ -91,7 +91,12 @@ class SallingGroup implements StoreFetcherInterface
         return $stores;
     }
 
-    private function getLinks(ResponseInterface $response)
+    /**
+     * @return null|string[]
+     *
+     * @psalm-return array<string>|null
+     */
+    private function getLinks(ResponseInterface $response): array|null
     {
         $headers = $response->getHeaders();
         if (!isset($headers['link'])) {
