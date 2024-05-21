@@ -17,16 +17,12 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class StoreVoter extends Voter
 {
-    /** @var RequestStack */
-    private $requestStack;
-
     // these strings are just invented: you can use anything
-    public const VIEW = 'view';
-    public const EDIT = 'edit';
+    final public const VIEW = 'view';
+    final public const EDIT = 'edit';
 
-    public function __construct(RequestStack $requestStack)
+    public function __construct(private readonly RequestStack $requestStack)
     {
-        $this->requestStack = $requestStack;
     }
 
     protected function supports($attribute, $subject): bool

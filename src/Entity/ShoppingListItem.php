@@ -10,6 +10,7 @@
 
 namespace App\Entity;
 
+use App\Repository\ShoppingListItemRepository;
 use App\Validator\ItemName;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -17,45 +18,41 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Uid\Uuid;
 
-
 #[ORM\Table(name: 'shopping_shopping_list_item')]
-#[ORM\Entity(repositoryClass: 'App\Repository\ShoppingListItemRepository')]
-class ShoppingListItem
+#[ORM\Entity(repositoryClass: ShoppingListItemRepository::class)]
+class ShoppingListItem implements \Stringable
 {
     use TimestampableEntity;
 
-    
     #[ORM\Id]
     #[ORM\Column(type: 'uuid', unique: true)]
-    private $id;
+    private ?Uuid $id;
 
     /**
      * @ItemName()
      */
     #[ORM\Column(type: 'string', length: 255)]
-    private $name;
+    private ?string $name = null;
 
-    
-    #[ORM\ManyToOne(targetEntity: 'App\Entity\ShoppingList', inversedBy: 'items')]
+    #[ORM\ManyToOne(targetEntity: ShoppingList::class, inversedBy: 'items')]
     #[ORM\JoinColumn(nullable: false)]
-    private $list;
+    private ?ShoppingList $list = null;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
-    private $doneAt;
+    private ?\DateTimeInterface $doneAt = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $quantity;
+    private ?string $quantity = null;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    private $description;
+    private ?string $description = null;
 
-    
-    #[ORM\OneToMany(targetEntity: 'App\Entity\ShoppingListItemLogEntry', mappedBy: 'item', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: ShoppingListItemLogEntry::class, mappedBy: 'item', orphanRemoval: true)]
     #[ORM\OrderBy(['createdAt' => 'DESC'])]
-    private $logEntries;
+    private Collection $logEntries;
 
-    #[ORM\ManyToMany(targetEntity: 'App\Entity\Store')]
-    private $stores;
+    #[ORM\ManyToMany(targetEntity: Store::class)]
+    private Collection $stores;
 
     public function __construct()
     {
@@ -141,7 +138,7 @@ class ShoppingListItem
 
     public function __toString(): string
     {
-        return $this->name ?? self::class;
+        return (string) ($this->name ?? self::class);
     }
 
     public function getStores(): Collection

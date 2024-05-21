@@ -36,13 +36,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 #[Route(path: '/{_locale}', locale: 'en', requirements: ['_locale' => 'da|en'])]
 class ShoppingListController extends AbstractController
 {
-    /** @var ShoppingListManager */
-    private $listManager;
-
-    public function __construct(EntityManagerInterface $entityManager, FlashActionManager $flashActionManager, TranslatorInterface $translator, ShoppingListManager $listManager)
+    public function __construct(EntityManagerInterface $entityManager, FlashActionManager $flashActionManager, TranslatorInterface $translator, private readonly ShoppingListManager $listManager)
     {
         parent::__construct($entityManager, $flashActionManager, $translator);
-        $this->listManager = $listManager;
     }
 
     #[Route(path: '/list', name: 'shopping_list_index', methods: 'GET')]
@@ -296,7 +292,6 @@ class ShoppingListController extends AbstractController
     }
 
     /**
-     *
      * @return RedirectResponse|Response
      */
     #[Route(path: '/list/{id}/items/add', name: 'shopping_list_add_items', methods: 'GET|POST')]
@@ -316,12 +311,8 @@ class ShoppingListController extends AbstractController
                 $list->addItem($item);
             }
 
-            $existingItems = $items->filter(static function (ShoppingListItem $item) {
-                return null !== $item->getId();
-            });
-            $newItems = $items->filter(static function (ShoppingListItem $item) {
-                return null === $item->getId();
-            });
+            $existingItems = $items->filter(static fn (ShoppingListItem $item) => null !== $item->getId());
+            $newItems = $items->filter(static fn (ShoppingListItem $item) => null === $item->getId());
 
             $this->entityManager->persist($list);
             $this->entityManager->flush();

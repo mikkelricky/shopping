@@ -18,7 +18,7 @@ use function GuzzleHttp\Psr7\parse_header;
 
 class SallingGroup implements StoreFetcherInterface
 {
-    private static $brands = [
+    private static array $brands = [
         'bilka' => 'Bilka',
         'salling' => 'Salling',
         'foetex' => 'Føtex',
@@ -27,8 +27,7 @@ class SallingGroup implements StoreFetcherInterface
         // 'br' => 'BR',
     ];
 
-    /** @var array */
-    private $options;
+    private array $options;
 
     public function __construct(array $sallingGroupConfig)
     {
@@ -109,7 +108,7 @@ class SallingGroup implements StoreFetcherInterface
 
         foreach ($data as $item) {
             if (isset($item[0], $item['rel'])) {
-                $links[$item['rel']] = substr($item[0], 1, -1);
+                $links[$item['rel']] = substr((string) $item[0], 1, -1);
             }
         }
 

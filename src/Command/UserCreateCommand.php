@@ -31,7 +31,7 @@ use Symfony\Component\String\ByteString;
 )]
 class UserCreateCommand extends Command
 {
-    public function __construct(private UserProviderInterface $userProvider, private UserPasswordHasherInterface $passwordHasher, private EntityManagerInterface $entityManager)
+    public function __construct(private readonly UserProviderInterface $userProvider, private readonly UserPasswordHasherInterface $passwordHasher, private readonly EntityManagerInterface $entityManager)
     {
         parent::__construct(null);
     }
@@ -54,7 +54,7 @@ class UserCreateCommand extends Command
         try {
             $this->userProvider->loadUserByIdentifier($identifier);
             throw new InvalidArgumentException(sprintf('User with identifier %s already exists', $identifier));
-        } catch (UserNotFoundException $userNotFoundException) {
+        } catch (UserNotFoundException) {
         }
 
         $user = (new User())

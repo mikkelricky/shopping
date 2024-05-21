@@ -15,9 +15,9 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class FlashActionManager
 {
-    private static $sessionKey = '_flash_actions';
+    private static string $sessionKey = '_flash_actions';
 
-    private SessionInterface $session;
+    private readonly SessionInterface $session;
 
     public function __construct(RequestStack $requestStack)
     {
@@ -42,7 +42,7 @@ class FlashActionManager
             }
 
             return null;
-        } catch (\RuntimeException $e) {
+        } catch (\RuntimeException) {
             return null;
         }
     }

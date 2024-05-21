@@ -10,32 +10,31 @@
 
 namespace App\Entity;
 
+use App\Repository\AccountRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Uid\Uuid;
 
-
 #[ORM\Table(name: 'shopping_account')]
-#[ORM\Entity(repositoryClass: 'App\Repository\AccountRepository')]
-class Account
+#[ORM\Entity(repositoryClass: AccountRepository::class)]
+class Account implements \Stringable
 {
     use TimestampableEntity;
 
-    
     #[ORM\Id]
     #[ORM\Column(type: 'uuid', unique: true)]
-    private $id;
+    private ?Uuid $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $email;
+    private ?string $email = null;
 
-    #[ORM\OneToMany(targetEntity: 'App\Entity\ShoppingList', mappedBy: 'account', orphanRemoval: true)]
-    private $lists;
+    #[ORM\OneToMany(targetEntity: ShoppingList::class, mappedBy: 'account', orphanRemoval: true)]
+    private Collection $lists;
 
-    #[ORM\OneToMany(targetEntity: 'App\Entity\Store', mappedBy: 'account')]
-    private $stores;
+    #[ORM\OneToMany(targetEntity: Store::class, mappedBy: 'account')]
+    private Collection $stores;
 
     public function __construct()
     {

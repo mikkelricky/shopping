@@ -18,12 +18,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ShoppingListAddItemsType extends ShoppingListType
 {
-    /** @var ShoppingListItemManager */
-    private $itemManager;
-
-    public function __construct(ShoppingListItemManager $itemManager)
+    public function __construct(private readonly ShoppingListItemManager $itemManager)
     {
-        $this->itemManager = $itemManager;
     }
 
     /**
@@ -38,9 +34,7 @@ class ShoppingListAddItemsType extends ShoppingListType
         ;
         $builder->get('items')
             ->addModelTransformer(new CallbackTransformer(
-                static function (array $items = null) {
-                    return implode(\PHP_EOL, $items ?? []);
-                },
+                static fn (array $items = null) => implode(\PHP_EOL, $items ?? []),
                 function (string $items) use ($options) {
                     $names = array_filter(array_map('trim', explode(\PHP_EOL, $items)));
 

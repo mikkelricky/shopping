@@ -10,35 +10,33 @@
 
 namespace App\Entity;
 
+use App\Repository\LocationRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
-
 #[ORM\Table(name: 'shopping_location')]
-#[ORM\Entity(repositoryClass: 'App\Repository\LocationRepository')]
-class Location
+#[ORM\Entity(repositoryClass: LocationRepository::class)]
+class Location implements \Stringable
 {
-    
     #[ORM\Id]
     #[ORM\Column(type: 'uuid', unique: true)]
-    private $id;
+    private ?Uuid $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $name;
+    private ?string $name = null;
 
     #[ORM\Column(type: 'text')]
-    private $address;
+    private ?string $address = null;
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 7, nullable: true)]
-    private $latitude;
+    private ?string $latitude = null;
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 7, nullable: true)]
-    private $longitude;
+    private ?string $longitude = null;
 
-    
-    #[ORM\ManyToOne(targetEntity: 'App\Entity\Store', inversedBy: 'locations')]
+    #[ORM\ManyToOne(targetEntity: Store::class, inversedBy: 'locations')]
     #[ORM\JoinColumn(nullable: false)]
-    private $store;
+    private ?Store $store = null;
 
     public function __construct()
     {
@@ -112,6 +110,6 @@ class Location
 
     public function __toString(): string
     {
-        return $this->address ?? self::class;
+        return (string) ($this->address ?? self::class);
     }
 }

@@ -10,6 +10,7 @@
 
 namespace App\Entity;
 
+use App\Repository\StoreRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -17,30 +18,28 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Uid\Uuid;
 
-
 #[ORM\Table(name: 'shopping_store')]
-#[ORM\Entity(repositoryClass: 'App\Repository\StoreRepository')]
+#[ORM\Entity(repositoryClass: StoreRepository::class)]
 #[UniqueEntity('name')]
-class Store
+class Store implements \Stringable
 {
     use TimestampableEntity;
 
-    
     #[ORM\Id]
     #[ORM\Column(type: 'uuid', unique: true)]
-    private $id;
+    private ?Uuid $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $name;
+    private ?string $name = null;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    private $description;
+    private ?string $description = null;
 
-    #[ORM\ManyToOne(targetEntity: 'App\Entity\Account', inversedBy: 'stores')]
-    private $account;
+    #[ORM\ManyToOne(targetEntity: Account::class, inversedBy: 'stores')]
+    private ?Account $account = null;
 
-    #[ORM\OneToMany(targetEntity: 'App\Entity\Location', mappedBy: 'store', cascade: ['persist'], orphanRemoval: true)]
-    private $locations;
+    #[ORM\OneToMany(targetEntity: Location::class, mappedBy: 'store', cascade: ['persist'], orphanRemoval: true)]
+    private Collection $locations;
 
     public function __construct()
     {
@@ -50,7 +49,7 @@ class Store
 
     public function __toString(): string
     {
-        return $this->name ?? self::class;
+        return (string) ($this->name ?? self::class);
     }
 
     public function getId(): ?Uuid
