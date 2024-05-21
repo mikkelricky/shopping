@@ -20,8 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route(
- *     "/{_locale}/store/{account}",
- *     name="store_",
+ *     "/{_locale}",
  *     locale="en",
  *     requirements={
  *         "_locale": "da|en"
@@ -31,9 +30,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class StoreController extends AbstractController
 {
     /**
-     * @Route("/", name="index", methods="GET")
+     * @Route("/store", name="store_index", methods="GET")
+     * @Route("/{account}/store", name="store_index_account", methods="GET")
      */
-    public function index(StoreRepository $storeRepository, Account $account): Response
+    public function index(StoreRepository $storeRepository, Account $account = null): Response
     {
         return $this->render('store/index.html.twig', [
             'stores' => $storeRepository->findBy([], ['name' => 'ASC']),
@@ -42,20 +42,26 @@ class StoreController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="new", methods="GET|POST")
+     * @Route("/new", name="store_new", methods={"GET", "POST"})
+     * @Route("/{account}/new", name="store_new_account", methods={"GET", "POST"})
      */
-    public function new(Request $request, Account $account): Response
+    public function new(Request $request, Account $account = null): Response
     {
         $store = new Store();
         $form = $this->createForm(StoreType::class, $store);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $store->setAccount($account);
             $em = $this->getDoctrine()->getManager();
             $em->persist($store);
             $em->flush();
 
-            return $this->redirectToRoute('store_index', ['account' => $account->getId()]);
+            $this->success($this->translator->trans('Store {name} created', ['name' => $store->getName()]));
+
+            return $account
+                ? $this->redirectToRoute('store_index_account', ['account' => $account->getId()])
+                : $this->redirectToRoute('store_index');
         }
 
         return $this->render('store/new.html.twig', [
@@ -66,7 +72,7 @@ class StoreController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="show", methods="GET")
+     * @Route("/{id}", name="store_show", methods="GET")
      */
     public function show(Store $store): Response
     {
@@ -74,7 +80,7 @@ class StoreController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="edit", methods="GET|POST")
+     * @Route("/{id}/edit", name="store_edit", methods="GET|POST")
      */
     public function edit(Request $request, Store $store, Account $account): Response
     {
