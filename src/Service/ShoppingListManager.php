@@ -14,6 +14,7 @@ use App\Entity\ShoppingList;
 use App\Entity\ShoppingListItem;
 use App\Entity\Store;
 use App\Repository\AccountRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
@@ -83,26 +84,41 @@ class ShoppingListManager
         return true;
     }
 
-    public function applyFilter(Collection $items, array $filter = null): Collection
+    public function applyFilter(Collection $items, array $filter = null, array $orderBy = null): Collection
     {
-        return $items->filter(static function (ShoppingListItem $item) use ($filter) {
-            if (null === $filter) {
-                return true;
-            }
+        if (null !== $filter) {
+            $items = $items->filter(static function (ShoppingListItem $item) use ($filter) {
+                if (isset($filter['store'])) {
+                    $filter['store'] = (array) $filter['store'];
 
-            if (isset($filter['store'])) {
-                $filter['store'] = (array) $filter['store'];
+                    return !empty(array_intersect(
+                        $item->getStores()->map(static function (Store $store) {
+                            return $store->getName();
+                        })->toArray(),
+                        $filter['store']
+                    ));
+                }
 
-                return !empty(array_intersect(
-                    $item->getStores()->map(static function (Store $store) {
-                        return $store->getName();
-                    })->toArray(),
-                    $filter['store']
-                ));
-            }
+                return false;
+            });
+        }
 
-            return false;
-        });
+        if (null !== $orderBy) {
+            $sorted = $items->toArray();
+            usort($sorted, static function (ShoppingListItem $a, ShoppingListItem $b) use ($orderBy) {
+                // @TODO Handle more than one sort field.
+                foreach ($orderBy as $property => $direction) {
+                    $method = 'get'.ucfirst($property);
+                    $value = $a->$method() <=> $b->$method();
+
+                    return 0 === strcasecmp('asc', $direction) ? $value : -$value;
+                }
+            });
+
+            $items = new ArrayCollection($sorted);
+        }
+
+        return $items;
     }
 
     private function send(Email $email, $addresses): void

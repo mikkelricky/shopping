@@ -6,7 +6,6 @@
     <link rel="manifest" href="{{ path('shopping_list_manifest', {list: list.id, v: app_version}) }}" />
 {% endblock %}
 
-
 {% block stylesheets %}
     {{ encore_entry_link_tags('list/items') }}
 {% endblock %}
@@ -44,12 +43,7 @@
     </form>
 {% endmacro %}
 
-{% macro current_path(parameters = {}) %}
-    {{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge(app.request.query.all|merge(parameters))) }}
-{% endmacro %}
-
 {% macro show_items(items) %}
-    {% set items = items|sort((a, b) => b.updatedAt <=> a.updatedAt) %}
     {% for item in items %}
         <div class="d-flex my-3 justify-content-between align-items-baseline">
             <div class="item-state">
@@ -76,7 +70,7 @@
                 {% if item.stores|length > 0 %}
                     {{ icon('store') }}
                     {% for store in item.stores %}
-                        <a class="badge badge-light" href="{{ _self.current_path({filter: {store: store.name}}) }}">{{ store.name }}</a>
+                        <a class="badge badge-light" href="{{ current_path({filter: {store: store.name}}) }}">{{ store.name }}</a>
                     {% endfor %}
                 {% endif %}
             </div>
@@ -102,15 +96,61 @@
     {% set current_display = app.request.get('display')|default('undone') %}
 
     <div class="shopping-list-items container-fluid">
-        <header class="d-flex">
+        <header class="d-flex justify-content-between">
             <h1>
                 {{ helper.account_home(account) }}
                 {{ list.name }}
             </h1>
 
-            {% block settings %}
-                {% include '_settings.html.twig' %}
-            {% endblock %}
+            <div class="d-flex">
+                <div class="p-2">
+                    {#% set items = items|sort((a, b) => b.updatedAt <=> a.updatedAt) %#}
+                    <div id="order-by">
+                        <button id="order-by-toggle" type="button" class="btn btn-link" data-toggle="modal" data-target="#order-by-modal" title="{{ 'Order-By'|trans }}">
+                            <span class="fas fa-sort-amount-up-alt"></span>
+                        </button>
+
+                        <div class="modal fade" id="order-by-modal" tabindex="-1" role="dialog" aria-labelledby="order-by-modal-label" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="order-by-modal-label">{{ 'Order by'|trans }}</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <table class="table table-borderless">
+                                        {% for label, property in {
+                                            'Name':'name',
+                                            'Updated at': 'updatedAt'
+                                            } %}
+                                            <tr>
+                                                <th>{{ label }}</th>
+                                                <td>
+                                                    <div class="btn-group" role="group">
+                                                        {% for direction in ['asc', 'desc'] %}
+                                                            {% set current = app.request.query.all.order[property]|default(null) == direction %}
+                                                            <a class="btn {{ current ? 'btn-success' : 'btn-light' }}" href="{{ current_path({'order': {(property): direction}}) }}">{{ direction }}</a>
+                                                        {% endfor %}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-2">
+                    {% block settings %}
+                        {% include '_settings.html.twig' %}
+                    {% endblock %}
+                </div>
+            </div>
         </header>
 
         <article>
@@ -125,7 +165,7 @@
                             {{ ('filter.' ~ key)|trans }}: {{ value|json_encode(constant('JSON_UNESCAPED_UNICODE')) }}
                             {%- endfor -%})
                         </div>
-                        <a href="{{ _self.current_path({filter: null}) }}">{{ 'Clear filter'|trans }}</a>
+                        <a href="{{ current_path({filter: null}) }}">{{ 'Clear filter'|trans }}</a>
                     </div>
                 </div>
             {% endif %}
@@ -136,18 +176,18 @@
                 <div class="alert alert-success">
                     {{ 'Woohoo! No undone items.'|trans }}
                     {% if done_items|length > 0 %}
-                        <a href="{{ _self.current_path({display: 'all'}) }}">{{ 'Show all items'|trans }}</a>
+                        <a href="{{ current_path({display: 'all'}) }}">{{ 'Show all items'|trans }}</a>
                     {% endif %}
                 </div>
             {% endif %}
 
             {% if done_items|length > 0 %}
                 {% if current_display != 'all' %}
-                    <a class="btn btn-light btn-block" href="{{ _self.current_path({display: 'all'}) }}">
+                    <a class="btn btn-light btn-block" href="{{ current_path({display: 'all'}) }}">
                         {{ '{count, plural, one {Show one done item.} other {Show # done items.}}'|trans({'count': done_items|length}) }}
                     </a>
                 {% else %}
-                    <a class="btn btn-light btn-block" href="{{ _self.current_path({display: null}) }}">
+                    <a class="btn btn-light btn-block" href="{{ current_path({display: null}) }}">
                         {{ '{count, plural, one {Hide one done item.} other {Hide # done items.}}'|trans({'count': done_items|length}) }}
                     </a>
                 {% endif %}
