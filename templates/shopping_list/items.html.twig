@@ -33,7 +33,13 @@
                 {% endif %}
             </div>
             <div class="item-name">
-                {{ item.name }}
+                {% if item.description %}
+                    <span data-toggle="tooltip" title="{{ item.description }}" data-trigger="click" data-placement="right">
+                        {{ item.name }} <span class="fas fa-info-circle"></span>
+                    </span>
+                {% else %}
+                    {{ item.name }}
+                {% endif %}
                 {% if item.quantity %}
                     <span class="item-quantity">({{ item.quantity }})</span>
                 {% endif %}
