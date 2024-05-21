@@ -2,6 +2,7 @@
     "devDependencies": {
         "@fortawesome/fontawesome-free": "^5.15.4",
         "@hotwired/stimulus": "^3.0.0",
+        "@playwright/test": "^1.39.0",
         "@popperjs/core": "^2.11.2",
         "@symfony/stimulus-bridge": "^3.0.0",
         "@symfony/webpack-encore": "^2.0.0",
@@ -9,6 +10,8 @@
         "core-js": "^3.0.0",
         "corejs-typeahead": "^1.3.1",
         "jquery": "^3.6.0",
+        "markdownlint-cli": "^0.37.0",
+        "playwright-mailhog": "^1.1.0",
         "regenerator-runtime": "^0.13.2",
         "sass": "^1.49.0",
         "sass-loader": "^12.0.0",
@@ -22,7 +25,11 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress",
-        "coding-standards-check": "standard webpack.config.js assets/",
-        "coding-standards-apply": "standard --fix webpack.config.js assets/"
+        "coding-standards-check/markdownlint": "markdownlint --ignore '**/node_modules/**' --ignore '**/vendor/**' '*.md' 'web/modules/custom/**/*.md' 'documentation/*.md'",
+        "coding-standards-check/standard": "standard webpack.config.js assets/ playwright/",
+        "coding-standards-check": "yarn coding-standards-check/markdownlint && yarn coding-standards-check/standard",
+        "coding-standards-apply/markdownlint": "markdownlint --fix '*.md' 'web/modules/custom/**/*.md' 'documentation/*.md'",
+        "coding-standards-apply/standard": "standard webpack.config.js assets/ playwright/ --fix",
+        "coding-standards-apply": "yarn coding-standards-apply/markdownlint && yarn coding-standards-apply/standard"
     }
 }
