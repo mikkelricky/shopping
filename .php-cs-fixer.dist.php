@@ -1,7 +1,9 @@
 <?php
 
-$finder = PhpCsFixer\Finder::create()
-    ->in(__DIR__.'/{src,tests}');
+$finder = (new PhpCsFixer\Finder())
+    ->in(__DIR__)
+    ->exclude('var')
+;
 
 $header =<<<'HEADER'
 This file is part of Shopping.
