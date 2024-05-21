@@ -31,8 +31,12 @@ final class Version20220129175647 extends AbstractMigration
         // https://stackoverflow.com/questions/69772365/migrating-old-guid-symfony-5-2-to-new-uuid-component-symfony-5-3-as-en
 
         // Clean up invalid datetimes.
-        $this->addSql('UPDATE shopping_account SET created_at = NOW(), updated_at = NOW()');
-        $this->addSql('UPDATE shopping_user SET created_at = NOW(), updated_at = NOW()');
+        $this->addSql('UPDATE shopping_account SET created_at = NOW() WHERE created_at < "1900-01-01"');
+        $this->addSql('UPDATE shopping_account SET updated_at = NOW() WHERE updated_at < "1900-01-01"');
+        $this->addSql('UPDATE shopping_user SET created_at = NOW() WHERE created_at < "1900-01-01"');
+        $this->addSql('UPDATE shopping_user SET updated_at = NOW() WHERE updated_at < "1900-01-01"');
+        $this->addSql('UPDATE shopping_store SET created_at = NOW() WHERE created_at < "1900-01-01"');
+        $this->addSql('UPDATE shopping_store SET updated_at = NOW() WHERE updated_at < "1900-01-01"');
 
         // Add temporary uuid columns.
         $this->addSql('ALTER TABLE shopping_account ADD id_uuid BINARY(16) NOT NULL COMMENT \'(DC2Type:uuid)\'');
