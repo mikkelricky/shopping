@@ -202,17 +202,15 @@
 
         <footer>
             {{ form_start(add_item_form) }}
-                <div class="input-group my-3">
-                    {{ form_widget(add_item_form.name, {attr: {list: 'done-items-names'}}) }}
-                    <div class="input-group-append">
+                <div class="d-flex flex-row">
+                    <div class="flex-grow-1">
+                        {{ form_widget(add_item_form.name, {attr: {'data-typeahead-dataset-selector': '#done-items-names'}}) }}
+                    </div>
+                    <div class="ml-2">
                         <button type="submit" class="btn btn-primary" id="add-item">{{ 'Add item'|trans }}</button>
                     </div>
                 </div>
-                <datalist id="done-items-names">
-                    {% for item in done_items|sort((a, b) => a.name <=> b.name) %}
-                        <option value="{{ item.name }}"/>
-                    {% endfor %}
-                </datalist>
+                <script id="done-items-names" type="application/json">{{ done_items|map(item => item.name)|json_encode|raw }}</script>
             {{ form_end(add_item_form) }}
         </footer>
     </div>

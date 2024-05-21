@@ -48,6 +48,7 @@ class ShoppingList
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ShoppingListItem", mappedBy="list", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OrderBy({"name":"ASC"})
      */
     private $items;
 
