@@ -6,12 +6,12 @@ $finder = PhpCsFixer\Finder::create()
 $header =<<<'HEADER'
 This file is part of Shopping.
 
-(c) 2018–2020 Mikkel Ricky
+(c) 2018– Mikkel Ricky
 
 This source file is subject to the MIT license.
 HEADER;
 
-return PhpCsFixer\Config::create()
+return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
     ->setRules([
         '@Symfony' => true,
