@@ -10,10 +10,10 @@
 
 namespace App\Service\StoreFetcher;
 
+use function GuzzleHttp\Psr7\parse_header;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\HttpClient\ResponseInterface;
-use function GuzzleHttp\Psr7\parse_header;
 
 class SallingGroup implements StoreFetcherInterface
 {
