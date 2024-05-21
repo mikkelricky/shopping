@@ -37,6 +37,7 @@ services:
     volumes:
       # @see https://dev.to/kovah/cut-your-docker-for-mac-response-times-in-half-with-docker-sync-1e8j
       # @see https://blog.jetpulp.fr/docker-mac-optimisations-php-developpers/
+      # @see https://github.com/dunglas/symfony-docker/blob/master/docker-compose.yml
       - .:/app:rw,cached
       - /app/var/
       - /app/var/cache/

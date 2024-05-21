@@ -6,8 +6,13 @@
     <link rel="manifest" href="{{ path('shopping_list_manifest', {list: list.id, v: app_version}) }}" />
 {% endblock %}
 
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('list/items') }}
+{% endblock %}
+
 {% block javascripts %}
-    {{ parent() }}
+    {{ encore_entry_script_tags('list/items') }}
 
     <script>
         if ('serviceWorker' in navigator) {
@@ -90,71 +95,84 @@
     {% endfor %}
 {% endmacro %}
 
-{% block body %}
+{% block container %}
     {% import 'shopping_list/_helpers.html.twig' as helper %}
 
     {% set current_display = app.request.get('display')|default('undone') %}
 
-    <h1>
-        {{ helper.account_home(account) }}
-        {{ list.name }}
-    </h1>
+    <div class="shopping-list-items container-fluid">
+        <header class="d-flex">
+            <h1>
+                {{ helper.account_home(account) }}
+                {{ list.name }}
+            </h1>
 
-    {% if filter %}
-        <div class="alert alert-info">
-            <div class="d-flex justify-content-between align-items-baseline">
-                <div class="message">
-                    {{ 'Filter applied'|trans }}
-                    ({%- for key, value in filter -%}
-                    {%- if loop.index0 > 0 %}; {% endif -%}
-                    {{ ('filter.' ~ key)|trans }}: {{ value|json_encode(constant('JSON_UNESCAPED_UNICODE')) }}
-                    {%- endfor -%})
+            {% block settings %}
+                {% include '_settings.html.twig' %}
+            {% endblock %}
+        </header>
+
+        <article>
+            {% include '_flashes.html.twig' %}
+            {% if filter %}
+                <div class="alert alert-info">
+                    <div class="d-flex justify-content-between align-items-baseline">
+                        <div class="message">
+                            {{ 'Filter applied'|trans }}
+                            ({%- for key, value in filter -%}
+                            {%- if loop.index0 > 0 %}; {% endif -%}
+                            {{ ('filter.' ~ key)|trans }}: {{ value|json_encode(constant('JSON_UNESCAPED_UNICODE')) }}
+                            {%- endfor -%})
+                        </div>
+                        <a href="{{ _self.current_path({filter: null}) }}">{{ 'Clear filter'|trans }}</a>
+                    </div>
                 </div>
-                <a href="{{ _self.current_path({filter: null}) }}">{{ 'Clear filter'|trans }}</a>
-            </div>
-        </div>
-    {% endif %}
-
-    {% if undone_items|length > 0 %}
-        {{ _self.show_items(undone_items) }}
-    {% else %}
-        <div class="alert alert-success">
-            {{ 'Woohoo! No undone items.'|trans }}
-            {% if done_items|length > 0 %}
-                <a href="{{ _self.current_path({display: 'all'}) }}">{{ 'Show all items'|trans }}</a>
             {% endif %}
-        </div>
-    {% endif %}
 
-    {% if done_items|length > 0 %}
-        {% if current_display != 'all' %}
-            <a class="btn btn-light btn-block" href="{{ _self.current_path({display: 'all'}) }}">
-                {{ '{count, plural, one {Show one done item.} other {Show # done items.}}'|trans({'count': done_items|length}) }}
-            </a>
-        {% else %}
-            <a class="btn btn-light btn-block" href="{{ _self.current_path({display: null}) }}">
-                {{ '{count, plural, one {Hide one done item.} other {Hide # done items.}}'|trans({'count': done_items|length}) }}
-            </a>
-        {% endif %}
-    {% endif %}
+            {% if undone_items|length > 0 %}
+                {{ _self.show_items(undone_items) }}
+            {% else %}
+                <div class="alert alert-success">
+                    {{ 'Woohoo! No undone items.'|trans }}
+                    {% if done_items|length > 0 %}
+                        <a href="{{ _self.current_path({display: 'all'}) }}">{{ 'Show all items'|trans }}</a>
+                    {% endif %}
+                </div>
+            {% endif %}
 
-    {% if current_display == 'all' %}
-        {% if done_items|length > 0 %}
-            {{ _self.show_items(done_items) }}
-        {% endif %}
-    {% endif %}
+            {% if done_items|length > 0 %}
+                {% if current_display != 'all' %}
+                    <a class="btn btn-light btn-block" href="{{ _self.current_path({display: 'all'}) }}">
+                        {{ '{count, plural, one {Show one done item.} other {Show # done items.}}'|trans({'count': done_items|length}) }}
+                    </a>
+                {% else %}
+                    <a class="btn btn-light btn-block" href="{{ _self.current_path({display: null}) }}">
+                        {{ '{count, plural, one {Hide one done item.} other {Hide # done items.}}'|trans({'count': done_items|length}) }}
+                    </a>
+                {% endif %}
+            {% endif %}
 
-    {{ form_start(add_item_form) }}
-        <div class="input-group my-3">
-            {{ form_widget(add_item_form.name, {attr: {list: 'done-items-names'}}) }}
-            <div class="input-group-append">
-                <button type="submit" class="btn btn-primary">{{ 'Add item'|trans }}</button>
-            </div>
-        </div>
-        <datalist id="done-items-names">
-            {% for item in done_items %}
-                <option value="{{ item.name }}">
-            {% endfor %}
-        </datalist>
-    {{ form_end(add_item_form) }}
+            {% if current_display == 'all' %}
+                {% if done_items|length > 0 %}
+                    {{ _self.show_items(done_items) }}
+                {% endif %}
+            {% endif %}
+        </article>
+
+        <footer>
+            {{ form_start(add_item_form) }}
+                <div class="input-group my-3">
+                    {{ form_widget(add_item_form.name, {attr: {list: 'done-items-names'}}) }}
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary" id="add-item">{{ 'Add item'|trans }}</button>
+                    </div>
+                </div>
+                <datalist id="done-items-names">
+                    {% for item in done_items %}
+                        <option value="{{ item.name }}"/>
+                    {% endfor %}
+                </datalist>
+            {{ form_end(add_item_form) }}
+        </footer>
+    </div>
 {% endblock %}
