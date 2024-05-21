@@ -12,7 +12,7 @@ require('bootstrap')
 
 
 $(() => {
-  $('[data-toggle="tooltip"]').tooltip()
+  $('[data-toggle="tooltip"]').tooltip({ container: 'article' })
 
   $('form').on('submit', function() {
     $('#add-item')
