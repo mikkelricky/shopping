@@ -17,8 +17,10 @@ class ShoppingListItemManagerTest extends KernelTestCase
 {
     /**
      * @dataProvider parseNameProvider
+     *
+     * @param array<?string> $expected
      */
-    public function testParseName($name, $expected)
+    public function testParseName(string $name, array $expected): void
     {
         self::bootKernel();
         $container = static::getContainer();
@@ -30,7 +32,10 @@ class ShoppingListItemManagerTest extends KernelTestCase
         $this->assertSame($expected, $actual);
     }
 
-    public function parseNameProvider()
+    /**
+     * @return array<mixed>
+     */
+    public function parseNameProvider(): array
     {
         return [
             ['Noget med et meget langt navn', ['Noget med et meget langt navn', null]],

@@ -122,7 +122,7 @@
             "@coding-standards-apply/php-cs-fixer"
         ],
          "code-analysis/phpstan": [
-            "phpstan analyse src tests"
+            "phpstan analyse"
         ],
         "code-analysis/psalm": [
             "psalm src tests"
