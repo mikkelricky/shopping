@@ -209,7 +209,7 @@
                     </div>
                 </div>
                 <datalist id="done-items-names">
-                    {% for item in done_items %}
+                    {% for item in done_items|sort((a, b) => a.name <=> b.name) %}
                         <option value="{{ item.name }}"/>
                     {% endfor %}
                 </datalist>
