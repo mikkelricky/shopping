@@ -43,7 +43,7 @@ class ShoppingListCreateType extends ShoppingListType
 
         $builder->get('account')
             ->addModelTransformer(new CallbackTransformer(
-                static fn (Account $account = null) => $account ? $account->getEmail() : null,
+                static fn (?Account $account = null) => $account ? $account->getEmail() : null,
                 fn (string $email) => $this->accountManager->getAccount($email)
             ));
     }

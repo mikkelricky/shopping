@@ -11,7 +11,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    {#{ icon('language') }#}
+                    {# { icon('language') } #}
                     {{ 'Language'|trans }}
 
                     {% set current_locale = app.request.attributes.get('_route_params')['_locale']|default('en') %}
