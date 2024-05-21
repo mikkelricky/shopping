@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route(
- *     "/{_locale}/account/{account}",
+ *     "/{_locale}/_account/{account}",
  *     name="account_",
  *     locale="en",
  *     requirements={
