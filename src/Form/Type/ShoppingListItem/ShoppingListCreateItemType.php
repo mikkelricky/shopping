@@ -25,8 +25,9 @@ class ShoppingListCreateItemType extends ShoppingListItemType
         $builder
             ->add('name', TextType::class, [
                 'attr' => [
-                    'placeholder' => new TranslatableMessage('Item name. Prefix with a number to set a quantity, e.g. “12 monkeys”.'),
+                    'placeholder' => new TranslatableMessage('Add item'),
                 ],
+                'help' => new TranslatableMessage('Prefix item name with a number and optional unit to set a quantity, e.g. “2 l milk”.'),
             ])
             ->add('add', SubmitType::class, [
                 'label' => new TranslatableMessage('Add item'),

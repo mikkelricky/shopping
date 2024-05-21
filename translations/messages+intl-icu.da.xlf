@@ -297,10 +297,6 @@
         <source>Offline</source>
         <target state="translated">Offline</target>
       </trans-unit>
-      <trans-unit id="YsqagPp" resname="Item name. Prefix with a number to set a quantity, e.g. “12 monkeys”.">
-        <source>Item name. Prefix with a number to set a quantity, e.g. “12 monkeys”.</source>
-        <target state="translated">Navn på indkøb. Skriv et tal foran for at sætte et antal, fx “2 bananer”.</target>
-      </trans-unit>
       <trans-unit id="tDflTcl" resname="Order-By">
         <source>Order-By</source>
         <target state="translated">Sorter efter</target>
@@ -324,6 +320,10 @@
       <trans-unit id="5xRUnJV" resname="Woohoo! No not done items.">
         <source>Woohoo! No not done items.</source>
         <target state="translated">Hurra! Du mangler ikke noget.</target>
+      </trans-unit>
+      <trans-unit id="yeM.oC3" resname="Prefix item name with a number and optional unit to set a quantity, e.g. “2 l milk”.">
+        <source>Prefix item name with a number and optional unit to set a quantity, e.g. “2 l milk”.</source>
+        <target state="needs-l10n">__Prefix item name with a number and optional unit to set a quantity, e.g. “2 l milk”.</target>
       </trans-unit>
     </body>
   </file>
