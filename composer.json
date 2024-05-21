@@ -1,10 +1,8 @@
 {
     "name": "mikkelricky/shopping",
     "description": "Shopping lists",
-    "type": "project",
     "license": "proprietary",
-    "minimum-stability": "stable",
-    "prefer-stable": true,
+    "type": "project",
     "require": {
         "php": "^8.2",
         "ext-ctype": "*",
@@ -18,64 +16,67 @@
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpstan/phpdoc-parser": "^1.16.1",
         "stof/doctrine-extensions-bundle": "^1.7.1",
-        "symfony/asset": "6.3.*",
-        "symfony/console": "6.3.*",
-        "symfony/dotenv": "6.3.*",
-        "symfony/expression-language": "6.3.*",
+        "symfony/asset": "~6.3.0",
+        "symfony/console": "~6.3.0",
+        "symfony/dotenv": "~6.3.0",
+        "symfony/expression-language": "~6.3.0",
         "symfony/flex": "^2.2.5",
-        "symfony/form": "6.3.*",
-        "symfony/framework-bundle": "6.3.*",
-        "symfony/http-client": "6.3.*",
-        "symfony/intl": "6.3.*",
-        "symfony/mailer": "6.3.*",
-        "symfony/mime": "6.3.*",
+        "symfony/form": "~6.3.0",
+        "symfony/framework-bundle": "~6.3.0",
+        "symfony/http-client": "~6.3.0",
+        "symfony/intl": "~6.3.0",
+        "symfony/mailer": "~6.3.0",
+        "symfony/mime": "~6.3.0",
         "symfony/monolog-bundle": "^3.8",
-        "symfony/notifier": "6.3.*",
-        "symfony/process": "6.3.*",
-        "symfony/property-access": "6.3.*",
-        "symfony/property-info": "6.3.*",
-        "symfony/proxy-manager-bridge": "6.3.*",
-        "symfony/runtime": "6.3.*",
-        "symfony/security-bundle": "6.3.*",
-        "symfony/serializer": "6.3.*",
-        "symfony/string": "6.3.*",
-        "symfony/translation": "6.3.*",
-        "symfony/twig-bundle": "6.3.*",
-        "symfony/uid": "6.3.*",
-        "symfony/validator": "6.3.*",
-        "symfony/web-link": "6.3.*",
+        "symfony/notifier": "~6.3.0",
+        "symfony/process": "~6.3.0",
+        "symfony/property-access": "~6.3.0",
+        "symfony/property-info": "~6.3.0",
+        "symfony/proxy-manager-bridge": "~6.3.0",
+        "symfony/runtime": "~6.3.0",
+        "symfony/security-bundle": "~6.3.0",
+        "symfony/serializer": "~6.3.0",
+        "symfony/string": "~6.3.0",
+        "symfony/translation": "~6.3.0",
+        "symfony/twig-bundle": "~6.3.0",
+        "symfony/uid": "~6.3.0",
+        "symfony/validator": "~6.3.0",
+        "symfony/web-link": "~6.3.0",
         "symfony/webpack-encore-bundle": "^2.1",
-        "symfony/yaml": "6.3.*",
+        "symfony/yaml": "~6.3.0",
         "twig/extra-bundle": "^3.5.1",
         "twig/twig": "^3.5.1"
     },
     "require-dev": {
+        "ergebnis/composer-normalize": "^2.42",
         "friendsofphp/php-cs-fixer": "^3.35",
         "hautelook/alice-bundle": "^2.12",
         "phpstan/phpstan": "^1.10",
         "phpunit/phpunit": "^9.6",
         "rector/rector": "^0.18.5",
-        "symfony/browser-kit": "6.3.*",
-        "symfony/css-selector": "6.3.*",
-        "symfony/debug-bundle": "6.3.*",
+        "symfony/browser-kit": "~6.3.0",
+        "symfony/css-selector": "~6.3.0",
+        "symfony/debug-bundle": "~6.3.0",
         "symfony/maker-bundle": "^1.48",
         "symfony/phpunit-bridge": "^6.2.7",
-        "symfony/stopwatch": "6.3.*",
-        "symfony/web-profiler-bundle": "6.3.*",
+        "symfony/stopwatch": "~6.3.0",
+        "symfony/web-profiler-bundle": "~6.3.0",
         "vimeo/psalm": "^5.15",
         "vincentlanglet/twig-cs-fixer": "^2.8"
     },
-    "config": {
-        "allow-plugins": {
-            "symfony/flex": true,
-            "symfony/runtime": true
-        },
-        "optimize-autoloader": true,
-        "preferred-install": {
-            "*": "dist"
-        },
-        "sort-packages": true
+    "replace": {
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php72": "*",
+        "symfony/polyfill-php73": "*",
+        "symfony/polyfill-php74": "*",
+        "symfony/polyfill-php80": "*"
     },
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "App\\": "src/"
@@ -86,25 +87,35 @@
             "App\\Tests\\": "tests/"
         }
     },
-    "replace": {
-        "symfony/polyfill-ctype": "*",
-        "symfony/polyfill-iconv": "*",
-        "symfony/polyfill-php72": "*",
-        "symfony/polyfill-php73": "*",
-        "symfony/polyfill-php74": "*",
-        "symfony/polyfill-php80": "*"
+    "config": {
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true,
+            "symfony/flex": true,
+            "symfony/runtime": true
+        },
+        "optimize-autoloader": true,
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": true,
+            "require": "6.3.*"
+        }
     },
     "scripts": {
-        "auto-scripts": {
-            "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd"
-        },
         "post-install-cmd": [
             "@auto-scripts"
         ],
         "post-update-cmd": [
             "@auto-scripts"
         ],
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        },
         "update-translations": [
             "# We need a translation from en to en (!) (without prefix) to be able to process placeholders in en.",
             "DEFAULT_LOCALE=en bin/console translation:extract --clean --force en --prefix=''",
@@ -112,14 +123,5 @@
             "# Mark default translations (prefixed with `__`) as “Needs work” in Danish translations",
             "sed --in-place='' 's/<target>__/<target state=\"needs-l10n\">__/' translations/*.da.*xlf"
         ]
-    },
-    "conflict": {
-        "symfony/symfony": "*"
-    },
-    "extra": {
-        "symfony": {
-            "allow-contrib": true,
-            "require": "6.3.*"
-        }
     }
 }
