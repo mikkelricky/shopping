@@ -17,42 +17,29 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Uid\Uuid;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\StoreRepository")
- *
- * @ORM\Table(name="shopping_store")
- *
- * @UniqueEntity("name")
- */
+
+#[ORM\Table(name: 'shopping_store')]
+#[ORM\Entity(repositoryClass: 'App\Repository\StoreRepository')]
+#[UniqueEntity('name')]
 class Store
 {
     use TimestampableEntity;
 
-    /**
-     * @ORM\Id
-     *
-     * @ORM\Column(type="uuid", unique=true)
-     */
+    
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private $name;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
+    #[ORM\Column(type: 'text', nullable: true)]
     private $description;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Account", inversedBy="stores")
-     */
+    #[ORM\ManyToOne(targetEntity: 'App\Entity\Account', inversedBy: 'stores')]
     private $account;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Location", mappedBy="store", cascade={"persist"}, orphanRemoval=true)
-     */
+    #[ORM\OneToMany(targetEntity: 'App\Entity\Location', mappedBy: 'store', cascade: ['persist'], orphanRemoval: true)]
     private $locations;
 
     public function __construct()

@@ -16,21 +16,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route(
- *     "/{_locale}/_account/{account}",
- *     name="account_",
- *     locale="en",
- *     requirements={
- *         "_locale": "da|en"
- *     }
- * )
- */
+#[Route(path: '/{_locale}/_account/{account}', name: 'account_', locale: 'en', requirements: ['_locale' => 'da|en'])]
 class AccountController extends AbstractController
 {
-    /**
-     * @Route("/", name="show")
-     */
+    #[Route(path: '/', name: 'show')]
     public function show(Account $account): Response
     {
         return $this->render('account/show.html.twig', [
@@ -38,9 +27,7 @@ class AccountController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route ("/edit", name="edit")
-     */
+    #[Route(path: '/edit', name: 'edit')]
     public function edit(Request $request, Account $account): Response
     {
         $form = $this->createForm(AccountType::class, $account);

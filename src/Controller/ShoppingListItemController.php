@@ -18,20 +18,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route(
- *     "/{_locale}/list/item/{item}",
- *     locale="en",
- *     requirements={
- *         "_locale": "da|en"
- *     }
- * )
- */
+#[Route(path: '/{_locale}/list/item/{item}', locale: 'en', requirements: ['_locale' => 'da|en'])]
 class ShoppingListItemController extends AbstractController
 {
-    /**
-     * @Route ("/edit", name="shopping_list_item_edit")
-     */
+    #[Route(path: '/edit', name: 'shopping_list_item_edit')]
     public function edit(Request $request, ShoppingListItem $item): Response
     {
         $form = $this->createForm(ShoppingListItemType::class, $item);
@@ -51,9 +41,7 @@ class ShoppingListItemController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/done", name="shopping_list_item_done", methods="PUT")
-     */
+    #[Route(path: '/done', name: 'shopping_list_item_done', methods: 'PUT')]
     public function done(Request $request, ShoppingListItem $item, ShoppingListItemManager $itemManager): RedirectResponse
     {
         if ($this->isCsrfTokenValid('item_done'.$item->getId(), $request->request->get('_token'))) {
@@ -80,9 +68,7 @@ class ShoppingListItemController extends AbstractController
         return $this->redirectToRoute('shopping_list_items', ['id' => $item->getList()->getId()] + $request->query->all());
     }
 
-    /**
-     * @Route("/log", name="shopping_list_item_log", methods="GET")
-     */
+    #[Route(path: '/log', name: 'shopping_list_item_log', methods: 'GET')]
     public function log(ShoppingListItem $item): Response
     {
         return $this->render('shopping_list_item/log.html.twig', [

@@ -16,44 +16,32 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Uid\Uuid;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\ShoppingListRepository")
- *
- * @ORM\Table(name="shopping_shopping_list")
- */
+
+#[ORM\Table(name: 'shopping_shopping_list')]
+#[ORM\Entity(repositoryClass: 'App\Repository\ShoppingListRepository')]
 class ShoppingList
 {
     use TimestampableEntity;
 
-    /**
-     * @ORM\Id
-     *
-     * @ORM\Column(type="uuid", unique=true)
-     */
+    
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private $name;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
+    #[ORM\Column(type: 'text', nullable: true)]
     private $description;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Account", inversedBy="lists")
-     *
-     * @ORM\JoinColumn(nullable=false)
-     */
+    
+    #[ORM\ManyToOne(targetEntity: 'App\Entity\Account', inversedBy: 'lists')]
+    #[ORM\JoinColumn(nullable: false)]
     private $account;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ShoppingListItem", mappedBy="list", cascade={"persist"}, orphanRemoval=true)
-     *
-     * @ORM\OrderBy({"name":"ASC"})
-     */
+    
+    #[ORM\OneToMany(targetEntity: 'App\Entity\ShoppingListItem', mappedBy: 'list', cascade: ['persist'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     private $items;
 
     public function __construct()
