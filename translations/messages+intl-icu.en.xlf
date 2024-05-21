@@ -325,6 +325,38 @@
         <source>You now have access to the shopping list {name}.</source>
         <target>You now have access to the shopping list {name}.</target>
       </trans-unit>
+      <trans-unit id="64bwqCy" resname="Store {name} updated">
+        <source>Store {name} updated</source>
+        <target>Store {name} updated</target>
+      </trans-unit>
+      <trans-unit id="lP9yvfR" resname="filter.store">
+        <source>filter.store</source>
+        <target state="translated">store</target>
+      </trans-unit>
+      <trans-unit id="Xaj3_8K" resname="Back to list">
+        <source>Back to list</source>
+        <target>Back to list</target>
+      </trans-unit>
+      <trans-unit id="n83WwtP" resname="Create store">
+        <source>Create store</source>
+        <target>Create store</target>
+      </trans-unit>
+      <trans-unit id="818Itzx" resname="Stores">
+        <source>Stores</source>
+        <target>Stores</target>
+      </trans-unit>
+      <trans-unit id="Vu_PIJV" resname="Address">
+        <source>Address</source>
+        <target>Address</target>
+      </trans-unit>
+      <trans-unit id="80oBtV3" resname="No stores found">
+        <source>No stores found</source>
+        <target>No stores found</target>
+      </trans-unit>
+      <trans-unit id="8Wi7Fhc" resname="Create new store">
+        <source>Create new store</source>
+        <target>Create new store</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

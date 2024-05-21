@@ -41,9 +41,15 @@ class Account implements TimestampableInterface
      */
     private $lists;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Store", mappedBy="account")
+     */
+    private $stores;
+
     public function __construct()
     {
         $this->lists = new ArrayCollection();
+        $this->stores = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -88,6 +94,37 @@ class Account implements TimestampableInterface
             // set the owning side to null (unless already changed)
             if ($list->getAccount() === $this) {
                 $list->setAccount(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Store[]
+     */
+    public function getStores(): Collection
+    {
+        return $this->stores;
+    }
+
+    public function addStore(Store $store): self
+    {
+        if (!$this->stores->contains($store)) {
+            $this->stores[] = $store;
+            $store->setAccount($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStore(Store $store): self
+    {
+        if ($this->stores->contains($store)) {
+            $this->stores->removeElement($store);
+            // set the owning side to null (unless already changed)
+            if ($store->getAccount() === $this) {
+                $store->setAccount(null);
             }
         }
 

@@ -1,43 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Store index{% endblock %}
+{% block title 'Stores' %}
 
 {% block body %}
-    <h1>Store index</h1>
+    <h1>{{ 'Stores'|trans }}</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Address</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>actions</th>
+                <th>{{ 'Name'|trans }}</th>
+                <th>{{ 'Description'|trans }}</th>
+                <th>{{ 'Locations'|trans }}</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
         {% for store in stores %}
             <tr>
-                <td>{{ store.id }}</td>
                 <td>{{ store.name }}</td>
                 <td>{{ store.description }}</td>
-                <td>{{ store.address }}</td>
-                <td>{{ store.createdAt ? store.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ store.updatedAt ? store.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ store.locations|length }}</td>
                 <td>
-                    <a href="{{ path('store_show', {'id': store.id}) }}">show</a>
-                    <a href="{{ path('store_edit', {'id': store.id}) }}">edit</a>
+                    <a href="{{ path('store_edit', {id: store.id, account: account.id}) }}">{{ 'Edit'|trans }}</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="7">{{ 'No stores found'|trans }}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('store_new') }}">Create new</a>
+    <a href="{{ path('store_new', {account: account.id}) }}">{{ 'Create new store'|trans }}</a>
 {% endblock %}
