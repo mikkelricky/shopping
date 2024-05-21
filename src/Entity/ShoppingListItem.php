@@ -17,61 +17,44 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Uid\Uuid;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\ShoppingListItemRepository")
- *
- * @ORM\Table(name="shopping_shopping_list_item")
- */
+
+#[ORM\Table(name: 'shopping_shopping_list_item')]
+#[ORM\Entity(repositoryClass: 'App\Repository\ShoppingListItemRepository')]
 class ShoppingListItem
 {
     use TimestampableEntity;
 
-    /**
-     * @ORM\Id
-     *
-     * @ORM\Column(type="uuid", unique=true)
-     */
+    
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     *
      * @ItemName()
      */
+    #[ORM\Column(type: 'string', length: 255)]
     private $name;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ShoppingList", inversedBy="items")
-     *
-     * @ORM\JoinColumn(nullable=false)
-     */
+    
+    #[ORM\ManyToOne(targetEntity: 'App\Entity\ShoppingList', inversedBy: 'items')]
+    #[ORM\JoinColumn(nullable: false)]
     private $list;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
+    #[ORM\Column(type: 'datetime', nullable: true)]
     private $doneAt;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $quantity;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
+    #[ORM\Column(type: 'text', nullable: true)]
     private $description;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ShoppingListItemLogEntry", mappedBy="item", orphanRemoval=true)
-     *
-     * @ORM\OrderBy({"createdAt"="DESC"})
-     */
+    
+    #[ORM\OneToMany(targetEntity: 'App\Entity\ShoppingListItemLogEntry', mappedBy: 'item', orphanRemoval: true)]
+    #[ORM\OrderBy(['createdAt' => 'DESC'])]
     private $logEntries;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Store")
-     */
+    #[ORM\ManyToMany(targetEntity: 'App\Entity\Store')]
     private $stores;
 
     public function __construct()

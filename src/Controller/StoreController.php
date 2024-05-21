@@ -18,21 +18,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route(
- *     "/{_locale}",
- *     locale="en",
- *     requirements={
- *         "_locale": "da|en"
- *     }
- * )
- */
+#[Route(path: '/{_locale}', locale: 'en', requirements: ['_locale' => 'da|en'])]
 class StoreController extends AbstractController
 {
-    /**
-     * @Route("/store", name="store_index", methods="GET")
-     * @Route("/{account}/store", name="store_index_account", methods="GET")
-     */
+    #[Route(path: '/store', name: 'store_index', methods: 'GET')]
+    #[Route(path: '/{account}/store', name: 'store_index_account', methods: 'GET')]
     public function index(StoreRepository $storeRepository, Account $account = null): Response
     {
         return $this->render('store/index.html.twig', [
@@ -41,10 +31,8 @@ class StoreController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/new", name="store_new", methods={"GET", "POST"})
-     * @Route("/{account}/new", name="store_new_account", methods={"GET", "POST"})
-     */
+    #[Route(path: '/new', name: 'store_new', methods: ['GET', 'POST'])]
+    #[Route(path: '/{account}/new', name: 'store_new_account', methods: ['GET', 'POST'])]
     public function new(Request $request, Account $account = null): Response
     {
         $store = new Store();
@@ -70,17 +58,13 @@ class StoreController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="store_show", methods="GET")
-     */
+    #[Route(path: '/{id}', name: 'store_show', methods: 'GET')]
     public function show(Store $store): Response
     {
         return $this->render('store/show.html.twig', ['store' => $store]);
     }
 
-    /**
-     * @Route("/{id}/edit", name="store_edit", methods="GET|POST")
-     */
+    #[Route(path: '/{id}/edit', name: 'store_edit', methods: 'GET|POST')]
     public function edit(Request $request, Store $store, Account $account): Response
     {
         $form = $this->createForm(StoreType::class, $store);

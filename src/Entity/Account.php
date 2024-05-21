@@ -16,35 +16,25 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Uid\Uuid;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\AccountRepository")
- *
- * @ORM\Table(name="shopping_account")
- */
+
+#[ORM\Table(name: 'shopping_account')]
+#[ORM\Entity(repositoryClass: 'App\Repository\AccountRepository')]
 class Account
 {
     use TimestampableEntity;
 
-    /**
-     * @ORM\Id
-     *
-     * @ORM\Column(type="uuid", unique=true)
-     */
+    
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private $email;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ShoppingList", mappedBy="account", orphanRemoval=true)
-     */
+    #[ORM\OneToMany(targetEntity: 'App\Entity\ShoppingList', mappedBy: 'account', orphanRemoval: true)]
     private $lists;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Store", mappedBy="account")
-     */
+    #[ORM\OneToMany(targetEntity: 'App\Entity\Store', mappedBy: 'account')]
     private $stores;
 
     public function __construct()
