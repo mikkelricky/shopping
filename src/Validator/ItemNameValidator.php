@@ -18,7 +18,7 @@ class ItemNameValidator extends ConstraintValidator
     /**
      * @return void
      */
-    public function validate($value, Constraint $constraint)
+    public function validate(mixed $value, Constraint $constraint)
     {
         \assert($constraint instanceof ItemName);
 

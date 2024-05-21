@@ -21,5 +21,5 @@ class ItemName extends Constraint
      * Any public properties become valid options for the annotation.
      * Then, use these in your validator class.
      */
-    public $message = '“{{ value }}” is not a valid item name.';
+    public string $message = '“{{ value }}” is not a valid item name.';
 }

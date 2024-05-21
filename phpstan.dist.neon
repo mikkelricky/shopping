@@ -1,0 +1,7 @@
+parameters:
+    level: 6
+    # https://phpstan.org/config-reference#vague-typehints
+    checkGenericClassInNonGenericObjectType: false
+    paths:
+        - src
+        - tests

@@ -31,7 +31,7 @@ class FlashActionManager
         $this->session->set(self::$sessionKey, $actions);
     }
 
-    public function getFlashActions(string $type, string $message)
+    public function getFlashActions(string $type, string $message): ?array
     {
         try {
             $actions = $this->session->get(self::$sessionKey);
