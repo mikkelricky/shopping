@@ -3,7 +3,7 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2020 Mikkel Ricky
+ * (c) 2018– Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
@@ -21,17 +21,15 @@ class Rema1000 implements StoreFetcherInterface
         $response = $client->request('GET', 'https://rema1000.dk/wp-content/themes/rema1000/get_stores.php');
         $items = $response->toArray();
 
-        $locations = array_map(static function (array $item) {
-            return [
-                'name' => 'REMA 1000',
-                'address' => implode(\PHP_EOL, [
-                    $item['address'],
-                    $item['zipcode'].' '.$item['city'],
-                ]),
-                'latitude' => $item['latitude'],
-                'longitude' => $item['longitude'],
-            ];
-        }, $items);
+        $locations = array_map(static fn (array $item) => [
+            'name' => 'REMA 1000',
+            'address' => implode(\PHP_EOL, [
+                $item['address'],
+                $item['zipcode'].' '.$item['city'],
+            ]),
+            'latitude' => $item['latitude'],
+            'longitude' => $item['longitude'],
+        ], $items);
 
         return ['REMA 1000' => $locations];
     }

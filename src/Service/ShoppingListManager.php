@@ -3,7 +3,7 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2020 Mikkel Ricky
+ * (c) 2018– Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
@@ -24,28 +24,8 @@ use Twig\Environment;
 
 class ShoppingListManager
 {
-    /** @var AccountManager */
-    private $accountRepository;
-
-    /** @var MailerInterface */
-    private $mailer;
-
-    /** @var array */
-    private $from;
-
-    /** @var Environment */
-    private $twig;
-
-    /** @var PropertyAccessorInterface */
-    private $propertyAccessor;
-
-    public function __construct(AccountRepository $accountRepository, MailerInterface $mailer, array $from, Environment $twig, PropertyAccessorInterface $propertyAccessor)
+    public function __construct(private readonly AccountRepository $accountRepository, private readonly MailerInterface $mailer, private array $from, private readonly Environment $twig, private readonly PropertyAccessorInterface $propertyAccessor)
     {
-        $this->accountRepository = $accountRepository;
-        $this->mailer = $mailer;
-        $this->from = $from;
-        $this->twig = $twig;
-        $this->propertyAccessor = $propertyAccessor;
     }
 
     public function notifyListCreated(ShoppingList $list): void
@@ -97,9 +77,7 @@ class ShoppingListManager
                     $filter['store'] = (array) $filter['store'];
 
                     return !empty(array_intersect(
-                        $item->getStores()->map(static function (Store $store) {
-                            return $store->getName();
-                        })->toArray(),
+                        $item->getStores()->map(static fn (Store $store) => $store->getName())->toArray(),
                         $filter['store']
                     ));
                 }
@@ -128,7 +106,7 @@ class ShoppingListManager
         return $items;
     }
 
-    private function send(Email $email, $addresses): void
+    private function send(Email $email, string|null $addresses): void
     {
         $from = new Address($this->from['address'], $this->from['name'] ?? '');
         $email

@@ -3,55 +3,47 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2020 Mikkel Ricky
+ * (c) 2018– Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
 
 namespace App\Entity;
 
+use App\Repository\AccountRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Uid\Uuid;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\AccountRepository")
- * @ORM\Table(name="shopping_account")
- */
-class Account
+#[ORM\Table(name: 'shopping_account')]
+#[ORM\Entity(repositoryClass: AccountRepository::class)]
+class Account implements \Stringable
 {
     use TimestampableEntity;
 
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="UUID")
-     * @ORM\Column(type="guid")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private ?Uuid $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $email;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $email = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ShoppingList", mappedBy="account", orphanRemoval=true)
-     */
-    private $lists;
+    #[ORM\OneToMany(targetEntity: ShoppingList::class, mappedBy: 'account', orphanRemoval: true)]
+    private Collection $lists;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Store", mappedBy="account")
-     */
-    private $stores;
+    #[ORM\OneToMany(targetEntity: Store::class, mappedBy: 'account')]
+    private Collection $stores;
 
     public function __construct()
     {
+        $this->id = Uuid::v4();
         $this->lists = new ArrayCollection();
         $this->stores = new ArrayCollection();
     }
 
-    public function getId(): ?string
+    public function getId(): ?Uuid
     {
         return $this->id;
     }
@@ -68,9 +60,6 @@ class Account
         return $this;
     }
 
-    /**
-     * @return Collection|ShoppingList[]
-     */
     public function getLists(): Collection
     {
         return $this->lists;
@@ -99,9 +88,6 @@ class Account
         return $this;
     }
 
-    /**
-     * @return Collection|Store[]
-     */
     public function getStores(): Collection
     {
         return $this->stores;

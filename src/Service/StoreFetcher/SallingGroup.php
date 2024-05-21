@@ -3,21 +3,22 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2020 Mikkel Ricky
+ * (c) 2018– Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
 
 namespace App\Service\StoreFetcher;
 
-use function GuzzleHttp\Psr7\parse_header;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
+use function GuzzleHttp\Psr7\parse_header;
+
 class SallingGroup implements StoreFetcherInterface
 {
-    private static $brands = [
+    private static array $brands = [
         'bilka' => 'Bilka',
         'salling' => 'Salling',
         'foetex' => 'Føtex',
@@ -26,8 +27,7 @@ class SallingGroup implements StoreFetcherInterface
         // 'br' => 'BR',
     ];
 
-    /** @var array */
-    private $options;
+    private array $options;
 
     public function __construct(array $sallingGroupConfig)
     {
@@ -91,7 +91,12 @@ class SallingGroup implements StoreFetcherInterface
         return $stores;
     }
 
-    private function getLinks(ResponseInterface $response)
+    /**
+     * @return string[]|null
+     *
+     * @psalm-return array<string>|null
+     */
+    private function getLinks(ResponseInterface $response): array|null
     {
         $headers = $response->getHeaders();
         if (!isset($headers['link'])) {
@@ -103,7 +108,7 @@ class SallingGroup implements StoreFetcherInterface
 
         foreach ($data as $item) {
             if (isset($item[0], $item['rel'])) {
-                $links[$item['rel']] = substr($item[0], 1, -1);
+                $links[$item['rel']] = substr((string) $item[0], 1, -1);
             }
         }
 

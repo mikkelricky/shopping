@@ -23,27 +23,11 @@
       </trans-unit>
       <trans-unit id="A9_cNdl" resname="Item log">
         <source>Item log</source>
-        <target>__Item log</target>
-      </trans-unit>
-      <trans-unit id="LTiDYaQ" resname="Log for item %item%">
-        <source>Log for item %item%</source>
-        <target>__Log for item %item%</target>
-      </trans-unit>
-      <trans-unit id="buxIRJo" resname="Delete shopping list %list%">
-        <source>Delete shopping list %list%</source>
-        <target>Slet indkøbslisten %list%</target>
+        <target state="translated">Indkobslog</target>
       </trans-unit>
       <trans-unit id="XU0DWhc" resname="Create shopping list">
         <source>Create shopping list</source>
         <target>Opret indkøbsliste</target>
-      </trans-unit>
-      <trans-unit id="R1lJisK" resname="Create">
-        <source>Create</source>
-        <target>Opret</target>
-      </trans-unit>
-      <trans-unit id="Z54Ev1U" resname="Add items to list %list%">
-        <source>Add items to list %list%</source>
-        <target>Tilføj indkøb til %list%</target>
       </trans-unit>
       <trans-unit id="E1g9AxN" resname="Add items">
         <source>Add items</source>
@@ -59,11 +43,7 @@
       </trans-unit>
       <trans-unit id="EgvUT_P" resname="List items log">
         <source>List items log</source>
-        <target>__List items log</target>
-      </trans-unit>
-      <trans-unit id="IY3YTRN" resname="Items log for list %list%">
-        <source>Items log for list %list%</source>
-        <target>__Items log for list %list%</target>
+        <target state="translated">Vis indkøbslog</target>
       </trans-unit>
       <trans-unit id="wU1xKs8" resname="Show list items">
         <source>Show list items</source>
@@ -71,7 +51,7 @@
       </trans-unit>
       <trans-unit id="kOVW28K" resname="No item log entries">
         <source>No item log entries</source>
-        <target>__No item log entries</target>
+        <target state="translated">Ingen logindgange</target>
       </trans-unit>
       <trans-unit id="MLCHest" resname="Add item to list">
         <source>Add item to list</source>
@@ -80,10 +60,6 @@
       <trans-unit id="bIE_PXD" resname="Share shopping list">
         <source>Share shopping list</source>
         <target>Del indkøbsliste</target>
-      </trans-unit>
-      <trans-unit id="qetHEZ2" resname="Share shopping list %list%">
-        <source>Share shopping list %list%</source>
-        <target>Del indkøbslisten %list%</target>
       </trans-unit>
       <trans-unit id="3NHVIj9" resname="Name">
         <source>Name</source>
@@ -109,10 +85,6 @@
         <source>Edit</source>
         <target>Rediger</target>
       </trans-unit>
-      <trans-unit id="u2T5mpO" resname="Show items log">
-        <source>Show items log</source>
-        <target>__Show items log</target>
-      </trans-unit>
       <trans-unit id="VsckTZb" resname="No lists found">
         <source>No lists found</source>
         <target>Ingen lister fundet</target>
@@ -121,61 +93,17 @@
         <source>Find shopping lists</source>
         <target>Find indkøbslister</target>
       </trans-unit>
-      <trans-unit id="DFMn.UX" resname="Recover">
-        <source>Recover</source>
-        <target>__Recover</target>
-      </trans-unit>
-      <trans-unit id="k9EYqZs" resname="%sender% has shared the shopping list %list% with you.">
-        <source>%sender% has shared the shopping list %list% with you.</source>
-        <target>%sender% har delt indkøbslisten %list% med dig.</target>
-      </trans-unit>
-      <trans-unit id="wPRc6o7" resname="You now have access to the shopping list %list%.">
-        <source>You now have access to the shopping list %list%.</source>
-        <target>Du har nu adgang til indkøbslisten %list%.</target>
-      </trans-unit>
-      <trans-unit id="aiOxRoj" resname="Go to %url% and start shopping!">
-        <source>Go to %url% and start shopping!</source>
-        <target>Gå til  %url% og begynd dine indkøb!</target>
-      </trans-unit>
-      <trans-unit id="O4UhdbX" resname="You can find your shopping lists at %url%">
-        <source>You can find your shopping lists at %url%</source>
-        <target>Du kan finde dine indkøbslister på %url%</target>
-      </trans-unit>
       <trans-unit id="T6y8Ezu" resname="Don't share this url with anyone – it will give access to all your lists!">
         <source>Don't share this url with anyone – it will give access to all your lists!</source>
         <target>Del ikke denne url med nogen – den vil give adgang til alle dine lister!</target>
-      </trans-unit>
-      <trans-unit id="5h.bI0d" resname="Your shopping list %list% is ready at %url%">
-        <source>Your shopping list %list% is ready at %url%</source>
-        <target>Din indkøbsliste %list% er klar på %url%</target>
-      </trans-unit>
-      <trans-unit id="W2E3AnZ" resname="You can find all your shopping lists at %url%">
-        <source>You can find all your shopping lists at %url%</source>
-        <target>Du kan finde dine indkøbslister på %url%</target>
       </trans-unit>
       <trans-unit id="iTZTafp" resname="Don't share these urls with anyone – they will give access to all your shopping lists!">
         <source>Don't share these urls with anyone – they will give access to all your shopping lists!</source>
         <target>Del ikke disse url’er med nogen – de vil give adgang til alle dine lister!</target>
       </trans-unit>
-      <trans-unit id="pXonmlo" resname="If you wan't to share %list% with someone, go to %url%">
-        <source>If you wan't to share %list% with someone, go to %url%</source>
-        <target>Hvis du vil dele %list% med nogen, så gå til %url%</target>
-      </trans-unit>
       <trans-unit id="8xJLDhh" resname="Shopping list created">
         <source>Shopping list created</source>
         <target>Indkøbsliste oprettet</target>
-      </trans-unit>
-      <trans-unit id="Q_tUayB" resname="Your shopping list %list% has been created.">
-        <source>Your shopping list %list% has been created.</source>
-        <target>Din indkøbsliste %list% er blevet oprettet.</target>
-      </trans-unit>
-      <trans-unit id="nUs4mCV" resname="Details on how to access the list have been sent to %email%.">
-        <source>Details on how to access the list have been sent to %email%.</source>
-        <target>Oplysninger om hvordan listen tilgås er blevet sendt til  %email%.</target>
-      </trans-unit>
-      <trans-unit id="dpAPG.0" resname="Back">
-        <source>Back</source>
-        <target>Tilbage</target>
       </trans-unit>
       <trans-unit id="dKiDoDe" resname="Settings">
         <source>Settings</source>
@@ -197,85 +125,33 @@
         <source>Shopping list description</source>
         <target>Beskrivelse af indkøbsliste</target>
       </trans-unit>
-      <trans-unit id="XqBrh5X" resname="Recover shopping lists">
-        <source>Recover shopping lists</source>
-        <target>Find indkøbslister</target>
-      </trans-unit>
-      <trans-unit id="03qHSCV" resname="Mail sent to %email%.">
-        <source>Mail sent to %email%.</source>
-        <target>__Mail sent to %email%.</target>
-      </trans-unit>
-      <trans-unit id="Sr2q7DD" resname="Error sending email to %email%">
-        <source>Error sending email to %email%</source>
-        <target>__Error sending email to %email%</target>
-      </trans-unit>
       <trans-unit id="45_rmff" resname="Enter your e-mail address and we'll send information on how to find your shopping lists.">
         <source>Enter your e-mail address and we'll send information on how to find your shopping lists.</source>
-        <target>__Enter your e-mail address and we'll send information on how to find your shopping lists.</target>
+        <target state="translated">Indtast din e-mailadresse og vi sender oplysning om hvordan du finder dine indkøbslister.</target>
       </trans-unit>
       <trans-unit id="j9Z.E_U" resname="Recover my shopping lists">
         <source>Recover my shopping lists</source>
-        <target>__Recover my shopping lists</target>
-      </trans-unit>
-      <trans-unit id="4bm6wuQ" resname="Shopping list %list%">
-        <source>Shopping list %list%</source>
-        <target>__Shopping list %list%</target>
+        <target state="translated">Find mine indkøbslister</target>
       </trans-unit>
       <trans-unit id="DR4kYsJ" resname="Filter applied">
         <source>Filter applied</source>
-        <target>__Filter applied</target>
+        <target state="translated">Filter anvendt</target>
       </trans-unit>
       <trans-unit id="ulni1KX" resname="Clear filter">
         <source>Clear filter</source>
-        <target>__Clear filter</target>
-      </trans-unit>
-      <trans-unit id=".GDkmR." resname="Woohoo! No undone items.">
-        <source>Woohoo! No undone items.</source>
-        <target>__Woohoo! No undone items.</target>
+        <target state="translated">Ryd filter</target>
       </trans-unit>
       <trans-unit id="v154yCI" resname="Show all items">
         <source>Show all items</source>
-        <target>__Show all items</target>
-      </trans-unit>
-      <trans-unit id="c0Nzp3t" resname="Show done items">
-        <source>Show done items</source>
-        <target>__Show done items</target>
-      </trans-unit>
-      <trans-unit id="8.q__a9" resname="{1} Show one done item|[0,Inf[ Show %count% done items">
-        <source>{1} Show one done item|[0,Inf[ Show %count% done items</source>
-        <target>__{1} Show one done item|[0,Inf[ Show %count% done items</target>
-      </trans-unit>
-      <trans-unit id="1vnbcif" resname="{count, plural, =0 {No items found.} one {One item found.} other {count items found.}}">
-        <source>{count, plural, =0 {No items found.} one {One item found.} other {count items found.}}</source>
-        <target>__{count, plural, =0 {No items found.} one {One item found.} other {count items found.}}</target>
-      </trans-unit>
-      <trans-unit id="hnZhpw0" resname="Hide done items">
-        <source>Hide done items</source>
-        <target>__Hide done items</target>
-      </trans-unit>
-      <trans-unit id="UUb8juG" resname="{1} Hide one done item|[0,Inf[ Hide %count% done items">
-        <source>{1} Hide one done item|[0,Inf[ Hide %count% done items</source>
-        <target>__{1} Hide one done item|[0,Inf[ Hide %count% done items</target>
+        <target state="translated">Vis alle indkøb</target>
       </trans-unit>
       <trans-unit id="0aCzKac" resname="Add item">
         <source>Add item</source>
-        <target>__Add item</target>
-      </trans-unit>
-      <trans-unit id="gsGVAPO" resname="Item done at %done_at%">
-        <source>Item done at %done_at%</source>
-        <target>Indkøb afsluttet %done_at%</target>
+        <target state="translated">Tilføj indkøb</target>
       </trans-unit>
       <trans-unit id="NLZoOP5" resname="Show log">
         <source>Show log</source>
-        <target>__Show log</target>
-      </trans-unit>
-      <trans-unit id="HUs6Rcu" resname="{count, plural, =0 {No items found.} one {One item found.} other {# items found.}}">
-        <source>{count, plural, =0 {No items found.} one {One item found.} other {# items found.}}</source>
-        <target>__{count, plural, =0 {No items found.} one {One item found.} other {# items found.}}</target>
-      </trans-unit>
-      <trans-unit id="Ezpuakl" resname="{count, plural, one {Show one item.} other {Show # items.}}">
-        <source>{count, plural, one {Show one item.} other {Show # items.}}</source>
-        <target>__{count, plural, one {Show one item.} other {Show # items.}}</target>
+        <target state="translated">Vis log</target>
       </trans-unit>
       <trans-unit id="_jsaP6H" resname="{count, plural, one {Show one done item.} other {Show # done items.}}">
         <source>{count, plural, one {Show one done item.} other {Show # done items.}}</source>
@@ -285,177 +161,169 @@
         <source>{count, plural, one {Hide one done item.} other {Hide # done items.}}</source>
         <target>{count, plural, one {Skjul ét afsluttet indkøb.} other {Skjul # afsluttede indkøb.}}</target>
       </trans-unit>
-      <trans-unit id="q8fTAWX" resname="Item done at {done_at, date}">
-        <source>Item done at {done_at, date}</source>
-        <target>__Item done at {done_at, date}</target>
-      </trans-unit>
-      <trans-unit id="dOnUq18" resname="Item done at {done_at, full}">
-        <source>Item done at {done_at, full}</source>
-        <target>__Item done at {done_at, full}</target>
-      </trans-unit>
-      <trans-unit id="F8A72VY" resname="Item done at {done_at, date, full}">
-        <source>Item done at {done_at, date, full}</source>
-        <target>__Item done at {done_at, date, full}</target>
-      </trans-unit>
-      <trans-unit id="LPul_ng" resname="Item done at {done_at, date, ::dd-MM-yyyy}">
-        <source>Item done at {done_at, date, ::dd-MM-yyyy}</source>
-        <target>__Item done at {done_at, date, ::dd-MM-yyyy}</target>
-      </trans-unit>
-      <trans-unit id="28mcAwt" resname="Item done on {done_at, date, full} at {done_at, time}">
-        <source>Item done on {done_at, date, full} at {done_at, time}</source>
-        <target>Indkøb afsluttet {done_at, date, full} kl. {done_at, time, short}</target>
-      </trans-unit>
       <trans-unit id="Dh_BuMe" resname="Mail sent to {email}.">
         <source>Mail sent to {email}.</source>
-        <target>__Mail sent to {email}.</target>
+        <target state="translated">E-mail sendt til {email}.</target>
       </trans-unit>
       <trans-unit id="EWNEOmE" resname="Error sending email to {email}">
         <source>Error sending email to {email}</source>
-        <target>__Error sending email to {email}</target>
+        <target state="translated">Fejl under afsendelse af e-mail til {email}</target>
       </trans-unit>
       <trans-unit id="bKatnh5" resname="We will send details on how to access the shopping list to this address.">
         <source>We will send details on how to access the shopping list to this address.</source>
-        <target>__We will send details on how to access the shopping list to this address.</target>
+        <target state="translated">Vi sender oplysninger om at tilgå indkøbslister til denne adresse.</target>
       </trans-unit>
       <trans-unit id="5.60EUD" resname="Item done on {done_at, date, full} at {done_at, time, short}">
         <source>Item done on {done_at, date, full} at {done_at, time, short}</source>
-        <target>__Item done on {done_at, date, full} at {done_at, time, short}</target>
-      </trans-unit>
-      <trans-unit id="C0LhQ0o" resname="Share shopping list {list}">
-        <source>Share shopping list {list}</source>
-        <target>__Share shopping list {list}</target>
+        <target state="translated">Indkøb afsluttet {done_at, date, full} kl. {done_at, time, short}</target>
       </trans-unit>
       <trans-unit id="I6VbHdQ" resname="You can find your shopping lists at {url}">
         <source>You can find your shopping lists at {url}</source>
-        <target>__You can find your shopping lists at {url}</target>
+        <target state="translated">Du kan finde dine indkøbslister på {url}</target>
       </trans-unit>
       <trans-unit id="ZtbX.bQ" resname="Log for item {name}">
         <source>Log for item {name}</source>
-        <target>__Log for item {name}</target>
+        <target state="translated">Log for {name}</target>
       </trans-unit>
       <trans-unit id="eZJS_pc" resname="Delete shopping list {name}">
         <source>Delete shopping list {name}</source>
-        <target>__Delete shopping list {name}</target>
+        <target state="translated">Slet indkøbsliste {name}</target>
       </trans-unit>
       <trans-unit id="GOnkrQV" resname="Shopping list {name}">
         <source>Shopping list {name}</source>
-        <target>__Shopping list {name}</target>
-      </trans-unit>
-      <trans-unit id="9wYHENK" resname="Add items to list {list}">
-        <source>Add items to list {list}</source>
-        <target>__Add items to list {list}</target>
+        <target state="translated">Indkøbsliste {name}</target>
       </trans-unit>
       <trans-unit id="2CgKbmN" resname="Items log for list {name}">
         <source>Items log for list {name}</source>
-        <target>__Items log for list {name}</target>
-      </trans-unit>
-      <trans-unit id="z1LxbQ_" resname="{sender} has shared the shopping list {list} with you.">
-        <source>{sender} has shared the shopping list {list} with you.</source>
-        <target>__{sender} has shared the shopping list {list} with you.</target>
-      </trans-unit>
-      <trans-unit id="lgdjVfW" resname="You now have access to the shopping list {list}.">
-        <source>You now have access to the shopping list {list}.</source>
-        <target>__You now have access to the shopping list {list}.</target>
+        <target state="translated">Log for {name}</target>
       </trans-unit>
       <trans-unit id="2gRaUTx" resname="Go to {url} and start shopping!">
         <source>Go to {url} and start shopping!</source>
-        <target>__Go to {url} and start shopping!</target>
+        <target state="translated">Gå til  {url} og køb ind!</target>
       </trans-unit>
       <trans-unit id="m_ekgTJ" resname="Your shopping list {name} is ready at {url}">
         <source>Your shopping list {name} is ready at {url}</source>
-        <target>__Your shopping list {name} is ready at {url}</target>
+        <target state="translated">Din indkøbsliste {name} er klar på {url}</target>
       </trans-unit>
       <trans-unit id="cHLH3ZM" resname="You can find all your shopping lists at {url}">
         <source>You can find all your shopping lists at {url}</source>
-        <target>__You can find all your shopping lists at {url}</target>
+        <target state="translated">Du kan finde alle dine indkøbslister på {url}</target>
       </trans-unit>
       <trans-unit id="e2p2F2n" resname="If you wan't to share the list {name} with someone, go to {url}">
         <source>If you wan't to share the list {name} with someone, go to {url}</source>
-        <target>__If you wan't to share the list {name} with someone, go to {url}</target>
+        <target state="translated">Hvis du vil dele indkøbslisten {name} med nogen så gå til {url}</target>
       </trans-unit>
       <trans-unit id="Wjqu686" resname="Your shopping list {name} has been created.">
         <source>Your shopping list {name} has been created.</source>
-        <target>__Your shopping list {name} has been created.</target>
+        <target state="translated">Din indkøbsliste {name} er blevet oprettet.</target>
       </trans-unit>
       <trans-unit id="m8L6c75" resname="Details on how to access the list have been sent to {email}.">
         <source>Details on how to access the list have been sent to {email}.</source>
-        <target>__Details on how to access the list have been sent to {email}.</target>
+        <target state="translated">Oplysninger om hvordan du finder listen er blevet sendt til {email}.</target>
       </trans-unit>
       <trans-unit id="8jt7gNd" resname="Add items to list {name}">
         <source>Add items to list {name}</source>
-        <target>__Add items to list {name}</target>
+        <target state="translated">Tilføj indkøb til {name}</target>
       </trans-unit>
       <trans-unit id="l9..uEY" resname="Share shopping list {name}">
         <source>Share shopping list {name}</source>
-        <target>__Share shopping list {name}</target>
+        <target state="translated">Del indkøbsliste {name}</target>
       </trans-unit>
       <trans-unit id="TiaVugp" resname="{sender} has shared the shopping list {name} with you.">
         <source>{sender} has shared the shopping list {name} with you.</source>
-        <target>__{sender} has shared the shopping list {name} with you.</target>
+        <target state="translated">{sender} har delt indkøbslisten {name} med dig.</target>
       </trans-unit>
       <trans-unit id="E4IW.tx" resname="You now have access to the shopping list {name}.">
         <source>You now have access to the shopping list {name}.</source>
-        <target>__You now have access to the shopping list {name}.</target>
+        <target state="translated">Du har nu adgang til indkøbslisten {name}.</target>
       </trans-unit>
       <trans-unit id="TpOnMXp" resname="Store {name} created">
         <source>Store {name} created</source>
-        <target>__Store {name} created</target>
+        <target state="translated">Butik {name} oprettet</target>
       </trans-unit>
       <trans-unit id="64bwqCy" resname="Store {name} updated">
         <source>Store {name} updated</source>
-        <target>__Store {name} updated</target>
+        <target state="translated">Butik {name} opdateret</target>
       </trans-unit>
       <trans-unit id="lP9yvfR" resname="filter.store">
         <source>filter.store</source>
-        <target>__filter.store</target>
+        <target state="translated">Butik</target>
       </trans-unit>
       <trans-unit id="cNX0MMo" resname="Item name">
         <source>Item name</source>
-        <target>__Item name</target>
+        <target state="translated">Navn</target>
       </trans-unit>
       <trans-unit id="q2oWS_D" resname="Edit account">
         <source>Edit account</source>
-        <target>__Edit account</target>
+        <target state="translated">Rediger konto</target>
       </trans-unit>
       <trans-unit id="fhsNVkH" resname="Account">
         <source>Account</source>
-        <target>__Account</target>
+        <target state="translated">Konto</target>
       </trans-unit>
       <trans-unit id="818Itzx" resname="Stores">
         <source>Stores</source>
-        <target>__Stores</target>
+        <target state="translated">Butikker</target>
       </trans-unit>
       <trans-unit id="Xaj3_8K" resname="Back to list">
         <source>Back to list</source>
-        <target>__Back to list</target>
+        <target state="translated">Tilbage til listen</target>
       </trans-unit>
       <trans-unit id="n83WwtP" resname="Create store">
         <source>Create store</source>
-        <target>__Create store</target>
+        <target state="translated">Opret butik</target>
       </trans-unit>
       <trans-unit id="lcYRcDG" resname="Locations">
         <source>Locations</source>
-        <target>__Locations</target>
+        <target state="translated">Lokationer</target>
       </trans-unit>
       <trans-unit id="80oBtV3" resname="No stores found">
         <source>No stores found</source>
-        <target>__No stores found</target>
+        <target state="translated">Ingen butikker fundet</target>
       </trans-unit>
       <trans-unit id="8Wi7Fhc" resname="Create new store">
         <source>Create new store</source>
-        <target>__Create new store</target>
+        <target state="translated">Opret ny butik</target>
       </trans-unit>
       <trans-unit id=".8jyb.y" resname="No network connection">
         <source>No network connection</source>
-        <target>__No network connection</target>
+        <target state="translated">Manglende netværksforbindelse</target>
       </trans-unit>
       <trans-unit id="JdjX2mV" resname="Check your device network connection and try again">
         <source>Check your device network connection and try again</source>
-        <target>__Check your device network connection and try again</target>
+        <target state="translated">Tjek din netværksforbindelse og prøv igen</target>
       </trans-unit>
       <trans-unit id="oXlHg6q" resname="Offline">
         <source>Offline</source>
-        <target>__Offline</target>
+        <target state="translated">Offline</target>
+      </trans-unit>
+      <trans-unit id="tDflTcl" resname="Order-By">
+        <source>Order-By</source>
+        <target state="translated">Sorter efter</target>
+      </trans-unit>
+      <trans-unit id="ijel8Hr" resname="Order by">
+        <source>Order by</source>
+        <target state="translated">Sorter efter</target>
+      </trans-unit>
+      <trans-unit id="VlDY11Q" resname="Go to {name}">
+        <source>Go to {name}</source>
+        <target state="translated">Gå til {name}</target>
+      </trans-unit>
+      <trans-unit id="5YB9iAZ" resname="Mark {name} as done">
+        <source>Mark {name} as done</source>
+        <target state="translated">Markér {name} som købt</target>
+      </trans-unit>
+      <trans-unit id="2Kf1s51" resname="Mark {name} as not done">
+        <source>Mark {name} as not done</source>
+        <target state="translated">Markér {name} som ikke købt</target>
+      </trans-unit>
+      <trans-unit id="5xRUnJV" resname="Woohoo! No not done items.">
+        <source>Woohoo! No not done items.</source>
+        <target state="translated">Hurra! Du mangler ikke noget.</target>
+      </trans-unit>
+      <trans-unit id="yeM.oC3" resname="Prefix item name with a number and optional unit to set a quantity, e.g. “2 l milk”.">
+        <source>Prefix item name with a number and optional unit to set a quantity, e.g. “2 l milk”.</source>
+        <target state="needs-l10n">__Prefix item name with a number and optional unit to set a quantity, e.g. “2 l milk”.</target>
       </trans-unit>
     </body>
   </file>

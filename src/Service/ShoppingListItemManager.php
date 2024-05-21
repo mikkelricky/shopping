@@ -3,7 +3,7 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2020 Mikkel Ricky
+ * (c) 2018– Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
@@ -14,23 +14,14 @@ use App\Entity\ShoppingList;
 use App\Entity\ShoppingListItem;
 use App\Entity\ShoppingListItemLogEntry;
 use App\Repository\ShoppingListItemRepository;
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ShoppingListItemManager
 {
-    /** @var ShoppingListItemRepository */
-    private $itemRepository;
-
-    /** @var EntityManagerInterface */
-    private $entityManager;
-
-    public function __construct(ShoppingListItemRepository $itemRepository, EntityManagerInterface $entityManager)
+    public function __construct(private readonly ShoppingListItemRepository $itemRepository, private readonly EntityManagerInterface $entityManager)
     {
-        $this->itemRepository = $itemRepository;
-        $this->entityManager = $entityManager;
     }
 
     /**
@@ -38,13 +29,16 @@ class ShoppingListItemManager
      *
      * If no account with the given email exists, one will be created.
      */
-    public function getItem(ShoppingList $list, string $name): ShoppingListItem
+    public function getItem(ShoppingList $list, string $name): ?ShoppingListItem
     {
         $items = $this->getItems($list, [$name]);
 
         return ($items && \count($items) > 0) ? $items[0] : null;
     }
 
+    /**
+     * @param scalar|null $item
+     */
     public function addToList($item, ShoppingList $list): ShoppingListItem
     {
         if (!$item instanceof ShoppingListItem) {
@@ -85,29 +79,32 @@ class ShoppingListItemManager
         $logEntry = new ShoppingListItemLogEntry($item);
         $this->entityManager->persist($logEntry);
 
-        $item->setDoneAt(new DateTime());
+        $item->setDoneAt(new \DateTime());
         $this->entityManager->persist($item);
 
         $this->entityManager->flush();
     }
 
-    public function setUndone(ShoppingListItem $item): void
+    public function setNotDone(ShoppingListItem $item): void
     {
         $item->setDoneAt(null);
         $this->entityManager->persist($item);
         $this->entityManager->flush();
     }
 
+    /**
+     * Parse item name into name and quantity, e.g.
+     * '2 l milk' => ['milk', '2 l']
+     * '3 French hens' => ['French hens', '3']
+     */
     private function parseName(string $name): array
     {
-        $quantity = null;
-
         $tokens = preg_split('/\s+/', $name, 3);
 
         // Quantity
-        if ((\count($tokens) > 1) && preg_match('/(?:\d*[,.])?\d+/', $tokens[0])) {
-            $quantity = array_shift($tokens);
-        }
+        $quantity = (\count($tokens) > 1) && preg_match('/^(\d*[,.])?\d+$/', $tokens[0])
+                  ? array_shift($tokens)
+                  : null;
 
         // Unit
         $units = [
@@ -116,7 +113,7 @@ class ShoppingListItemManager
             'g', 'gram', 'grams',
         ];
         if (null !== $quantity && \count($tokens) > 1
-            && \in_array(strtolower($tokens[0]), $units, true)) {
+            && \in_array(strtolower((string) $tokens[0]), $units, true)) {
             $quantity .= ' '.array_shift($tokens);
         }
 

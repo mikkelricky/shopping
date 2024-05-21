@@ -3,26 +3,25 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2020 Mikkel Ricky
+ * (c) 2018– Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
 
 namespace App\Service;
 
-use RuntimeException;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class FlashActionManager
 {
-    /** @var SessionInterface */
-    protected $session;
+    private static string $sessionKey = '_flash_actions';
 
-    private static $sessionKey = '_flash_actions';
+    private readonly SessionInterface $session;
 
-    public function __construct(SessionInterface $session)
+    public function __construct(RequestStack $requestStack)
     {
-        $this->session = $session;
+        $this->session = $requestStack->getSession();
     }
 
     public function addFlashAction(array $action, string $type, string $message): void
@@ -32,7 +31,7 @@ class FlashActionManager
         $this->session->set(self::$sessionKey, $actions);
     }
 
-    public function getFlashActions(string $type, string $message)
+    public function getFlashActions(string $type, string $message): ?array
     {
         try {
             $actions = $this->session->get(self::$sessionKey);
@@ -43,7 +42,7 @@ class FlashActionManager
             }
 
             return null;
-        } catch (RuntimeException $e) {
+        } catch (\RuntimeException) {
             return null;
         }
     }

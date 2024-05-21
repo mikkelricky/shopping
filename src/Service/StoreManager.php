@@ -3,7 +3,7 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2020 Mikkel Ricky
+ * (c) 2018– Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
@@ -25,15 +25,10 @@ class StoreManager implements LoggerAwareInterface
     use LoggerAwareTrait;
     use LoggerTrait;
 
-    /** @var EntityManagerInterface */
-    private $entityManager;
+    private array $options;
 
-    /** @var array */
-    private $options;
-
-    public function __construct(EntityManagerInterface $entityManager, array $storeManagerConfig)
+    public function __construct(private readonly EntityManagerInterface $entityManager, array $storeManagerConfig)
     {
-        $this->entityManager = $entityManager;
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
 
@@ -45,7 +40,7 @@ class StoreManager implements LoggerAwareInterface
         $storeRepository = $this->entityManager->getRepository(Store::class);
         /** @var StoreFetcherInterface $service */
         foreach ($this->options['store_fetchers'] as $service) {
-            $this->info(sprintf('Service: %s', \get_class($service)));
+            $this->info(sprintf('Service: %s', $service::class));
             try {
                 $stores = $service->getStores();
                 foreach ($stores as $name => $locations) {
@@ -60,18 +55,16 @@ class StoreManager implements LoggerAwareInterface
                         $store->getLocations()->removeElement($location);
                     }
                     foreach ($locations as $location) {
-                        $this->info(sprintf('location: %s', json_encode($location)));
+                        $this->info(sprintf('location: %s', json_encode($location, \JSON_THROW_ON_ERROR)));
                         $location = (new Location())
                             ->setName($location['name'])
                             ->setAddress($location['address'])
                             ->setLatitude($location['latitude'])
                             ->setLongitude($location['longitude']);
-                        $existingLocations = $storeLocations->filter(static function (Location $l) use ($location) {
-                            return $l->getName() === $location->getName()
-                                && $l->getAddress() === $location->getAddress()
-                                && $l->getLatitude() === $location->getLatitude()
-                                && $l->getLongitude() === $location->getLongitude();
-                        });
+                        $existingLocations = $storeLocations->filter(static fn (Location $l) => $l->getName() === $location->getName()
+                            && $l->getAddress() === $location->getAddress()
+                            && $l->getLatitude() === $location->getLatitude()
+                            && $l->getLongitude() === $location->getLongitude());
                         // Keep existing location or add new.
                         $store->addLocation($existingLocations->first() ?: $location);
                     }

@@ -1,49 +1,76 @@
 {
+    "name": "mikkelricky/shopping",
+    "description": "Shopping lists",
     "type": "project",
     "license": "proprietary",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
     "require": {
-        "php": "^7.3.0",
+        "php": "^8.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "ext-json": "*",
-        "easycorp/easyadmin-bundle": "^2.3",
-        "guzzlehttp/psr7": "^1.6",
-        "sensio/framework-extra-bundle": "^5.1",
-        "stof/doctrine-extensions-bundle": "^1.4",
-        "symfony/asset": "5.1.*",
-        "symfony/console": "5.1.*",
-        "symfony/dotenv": "5.1.*",
-        "symfony/expression-language": "5.1.*",
-        "symfony/flex": "^1.3.1",
-        "symfony/form": "5.1.*",
-        "symfony/framework-bundle": "5.1.*",
-        "symfony/http-client": "5.1.*",
-        "symfony/intl": "5.1.*",
-        "symfony/mailer": "5.1.*",
-        "symfony/monolog-bundle": "^3.1",
-        "symfony/notifier": "5.1.*",
-        "symfony/orm-pack": "*",
-        "symfony/process": "5.1.*",
-        "symfony/security-bundle": "5.1.*",
-        "symfony/serializer-pack": "*",
-        "symfony/string": "5.1.*",
-        "symfony/translation": "5.1.*",
-        "symfony/twig-pack": "*",
-        "symfony/validator": "5.1.*",
-        "symfony/web-link": "5.1.*",
-        "symfony/webpack-encore-bundle": "^1.7",
-        "symfony/yaml": "5.1.*"
+        "doctrine/annotations": "^1.14.3",
+        "doctrine/doctrine-bundle": "^2.8.3",
+        "doctrine/doctrine-migrations-bundle": "^3.2.2",
+        "doctrine/orm": "^2.14.1",
+        "easycorp/easyadmin-bundle": "^4.6.1",
+        "guzzlehttp/psr7": "^1.9",
+        "phpdocumentor/reflection-docblock": "^5.3",
+        "phpstan/phpdoc-parser": "^1.16.1",
+        "stof/doctrine-extensions-bundle": "^1.7.1",
+        "symfony/asset": "6.3.*",
+        "symfony/console": "6.3.*",
+        "symfony/dotenv": "6.3.*",
+        "symfony/expression-language": "6.3.*",
+        "symfony/flex": "^2.2.5",
+        "symfony/form": "6.3.*",
+        "symfony/framework-bundle": "6.3.*",
+        "symfony/http-client": "6.3.*",
+        "symfony/intl": "6.3.*",
+        "symfony/mailer": "6.3.*",
+        "symfony/mime": "6.3.*",
+        "symfony/monolog-bundle": "^3.8",
+        "symfony/notifier": "6.3.*",
+        "symfony/process": "6.3.*",
+        "symfony/property-access": "6.3.*",
+        "symfony/property-info": "6.3.*",
+        "symfony/proxy-manager-bridge": "6.3.*",
+        "symfony/runtime": "6.3.*",
+        "symfony/security-bundle": "6.3.*",
+        "symfony/serializer": "6.3.*",
+        "symfony/string": "6.3.*",
+        "symfony/translation": "6.3.*",
+        "symfony/twig-bundle": "6.3.*",
+        "symfony/uid": "6.3.*",
+        "symfony/validator": "6.3.*",
+        "symfony/web-link": "6.3.*",
+        "symfony/webpack-encore-bundle": "^2.1",
+        "symfony/yaml": "6.3.*",
+        "twig/extra-bundle": "^3.5.1",
+        "twig/twig": "^3.5.1"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.16",
-        "friendsoftwig/twigcs": "^3.2",
-        "symfony/debug-pack": "*",
-        "symfony/maker-bundle": "^1.0",
-        "symfony/phpunit-bridge": "^5.0",
-        "symfony/profiler-pack": "*",
-        "symfony/test-pack": "*"
+        "friendsofphp/php-cs-fixer": "^3.35",
+        "friendsoftwig/twigcs": "^6.2",
+        "hautelook/alice-bundle": "^2.12",
+        "phpstan/phpstan": "^1.10",
+        "phpunit/phpunit": "^9.6",
+        "rector/rector": "^0.18.5",
+        "symfony/browser-kit": "6.3.*",
+        "symfony/css-selector": "6.3.*",
+        "symfony/debug-bundle": "6.3.*",
+        "symfony/maker-bundle": "^1.48",
+        "symfony/phpunit-bridge": "^6.2.7",
+        "symfony/stopwatch": "6.3.*",
+        "symfony/web-profiler-bundle": "6.3.*",
+        "vimeo/psalm": "^5.15"
     },
     "config": {
+        "allow-plugins": {
+            "symfony/flex": true,
+            "symfony/runtime": true
+        },
+        "optimize-autoloader": true,
         "preferred-install": {
             "*": "dist"
         },
@@ -60,13 +87,12 @@
         }
     },
     "replace": {
-        "paragonie/random_compat": "2.*",
         "symfony/polyfill-ctype": "*",
         "symfony/polyfill-iconv": "*",
         "symfony/polyfill-php72": "*",
-        "symfony/polyfill-php71": "*",
-        "symfony/polyfill-php70": "*",
-        "symfony/polyfill-php56": "*"
+        "symfony/polyfill-php73": "*",
+        "symfony/polyfill-php74": "*",
+        "symfony/polyfill-php80": "*"
     },
     "scripts": {
         "auto-scripts": {
@@ -80,19 +106,37 @@
             "@auto-scripts"
         ],
         "coding-standards-check/php-cs-fixer": [
-            "php -n vendor/bin/php-cs-fixer --config=.php_cs.dist fix --dry-run"
+            "php-cs-fixer fix --dry-run"
         ],
         "coding-standards-check/twigcs": [
-            "vendor/bin/twigcs lint templates"
+            "twigcs templates"
         ],
         "coding-standards-check": [
-            "@coding-standards-check/php-cs-fixer"
+            "@coding-standards-check/php-cs-fixer",
+            "@coding-standards-check/twigcs"
         ],
         "coding-standards-apply/php-cs-fixer": [
-            "php -n vendor/bin/php-cs-fixer --config=.php_cs.dist fix"
+            "php-cs-fixer fix"
         ],
         "coding-standards-apply": [
             "@coding-standards-apply/php-cs-fixer"
+        ],
+         "code-analysis/phpstan": [
+            "phpstan analyse"
+        ],
+        "code-analysis/psalm": [
+            "psalm src tests"
+        ],
+        "code-analysis": [
+            "@code-analysis/phpstan",
+            "@code-analysis/psalm"
+        ],
+        "update-translations": [
+            "# We need a translation from en to en (!) (without prefix) to be able to process placeholders in en.",
+            "DEFAULT_LOCALE=en bin/console translation:extract --clean --force en --prefix=''",
+            "DEFAULT_LOCALE=en bin/console translation:extract --clean --force da",
+            "# Mark default translations (prefixed with `__`) as “Needs work” in Danish translations",
+            "sed --in-place='' 's/<target>__/<target state=\"needs-l10n\">__/' translations/*.da.*xlf"
         ]
     },
     "conflict": {
@@ -101,7 +145,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": true,
-            "require": "5.1.*"
+            "require": "6.3.*"
         }
     }
 }

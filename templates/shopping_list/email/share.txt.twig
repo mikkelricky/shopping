@@ -4,7 +4,7 @@
 {{ 'You now have access to the shopping list {name}.'|trans({'name': list.name}) }}
 {% endif %}
 
-{{ 'Go to {url} and start shopping!'|trans({'url': url('shopping_list_items', {list: list.id})}) }}
+{{ 'Go to {url} and start shopping!'|trans({'url': url('shopping_list_items', {id: list.id})}) }}
 
 {% if data.message|default(false) %}
 {{ data.message }}

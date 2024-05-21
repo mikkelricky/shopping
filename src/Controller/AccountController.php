@@ -3,7 +3,7 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2020 Mikkel Ricky
+ * (c) 2018– Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
@@ -16,21 +16,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route(
- *     "/{_locale}/_account/{account}",
- *     name="account_",
- *     locale="en",
- *     requirements={
- *         "_locale": "da|en"
- *     }
- * )
- */
+#[Route(path: '/{_locale}/_account/{account}', name: 'account_', locale: 'en', requirements: ['_locale' => 'da|en'])]
 class AccountController extends AbstractController
 {
-    /**
-     * @Route("/", name="show")
-     */
+    #[Route(path: '/', name: 'show')]
     public function show(Account $account): Response
     {
         return $this->render('account/show.html.twig', [
@@ -38,16 +27,14 @@ class AccountController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/edit", name="edit")
-     */
-    public function edit(Request $request, Account $account)
+    #[Route(path: '/edit', name: 'edit')]
+    public function edit(Request $request, Account $account): Response
     {
         $form = $this->createForm(AccountType::class, $account);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('account_show', ['account' => $account->getId()]);
         }

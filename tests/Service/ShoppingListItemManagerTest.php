@@ -3,7 +3,7 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2020 Mikkel Ricky
+ * (c) 2018– Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
@@ -17,12 +17,14 @@ class ShoppingListItemManagerTest extends KernelTestCase
 {
     /**
      * @dataProvider parseNameProvider
+     *
+     * @param array<?string> $expected
      */
-    public function testParseName($name, $expected)
+    public function testParseName(string $name, array $expected): void
     {
         self::bootKernel();
-
-        $service = self::$container->get(ShoppingListItemManager::class);
+        $container = static::getContainer();
+        $service = $container->get(ShoppingListItemManager::class);
         $method = new \ReflectionMethod($service, 'parseName');
         $method->setAccessible(true);
         $actual = $method->invoke($service, $name);
@@ -30,10 +32,16 @@ class ShoppingListItemManagerTest extends KernelTestCase
         $this->assertSame($expected, $actual);
     }
 
-    public function parseNameProvider()
+    /**
+     * @return array<mixed>
+     */
+    public function parseNameProvider(): array
     {
         return [
             ['Noget med et meget langt navn', ['Noget med et meget langt navn', null]],
+
+            ['2 l milk', ['milk', '2 l']],
+            ['3 French hens', ['French hens', '3']],
 
             ['7 æbler', ['æbler', '7']],
 
@@ -49,10 +57,15 @@ class ShoppingListItemManagerTest extends KernelTestCase
             ['500 grams flour', ['flour', '500 grams']],
 
             ['2 lime med skal', ['lime med skal', '2']],
+            ['2 lime med skal ', ['lime med skal', '2']],
+            ['2  lime med skal ', ['lime med skal', '2']],
 
             ['luft ', ['luft', null]],
             [' luft ', ['luft', null]],
             [' luft', ['luft', null]],
+
+            ['2 l ', ['', '2 l']],
+            ['2 li ', ['li', '2']],
         ];
     }
 }

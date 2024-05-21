@@ -3,7 +3,7 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2020 Mikkel Ricky
+ * (c) 2018– Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
@@ -18,14 +18,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ShoppingListAddItemsType extends ShoppingListType
 {
-    /** @var ShoppingListItemManager */
-    private $itemManager;
-
-    public function __construct(ShoppingListItemManager $itemManager)
+    public function __construct(private readonly ShoppingListItemManager $itemManager)
     {
-        $this->itemManager = $itemManager;
     }
 
+    /**
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -35,9 +34,7 @@ class ShoppingListAddItemsType extends ShoppingListType
         ;
         $builder->get('items')
             ->addModelTransformer(new CallbackTransformer(
-                static function (array $items = null) {
-                    return implode(\PHP_EOL, $items ?? []);
-                },
+                static fn (array $items = null) => implode(\PHP_EOL, $items ?? []),
                 function (string $items) use ($options) {
                     $names = array_filter(array_map('trim', explode(\PHP_EOL, $items)));
 
@@ -46,6 +43,9 @@ class ShoppingListAddItemsType extends ShoppingListType
             ));
     }
 
+    /**
+     * @return void
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setRequired('list');

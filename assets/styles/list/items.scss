@@ -1,0 +1,137 @@
+@import '~bootstrap/scss/bootstrap';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/brands';
+
+html, body, body > div {
+  margin: 0;
+  height: 100%;
+  min-height: 100%;
+  overflow: hidden;
+}
+
+body > div {
+  display: flex;
+  flex-direction: column;
+
+  header {
+    order: 1;
+    flex-shrink: 0;
+  }
+  article {
+    order: 2;
+    overflow-y: scroll;
+  }
+  footer {
+    order: 3;
+    flex-shrink: 0;
+  }
+}
+
+.link-unstyled,
+.link-unstyled:link,
+.link-unstyled:hover {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+form {
+  &.single-action {
+    display: inline-block;
+  }
+
+  .buttons {
+    text-align: right;
+
+    .btn {
+      margin-left: 1em;
+    }
+  }
+}
+
+label.required {
+  &::after {
+    content: '*';
+    // color: red;
+  }
+}
+
+#settings-toggle {
+  position: absolute;
+  right: 0;
+}
+
+.shopping-list-items {
+  td {
+    vertical-align: middle;
+  }
+}
+
+// @see https://github.com/corejavascript/typeahead.js/blob/master/doc/jquery_typeahead.md#class-names
+// @see https://github.com/corejavascript/typeahead.js/issues/217#issue-589298485
+/*****************************
+ * Twitter Typeahead Styling *
+ *****************************/
+.twitter-typeahead {
+  width: 100%;
+}
+
+.tt-hint {
+  color: #999;
+}
+
+.tt-menu {
+  width: 422px;
+  margin-top: 4px;
+  padding: 4px 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  box-shadow: 0 5px 10px rgba(0,0,0,.2);
+
+  &.tt-open {
+    // Show suggestions above input field.
+    top: auto !important;
+    bottom: 100% !important;
+  }
+}
+
+.tt-suggestion {
+  padding: 3px 20px;
+  line-height: 24px;
+}
+
+.tt-suggestion:hover {
+  background-color: #ddd;
+}
+
+.tt-suggestion p {
+  margin: 0;
+}
+
+.tt-suggestion.tt-cursor {
+  color: #fff;
+  background-color: #0097cf;
+}
+
+a.badge {
+  text-decoration: none;
+}
+
+[name="shopping_list_create_item"] {
+  [name="shopping_list_create_item[name]"] {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: none;
+  }
+
+  button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}

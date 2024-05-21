@@ -3,7 +3,7 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2020 Mikkel Ricky
+ * (c) 2018– Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
@@ -20,21 +20,17 @@ class StoreFetchCommand extends Command
 {
     protected static $defaultName = 'app:store:fetch';
 
-    /** @var StoreManager */
-    private $storeManager;
-
-    public function __construct(StoreManager $storeManager)
+    public function __construct(private readonly StoreManager $storeManager)
     {
         parent::__construct();
-        $this->storeManager = $storeManager;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $logger = new ConsoleLogger($output);
         $this->storeManager->setLogger($logger);
         $this->storeManager->updateStores();
 
-        return 0;
+        return static::SUCCESS;
     }
 }
