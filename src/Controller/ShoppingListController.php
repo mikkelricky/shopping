@@ -198,13 +198,13 @@ class ShoppingListController extends AbstractController
         $filter = $request->get('filter');
         $order = $request->get('order');
 
-        return $this->render('shopping_list/items.html.twig', [
+        return $this->renderForm('shopping_list/items.html.twig', [
             'account' => $account,
             'list' => $list,
             'undone_items' => $this->listManager->applyFilter($list->getUndoneItems(), $filter, $order)->getValues(),
             'done_items' => $this->listManager->applyFilter($list->getDoneItems(), $filter, $order)->getValues(),
             'filter' => $filter,
-            'add_item_form' => $form->createView(),
+            'add_item_form' => $form,
         ]);
     }
 
@@ -287,7 +287,7 @@ class ShoppingListController extends AbstractController
     public function delete(Request $request, ShoppingList $list): Response
     {
         if ($this->isCsrfTokenValid('delete'.$list->getId(), $request->request->get('_token'))) {
-            $this->entityManager>remove($list);
+            $this->entityManager->remove($list);
             $this->entityManager->flush();
         }
 

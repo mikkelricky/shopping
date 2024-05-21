@@ -11,14 +11,18 @@
 namespace App\Service;
 
 use RuntimeException;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class FlashActionManager
 {
     private static $sessionKey = '_flash_actions';
 
-    public function __construct(/*private SessionInterface $session*/)
+    private SessionInterface $session;
+
+    public function __construct(RequestStack $requestStack)
     {
+        $this->session = $requestStack->getSession();
     }
 
     public function addFlashAction(array $action, string $type, string $message): void
