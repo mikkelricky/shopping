@@ -24,6 +24,8 @@ use App\Service\FlashActionManager;
 use App\Service\ShoppingListItemManager;
 use App\Service\ShoppingListManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Asset\Packages;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -201,6 +203,58 @@ class ShoppingListController extends AbstractController
             'filter' => $filter,
             'add_item_form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/list/{list}/manifest.json", name="shopping_list_manifest", methods="GET")
+     */
+    public function itemsManifest(Request $request, ShoppingList $list, Packages $packages, array $pwaConfig): JsonResponse
+    {
+        $icons = $pwaConfig['icons'];
+        array_walk($icons, static function (&$value, $key) use ($packages) {
+            $value = [
+                'src' => $packages->getUrl($value),
+                'sizes' => $key,
+                'type' => 'image/png',
+            ];
+        });
+
+        $manifest = [
+            'short_name' => $list->getName(),
+            'name' => $list->getName(),
+            'icons' => array_values($icons),
+            'start_url' => $this->generateUrl('shopping_list_items', [
+                'list' => $list->getId(),
+                // 'utm_source' => 'homescreen',
+            ]),
+            'display' => 'standalone',
+            'orientation' => 'portrait',
+            'background_color' => '#003764',
+            'theme_color' => '#003764',
+            'lang' => 'da',
+        ];
+
+        return new JsonResponse($manifest);
+    }
+
+    /**
+     * @Route("/list/{list}/serviceWorker.js", name="shopping_list_serviceworker", methods="GET")
+     */
+    public function serviceWorker(Request $request, ShoppingList $list): Response
+    {
+        $content = $this->renderView('shopping_list/serviceWorker.js.twig', [
+            'list' => $list,
+        ]);
+
+        return new Response($content, 200, ['content-type' => 'text/javascript']);
+    }
+
+    /**
+     * @Route("/list/{list}/offline", name="shopping_list_offline", methods="GET")
+     */
+    public function offline(Request $request, ShoppingList $list): Response
+    {
+        return $this->render('shopping_list/offline.html.twig');
     }
 
     /**
