@@ -19,6 +19,7 @@ use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Twig\Environment;
 
 class ShoppingListManager
@@ -35,12 +36,16 @@ class ShoppingListManager
     /** @var Environment */
     private $twig;
 
-    public function __construct(AccountRepository $accountRepository, MailerInterface $mailer, array $from, Environment $twig)
+    /** @var PropertyAccessorInterface */
+    private $propertyAccessor;
+
+    public function __construct(AccountRepository $accountRepository, MailerInterface $mailer, array $from, Environment $twig, PropertyAccessorInterface $propertyAccessor)
     {
         $this->accountRepository = $accountRepository;
         $this->mailer = $mailer;
         $this->from = $from;
         $this->twig = $twig;
+        $this->propertyAccessor = $propertyAccessor;
     }
 
     public function notifyListCreated(ShoppingList $list): void
@@ -105,11 +110,13 @@ class ShoppingListManager
 
         if (null !== $orderBy) {
             $sorted = $items->toArray();
-            usort($sorted, static function (ShoppingListItem $a, ShoppingListItem $b) use ($orderBy) {
+            usort($sorted, function (ShoppingListItem $a, ShoppingListItem $b) use ($orderBy) {
                 // @TODO Handle more than one sort field.
                 foreach ($orderBy as $property => $direction) {
-                    $method = 'get'.ucfirst($property);
-                    $value = $a->$method() <=> $b->$method();
+                    $value = strcasecmp(
+                        $this->propertyAccessor->getValue($a, $property),
+                        $this->propertyAccessor->getValue($b, $property)
+                    );
 
                     return 0 === strcasecmp('asc', $direction) ? $value : -$value;
                 }
