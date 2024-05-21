@@ -1,4 +1,10 @@
 services:
+  mail:
+    image: axllent/mailpit
+    ports:
+      - "1025"
+      - "8025"
+
   node:
     image: node:20
     profiles:

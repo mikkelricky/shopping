@@ -126,9 +126,6 @@
             ".php-cs-fixer.dist.php"
         ]
     },
-    "friendsofphp/proxy-manager-lts": {
-        "version": "v1.0.3"
-    },
     "gedmo/doctrine-extensions": {
         "version": "v3.4.0"
     },
@@ -471,9 +468,6 @@
     },
     "symfony/property-info": {
         "version": "v5.0.2"
-    },
-    "symfony/proxy-manager-bridge": {
-        "version": "v5.2.4"
     },
     "symfony/routing": {
         "version": "6.3",
