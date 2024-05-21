@@ -28,10 +28,8 @@ class ShoppingListItem implements \Stringable
     #[ORM\Column(type: 'uuid', unique: true)]
     private ?Uuid $id;
 
-    /**
-     * @ItemName()
-     */
     #[ORM\Column(type: 'string', length: 255)]
+    #[ItemName()]
     private ?string $name = null;
 
     #[ORM\ManyToOne(targetEntity: ShoppingList::class, inversedBy: 'items')]

@@ -16,7 +16,7 @@ tasks:
     desc: Open development site
     cmds:
       # https://frankenphp.dev/docs/#docker
-      - open "https://localhost/admin"
+      - open "https://localhost/"
 
   dev:fixtures:load:
     decs: Load fixtures
