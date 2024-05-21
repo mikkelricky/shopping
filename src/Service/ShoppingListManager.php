@@ -113,10 +113,10 @@ class ShoppingListManager
             usort($sorted, function (ShoppingListItem $a, ShoppingListItem $b) use ($orderBy) {
                 // @TODO Handle more than one sort field.
                 foreach ($orderBy as $property => $direction) {
-                    $value = strcasecmp(
-                        $this->propertyAccessor->getValue($a, $property),
-                        $this->propertyAccessor->getValue($b, $property)
-                    );
+                    $valueA = $this->propertyAccessor->getValue($a, $property);
+                    $valueB = $this->propertyAccessor->getValue($b, $property);
+                    $value = \is_string($valueA) && \is_string($valueB) ?
+                        strcasecmp($valueA, $valueB) : $valueA <=> $valueB;
 
                     return 0 === strcasecmp('asc', $direction) ? $value : -$value;
                 }
