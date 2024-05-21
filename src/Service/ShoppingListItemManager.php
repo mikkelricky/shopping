@@ -109,7 +109,7 @@ class ShoppingListItemManager
         $tokens = preg_split('/\s+/', $name, 3);
 
         // Quantity
-        if ((\count($tokens) > 1) && preg_match('/(?:[0-9]*[,.])?[0-9]+/', $tokens[0])) {
+        if ((\count($tokens) > 1) && preg_match('/(?:\d*[,.])?\d+/', $tokens[0])) {
             $quantity = array_shift($tokens);
         }
 
