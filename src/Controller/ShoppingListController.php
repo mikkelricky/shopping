@@ -188,9 +188,12 @@ class ShoppingListController extends AbstractController
                     'message' => $this->translate('Edit item %item%', ['%item%' => (string) $item]),
                 ]);
 
-            return null !== $account
-                ? $this->redirectToRoute('shopping_account_list_items', ['account' => $account->getId(), 'id' => $list->getId()])
-                : $this->redirectToRoute('shopping_list_items', ['id' => $list->getId()]);
+            return $this->goBack(
+                $request,
+                null !== $account
+                    ? $this->redirectToRoute('shopping_account_list_items', ['account' => $account->getId(), 'id' => $list->getId()])
+                    : $this->redirectToRoute('shopping_list_items', ['id' => $list->getId()])
+            );
         }
 
         $filter = $request->get('filter');
