@@ -90,9 +90,6 @@ class ShoppingListController extends AbstractController
 
     /**
      * @Route("/{account}/list/{list}/created", name="shopping_account_list_created", methods="GET")
-     * @param Account $account
-     * @param ShoppingList $list
-     * @return Response
      */
     public function created(Account $account, ShoppingList $list): Response
     {
@@ -229,9 +226,6 @@ class ShoppingListController extends AbstractController
 
     /**
      * @Route("/{account}/list/{list}", name="shopping_account_list_delete", methods="DELETE")
-     * @param Request $request
-     * @param ShoppingList $list
-     * @return Response
      */
     public function delete(Request $request, ShoppingList $list): Response
     {
@@ -247,9 +241,6 @@ class ShoppingListController extends AbstractController
     /**
      * @Route("/list/{list}/log", name="shopping_list_log", methods="GET")
      * @Route("/{account}/list/{list}/log", name="shopping_account_list_log", methods="GET")
-     * @param Account|null $account
-     * @param ShoppingList $list
-     * @return Response
      */
     public function log(ShoppingList $list, Account $account = null): Response
     {
@@ -286,9 +277,7 @@ class ShoppingListController extends AbstractController
     /**
      * @Route("/list/{list}/items/add", name="shopping_list_add_items", methods="GET|POST")
      * @Route("/{account}/list/{list}/items/add", name="shopping_account_list_add_items", methods="GET|POST")
-     * @param Request $request
-     * @param Account|null $account
-     * @param ShoppingList $list
+     *
      * @return RedirectResponse|Response
      */
     public function addItems(Request $request, ShoppingList $list, Account $account = null)

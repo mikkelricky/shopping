@@ -32,8 +32,6 @@ class AccountManager
      * Get an account by email.
      *
      * If no account with the given email exists, one will be created.
-     *
-     * @return Account
      */
     public function getAccount(string $email): Account
     {

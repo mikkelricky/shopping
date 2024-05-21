@@ -41,26 +41,26 @@ abstract class AbstractController extends BaseController
         $this->translator = $translator;
     }
 
-    protected function error($message, $parameters = []): AbstractController
+    protected function error($message, $parameters = []): self
     {
         return $this->danger($message, $parameters);
     }
 
-    protected function danger($message, $parameters = []): AbstractController
+    protected function danger($message, $parameters = []): self
     {
         $this->addFlash(__FUNCTION__, $this->translate($message, $parameters));
 
         return $this;
     }
 
-    protected function info($message, $parameters = []): AbstractController
+    protected function info($message, $parameters = []): self
     {
         $this->addFlash(__FUNCTION__, $this->translate($message, $parameters));
 
         return $this;
     }
 
-    protected function success($message, $parameters = []): AbstractController
+    protected function success($message, $parameters = []): self
     {
         $this->addFlash(__FUNCTION__, $this->translate($message, $parameters));
 
