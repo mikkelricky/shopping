@@ -66,7 +66,7 @@ class StoreManager implements LoggerAwareInterface
                             ->setAddress($location['address'])
                             ->setLatitude($location['latitude'])
                             ->setLongitude($location['longitude']);
-                        $existingLocations = $storeLocations->filter(static function (Location $l) use ($location, $store) {
+                        $existingLocations = $storeLocations->filter(static function (Location $l) use ($location) {
                             return $l->getName() === $location->getName()
                                 && $l->getAddress() === $location->getAddress()
                                 && $l->getLatitude() === $location->getLatitude()
