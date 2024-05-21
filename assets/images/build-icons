@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+set -o errexit -o errtrace -o noclobber -o nounset -o pipefail
+IFS=$'\n\t'
+
+dir=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
+bold=$(tput bold)
+normal=$(tput sgr0)
+
+if [ $# -lt 1 ]; then
+    (>&2 echo "Usage: $0 source")
+    exit 1
+fi
+
+icon=$1
+
+if [ ! -f "$icon" ]; then
+    (>&2 echo "File $icon does not exist")
+    exit 1
+fi
+
+sizes=(
+    20x20
+    29x29
+    40x40
+    48x48
+    58x58
+    60x60
+    72x72
+    76x76
+    80x80
+    87x87
+    96x96
+    120x120
+    144x144
+    152x152
+    167x167
+    180x180
+    192x192
+    512x512
+    1024x1024
+)
+
+
+for size in "${sizes[@]}"; do
+    echo $size
+    convert $icon -resize $size $dir/icon_$size.png
+done
