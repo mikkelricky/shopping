@@ -59,19 +59,20 @@ class ShoppingListItem implements TimestampableInterface
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Store")
-     */
-    private $store;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\ShoppingListItemLogEntry", mappedBy="item", orphanRemoval=true)
      * @ORM\OrderBy({"createdAt"="DESC"})
      */
     private $logEntries;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Store")
+     */
+    private $stores;
+
     public function __construct()
     {
         $this->logEntries = new ArrayCollection();
+        $this->stores = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -144,18 +145,6 @@ class ShoppingListItem implements TimestampableInterface
         return $this;
     }
 
-    public function getStore(): ?Store
-    {
-        return $this->store;
-    }
-
-    public function setStore(Store $store): self
-    {
-        $this->store = $store;
-
-        return $this;
-    }
-
     /**
      * @return Collection|ShoppingListItemLogEntry[]
      */
@@ -167,5 +156,31 @@ class ShoppingListItem implements TimestampableInterface
     public function __toString()
     {
         return $this->name ?? self::class;
+    }
+
+    /**
+     * @return Collection|Store[]
+     */
+    public function getStores(): Collection
+    {
+        return $this->stores;
+    }
+
+    public function addStore(Store $store): self
+    {
+        if (!$this->stores->contains($store)) {
+            $this->stores[] = $store;
+        }
+
+        return $this;
+    }
+
+    public function removeStore(Store $store): self
+    {
+        if ($this->stores->contains($store)) {
+            $this->stores->removeElement($store);
+        }
+
+        return $this;
     }
 }
