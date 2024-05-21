@@ -53,9 +53,8 @@ class StoreController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $store->setAccount($account);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($store);
-            $em->flush();
+            $this->entityManager->persist($store);
+            $this->entityManager->flush();
 
             $this->success($this->translator->trans('Store {name} created', ['name' => $store->getName()]));
 
@@ -88,7 +87,7 @@ class StoreController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $this->entityManager->flush();
 
             $this->success($this->translator->trans('Store {name} updated', ['name' => $store->getName()]));
 
