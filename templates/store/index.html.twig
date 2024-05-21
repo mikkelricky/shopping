@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Store index{% endblock %}
+
+{% block body %}
+    <h1>Store index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Address</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for store in stores %}
+            <tr>
+                <td>{{ store.id }}</td>
+                <td>{{ store.name }}</td>
+                <td>{{ store.description }}</td>
+                <td>{{ store.address }}</td>
+                <td>{{ store.createdAt ? store.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ store.updatedAt ? store.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('store_show', {'id': store.id}) }}">show</a>
+                    <a href="{{ path('store_edit', {'id': store.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('store_new') }}">Create new</a>
+{% endblock %}

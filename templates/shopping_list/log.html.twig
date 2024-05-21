@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'List items log'|trans }}{% endblock %}
+
+{% macro add_item(name, list, account) %}
+    {% set url = path('shopping_account_list_add_item', {account: account.id, list: list.id}) %}
+    {% if not list.hasUndoneItem(name) %}
+        <form method="post" action="{{ url }}">
+            <input type="hidden" name="_token" value="{{ csrf_token('add_item_' ~ name) }}">
+            <input type="hidden" name="name" value="{{ name }}">
+            <button type="submit" class="btn btn-success">{{ 'Add item to list'|trans }}</button>
+        </form>
+    {% endif %}
+{% endmacro %}
+
+{% block body %}
+    {% import 'shopping_list/_helpers.html.twig' as helper %}
+    {% import _self as forms %}
+
+    <div class="d-flex my-3 justify-content-between align-items-baseline">
+        <h1>
+            {{ helper.account_home(account) }}
+            {{ 'Items log for list %list%'|trans({'%list%': list.name}) }}
+        </h1>
+
+        <a class="btn btn-light" href="{{ path('shopping_account_list_items', {account: account.id, list: list.id}) }}">{{ 'Show list items'|trans }}</a>
+    </div>
+
+    {% if list.logEntriesGrouped %}
+        <table class="table">
+            {% for name, entries in list.logEntriesGrouped %}
+                <tr>
+                    <td>{{ name }}</td>
+                    <td>{{ entries[0].createdAt|date }}</td>
+                    <td>
+                        {{ forms.add_item(name, list, account) }}
+                    </td>
+                </tr>
+                {#
+                {% for entry in entries %}
+                    <tr>
+                        <td>{{ entry.createdAt|date }}</td>
+                        <td>{{ entry.name }}{% if entry.quantity %} ({{ entry.quantity }}){% endif %}</td>
+                    </tr>
+                {% endfor %}
+                #}
+            {% endfor %}
+        </table>
+    {% else %}
+        <div class="alert alert-warning">{{ 'No item log entries'|trans }}</div>
+    {% endif %}
+{% endblock %}

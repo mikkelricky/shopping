@@ -1,0 +1,36 @@
+// $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
+
+// $primary: darken(#428bca, 20%);
+
+// the ~ allows you to reference things in node_modules
+@import '~bootstrap/scss/bootstrap';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+
+.link-unstyled,
+.link-unstyled:link,
+.link-unstyled:hover {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+form {
+  &.single-action {
+    display: inline-block;
+  }
+
+  .buttons {
+    text-align: right;
+
+    .btn {
+      margin-left: 1em;
+    }
+  }
+}
+
+label.required {
+  &::after {
+    content: '*';
+    // color: red;
+  }
+}
