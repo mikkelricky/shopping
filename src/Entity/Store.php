@@ -19,7 +19,9 @@ use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\StoreRepository")
+ *
  * @ORM\Table(name="shopping_store")
+ *
  * @UniqueEntity("name")
  */
 class Store
@@ -28,6 +30,7 @@ class Store
 
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;

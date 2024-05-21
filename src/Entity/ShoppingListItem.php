@@ -11,7 +11,6 @@
 namespace App\Entity;
 
 use App\Validator\ItemName;
-use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -20,6 +19,7 @@ use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ShoppingListItemRepository")
+ *
  * @ORM\Table(name="shopping_shopping_list_item")
  */
 class ShoppingListItem
@@ -28,18 +28,21 @@ class ShoppingListItem
 
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
      * @ItemName()
      */
     private $name;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\ShoppingList", inversedBy="items")
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private $list;
@@ -61,6 +64,7 @@ class ShoppingListItem
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ShoppingListItemLogEntry", mappedBy="item", orphanRemoval=true)
+     *
      * @ORM\OrderBy({"createdAt"="DESC"})
      */
     private $logEntries;
@@ -106,12 +110,12 @@ class ShoppingListItem
         return $this;
     }
 
-    public function getDoneAt(): ?DateTimeInterface
+    public function getDoneAt(): ?\DateTimeInterface
     {
         return $this->doneAt;
     }
 
-    public function setDoneAt(?DateTimeInterface $doneAt): self
+    public function setDoneAt(?\DateTimeInterface $doneAt): self
     {
         $this->doneAt = $doneAt;
 
