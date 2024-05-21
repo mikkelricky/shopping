@@ -112,6 +112,6 @@ class ShoppingListManager
             ->from($from)
             ->to($addresses);
 
-        return $this->mailer->send($email);
+        $this->mailer->send($email);
     }
 }
