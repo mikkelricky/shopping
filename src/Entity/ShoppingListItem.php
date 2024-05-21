@@ -3,7 +3,7 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2019 Mikkel Ricky
+ * (c) 2018–2020 Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
@@ -14,14 +14,16 @@ use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
+use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ShoppingListItemRepository")
+ * @ORM\Table(name="shopping_shopping_list_item")
  */
-class ShoppingListItem
+class ShoppingListItem implements TimestampableInterface
 {
-    use TimestampableEntity;
+    use TimestampableTrait;
 
     /**
      * @ORM\Id

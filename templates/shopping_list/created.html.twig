@@ -6,11 +6,11 @@
     <h1>{{ 'Shopping list created'|trans }}</h1>
 
     <div class="alert alert-success">
-        {{ 'Your shopping list %list% has been created.'|trans({'%list%': list.name}) }}
+        {{ 'Your shopping list {name} has been created.'|trans({'name': list.name}) }}
     </div>
 
     <p>
-        {{ 'Details on how to access the list have been sent to %email%.'|trans({'%email%': account.email}) }}
+        {{ 'Details on how to access the list have been sent to {email}.'|trans({'email': account.email}) }}
     </p>
 
     <a class="btn btn-primary" href="{{ path('shopping_list_index') }}">{{ 'Back'|trans }}</a>

@@ -3,7 +3,7 @@
 /*
  * This file is part of Shopping.
  *
- * (c) 2018–2019 Mikkel Ricky
+ * (c) 2018–2020 Mikkel Ricky
  *
  * This source file is subject to the MIT license.
  */
@@ -11,14 +11,16 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
+use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\StoreRepository")
+ * @ORM\Table(name="shopping_store")
  */
-class Store
+class Store implements TimestampableInterface
 {
-    use TimestampableEntity;
+    use TimestampableTrait;
 
     /**
      * @ORM\Id

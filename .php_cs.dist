@@ -6,7 +6,7 @@ $finder = PhpCsFixer\Finder::create()
 $header =<<<'HEADER'
 This file is part of Shopping.
 
-(c) 2018–2019 Mikkel Ricky
+(c) 2018–2020 Mikkel Ricky
 
 This source file is subject to the MIT license.
 HEADER;

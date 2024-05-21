@@ -8,8 +8,8 @@
     {{ form_start(form) }}
         {{ form_rest(form) }}
         <div class="buttons">
-            <a class="btn btn-link" href="{{ account|default(false) ? path('shopping_account', {account: account.id}) : path('shopping_list_index') }}">{{ 'Cancel'|trans }}</a>
-            <button class="btn btn-primary">{{ 'Create'|trans }}</button>
+            <a class="btn btn-link" href="{{ path_from_referer(account|default(false) ? path('shopping_account', {account: account.id}) : path('shopping_list_index')) }}">{{ 'Cancel'|trans }}</a>
+            <button class="btn btn-primary">{{ 'Create shopping list'|trans }}</button>
         </div>
     {{ form_end(form) }}
 {% endblock %}
