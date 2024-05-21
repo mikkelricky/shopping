@@ -105,10 +105,6 @@
         <source>Shopping list created</source>
         <target>Indkøbsliste oprettet</target>
       </trans-unit>
-      <trans-unit id="dpAPG.0" resname="Back">
-        <source>Back</source>
-        <target>Tilbage</target>
-      </trans-unit>
       <trans-unit id="dKiDoDe" resname="Settings">
         <source>Settings</source>
         <target>Indstillinger</target>
@@ -316,6 +312,10 @@
       <trans-unit id="ijel8Hr" resname="Order by">
         <source>Order by</source>
         <target state="translated">Sorter efter</target>
+      </trans-unit>
+      <trans-unit id="VlDY11Q" resname="Go to {name}">
+        <source>Go to {name}</source>
+        <target state="translated">Gå til {name}</target>
       </trans-unit>
     </body>
   </file>
