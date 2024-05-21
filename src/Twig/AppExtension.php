@@ -68,7 +68,7 @@ class AppExtension extends AbstractExtension
     }
 
     /**
-     * @return null|scalar
+     * @return scalar|null
      */
     public function getPathFromReferer(string $defaultPath)
     {
