@@ -47,7 +47,7 @@ class AccountController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('account_show', ['account' => $account->getId()]);
         }
