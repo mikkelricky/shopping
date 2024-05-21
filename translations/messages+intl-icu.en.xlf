@@ -61,10 +61,6 @@
         <source>Clear filter</source>
         <target>Clear filter</target>
       </trans-unit>
-      <trans-unit id=".GDkmR." resname="Woohoo! No undone items.">
-        <source>Woohoo! No undone items.</source>
-        <target>Woohoo! No undone items.</target>
-      </trans-unit>
       <trans-unit id="v154yCI" resname="Show all items">
         <source>Show all items</source>
         <target>Show all items</target>
@@ -316,6 +312,18 @@
       <trans-unit id="VlDY11Q" resname="Go to {name}">
         <source>Go to {name}</source>
         <target>Go to {name}</target>
+      </trans-unit>
+      <trans-unit id="5YB9iAZ" resname="Mark {name} as done">
+        <source>Mark {name} as done</source>
+        <target>Mark {name} as done</target>
+      </trans-unit>
+      <trans-unit id="2Kf1s51" resname="Mark {name} as not done">
+        <source>Mark {name} as not done</source>
+        <target>Mark {name} as not done</target>
+      </trans-unit>
+      <trans-unit id="5xRUnJV" resname="Woohoo! No not done items.">
+        <source>Woohoo! No not done items.</source>
+        <target>Woohoo! No not done items.</target>
       </trans-unit>
     </body>
   </file>

@@ -103,7 +103,7 @@ class ShoppingList implements \Stringable
         return $this->getItems()->filter(static fn (ShoppingListItem $item) => $item->isDone());
     }
 
-    public function getUndoneItems(): Collection
+    public function getNotDoneItems(): Collection
     {
         return $this->getItems()->filter(static fn (ShoppingListItem $item) => !$item->isDone());
     }
