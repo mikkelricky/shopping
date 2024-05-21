@@ -10,6 +10,9 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
@@ -58,9 +61,15 @@ class ShoppingListItem
      */
     private $store;
 
-    public function __toString()
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ShoppingListItemLogEntry", mappedBy="item", orphanRemoval=true)
+     * @ORM\OrderBy({"createdAt"="DESC"})
+     */
+    private $logEntries;
+
+    public function __construct()
     {
-        return $this->name ?? self::class;
+        $this->logEntries = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -92,12 +101,12 @@ class ShoppingListItem
         return $this;
     }
 
-    public function getDoneAt(): ?\DateTimeInterface
+    public function getDoneAt(): ?DateTimeInterface
     {
         return $this->doneAt;
     }
 
-    public function setDoneAt(?\DateTimeInterface $doneAt): self
+    public function setDoneAt(?DateTimeInterface $doneAt): self
     {
         $this->doneAt = $doneAt;
 
@@ -143,5 +152,18 @@ class ShoppingListItem
         $this->store = $store;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|ShoppingListItemLogEntry[]
+     */
+    public function getLogEntries(): Collection
+    {
+        return $this->logEntries;
+    }
+
+    public function __toString()
+    {
+        return $this->name ?? self::class;
     }
 }
