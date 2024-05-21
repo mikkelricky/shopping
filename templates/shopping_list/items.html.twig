@@ -86,7 +86,7 @@
                     {{ 'Filter applied'|trans }}
                     ({%- for key, value in filter -%}
                     {%- if loop.index0 > 0 %}; {% endif -%}
-                    {{ ('filter.'~key)|trans }}: {{ value|json_encode(constant('JSON_UNESCAPED_UNICODE')) }}
+                    {{ ('filter.' ~ key)|trans }}: {{ value|json_encode(constant('JSON_UNESCAPED_UNICODE')) }}
                     {%- endfor -%})
                 </div>
                 <a href="{{ _self.current_path({filter: null}) }}">{{ 'Clear filter'|trans }}</a>
