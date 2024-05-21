@@ -58,13 +58,11 @@ class UserPasswordCommand extends Command
             $question->setHiddenFallback(false);
             $question->setValidator(function ($answer) {
                 if (empty($answer)) {
-                    throw new \RuntimeException(
-                            'The password cannot be empty'
-                        );
-                    }
+                    throw new \RuntimeException('The password cannot be empty');
+                }
 
-                    return $answer;
-                });
+                return $answer;
+            });
 
             $password = $helper->ask($input, $output, $question);
         }
@@ -72,9 +70,9 @@ class UserPasswordCommand extends Command
         if (empty($password)) {
         }
 
-            try {
+        try {
             $user = $this->userProvider->loadUserByIdentifier($identifier);
-            assert($user instanceof PasswordAuthenticatedUserInterface);
+            \assert($user instanceof PasswordAuthenticatedUserInterface);
             $user->setPassword($this->passwordHasher->hashPassword(
                 $user,
                 $password

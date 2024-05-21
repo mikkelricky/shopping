@@ -127,9 +127,6 @@ class ShoppingListManager
         return $items;
     }
 
-    /**
-     * @param null|string $addresses
-     */
     private function send(Email $email, string|null $addresses): void
     {
         $from = new Address($this->from['address'], $this->from['name'] ?? '');

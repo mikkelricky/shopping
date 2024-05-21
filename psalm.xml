@@ -12,4 +12,12 @@
             <directory name="vendor" />
         </ignoreFiles>
     </projectFiles>
+
+    <issueHandlers>
+        <MissingFile>
+            <errorLevel type="suppress">
+                <file name="tests/bootstrap.php"/>
+            </errorLevel>
+        </MissingFile>
+    </issueHandlers>
 </psalm>

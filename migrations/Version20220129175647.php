@@ -2,6 +2,14 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of Shopping.
+ *
+ * (c) 2018– Mikkel Ricky
+ *
+ * This source file is subject to the MIT license.
+ */
+
 namespace DoctrineMigrations;
 
 use Doctrine\DBAL\Schema\Schema;
