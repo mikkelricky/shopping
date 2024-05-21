@@ -1,6 +1,6 @@
 var CACHE_NAME = 'mikkelricky-shopping'
 var urlsToCache = {{ [
-  path('shopping_list_offline', {list: list.id})
+  path('shopping_list_offline', {id: list.id})
 ]|json_encode|raw }}
 
 self.addEventListener('install', function(e) {
