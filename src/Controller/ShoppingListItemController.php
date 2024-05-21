@@ -13,7 +13,9 @@ namespace App\Controller;
 use App\Entity\ShoppingListItem;
 use App\Form\Type\ShoppingListItem\ShoppingListItemType;
 use App\Service\ShoppingListItemManager;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -52,7 +54,7 @@ class ShoppingListItemController extends AbstractController
     /**
      * @Route("/done", name="shopping_list_item_done", methods="PUT")
      */
-    public function done(Request $request, ShoppingListItem $item, ShoppingListItemManager $itemManager)
+    public function done(Request $request, ShoppingListItem $item, ShoppingListItemManager $itemManager): RedirectResponse
     {
         if ($this->isCsrfTokenValid('item_done'.$item->getId(), $request->request->get('_token'))) {
             $itemManager->setDone($item);
@@ -81,7 +83,7 @@ class ShoppingListItemController extends AbstractController
     /**
      * @Route("/log", name="shopping_list_item_log", methods="GET")
      */
-    public function log(ShoppingListItem $item)
+    public function log(ShoppingListItem $item): Response
     {
         return $this->render('shopping_list_item/log.html.twig', [
             'item' => $item,

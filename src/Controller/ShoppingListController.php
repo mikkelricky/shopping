@@ -24,6 +24,7 @@ use App\Service\FlashActionManager;
 use App\Service\ShoppingListItemManager;
 use App\Service\ShoppingListManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -89,8 +90,11 @@ class ShoppingListController extends AbstractController
 
     /**
      * @Route("/{account}/list/{list}/created", name="shopping_account_list_created", methods="GET")
+     * @param Account $account
+     * @param ShoppingList $list
+     * @return Response
      */
-    public function created(Request $request, Account $account, ShoppingList $list): Response
+    public function created(Account $account, ShoppingList $list): Response
     {
         return $this->render('shopping_list/created.html.twig', [
             'account' => $account,
@@ -225,8 +229,11 @@ class ShoppingListController extends AbstractController
 
     /**
      * @Route("/{account}/list/{list}", name="shopping_account_list_delete", methods="DELETE")
+     * @param Request $request
+     * @param ShoppingList $list
+     * @return Response
      */
-    public function delete(Request $request, Account $account, ShoppingList $list): Response
+    public function delete(Request $request, ShoppingList $list): Response
     {
         if ($this->isCsrfTokenValid('delete'.$list->getId(), $request->request->get('_token'))) {
             $em = $this->getDoctrine()->getManager();
@@ -240,8 +247,11 @@ class ShoppingListController extends AbstractController
     /**
      * @Route("/list/{list}/log", name="shopping_list_log", methods="GET")
      * @Route("/{account}/list/{list}/log", name="shopping_account_list_log", methods="GET")
+     * @param Account|null $account
+     * @param ShoppingList $list
+     * @return Response
      */
-    public function log(Request $request, Account $account = null, ShoppingList $list, ShoppingListItemManager $itemManager)
+    public function log(Account $account = null, ShoppingList $list): Response
     {
         return $this->render('shopping_list/log.html.twig', [
             'account' => $account,
@@ -276,8 +286,12 @@ class ShoppingListController extends AbstractController
     /**
      * @Route("/list/{list}/items/add", name="shopping_list_add_items", methods="GET|POST")
      * @Route("/{account}/list/{list}/items/add", name="shopping_account_list_add_items", methods="GET|POST")
+     * @param Request $request
+     * @param Account|null $account
+     * @param ShoppingList $list
+     * @return RedirectResponse|Response
      */
-    public function addItems(Request $request, Account $account = null, ShoppingList $list, ShoppingListItemManager $itemManager)
+    public function addItems(Request $request, Account $account = null, ShoppingList $list)
     {
         $form = $this->createForm(ShoppingListAddItemsType::class, null, [
             'list' => $list,

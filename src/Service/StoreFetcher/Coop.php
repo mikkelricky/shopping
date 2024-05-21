@@ -38,7 +38,7 @@ class Coop implements StoreFetcherInterface
         $this->options = $resolver->resolve($coopConfig);
     }
 
-    private function configureOptions(OptionsResolver $resolver)
+    private function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired([
             'subscription-key',
