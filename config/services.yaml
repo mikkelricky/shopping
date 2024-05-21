@@ -18,6 +18,15 @@ services:
             $sallingGroupConfig:
                 bearer: '%env(SALLING_GROUP_BEARER)%'
 
+            $coopConfig:
+                subscription-key: '%env(COOP_SUBSCRIPTION_KEY)%'
+
+            $storeManagerConfig:
+                store_fetchers:
+                    - '@App\Service\StoreFetcher\Coop'
+                    - '@App\Service\StoreFetcher\Rema1000'
+                    - '@App\Service\StoreFetcher\SallingGroup'
+
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
