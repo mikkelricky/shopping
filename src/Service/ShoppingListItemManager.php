@@ -62,11 +62,7 @@ class ShoppingListItemManager
     }
 
     /**
-     * Get an shopping list item by name..
-     *
-     * If no account with the given email exists, one will be created.
-     *
-     * @param string $name
+     * Get shopping list items by names.
      *
      * @return Collection
      */
@@ -115,17 +111,22 @@ class ShoppingListItemManager
         // Quantity
         if (\count($tokens) > 1) {
             if (preg_match('/(?:[0-9]*[,.])?[0-9]+/', $tokens[0])) {
-                $quantity = (float) str_replace(',', '.', array_shift($tokens));
+                $quantity = array_shift($tokens);
             }
         }
 
-        if (\count($tokens) > 1) {
-            if (preg_match('/l|kg|g/', $tokens[0])) {
-                $quantity .= ' '.array_shift($tokens);
-            }
+        // Unit
+        $units = [
+            'l', 'liter', 'litre', 'litres',
+            'kg', 'kilo', 'kilos',
+            'g', 'gram', 'grams',
+        ];
+        if (null !== $quantity && \count($tokens) > 1
+            && \in_array(strtolower($tokens[0]), $units, true)) {
+            $quantity .= ' '.array_shift($tokens);
         }
 
-        $name = implode(' ', $tokens);
+        $name = trim(implode(' ', $tokens));
 
         return [$name, $quantity];
     }
