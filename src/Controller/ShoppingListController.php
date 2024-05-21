@@ -170,7 +170,7 @@ class ShoppingListController extends AbstractController
      * @Route("/list/{list}/items", name="shopping_list_items", methods="GET|POST")
      * @Route("/{account}/list/{list}/items", name="shopping_account_list_items", methods="GET|POST")
      */
-    public function items(Request $request, Account $account = null, ShoppingList $list, ShoppingListItemManager $itemManager): Response
+    public function items(Request $request, ShoppingList $list, ShoppingListItemManager $itemManager, Account $account = null): Response
     {
         $item = new ShoppingListItem();
         $form = $this->createForm(ShoppingListCreateItemType::class, $item);
@@ -251,7 +251,7 @@ class ShoppingListController extends AbstractController
      * @param ShoppingList $list
      * @return Response
      */
-    public function log(Account $account = null, ShoppingList $list): Response
+    public function log(ShoppingList $list, Account $account = null): Response
     {
         return $this->render('shopping_list/log.html.twig', [
             'account' => $account,
@@ -263,7 +263,7 @@ class ShoppingListController extends AbstractController
      * @Route("/list/{list}/item/add", name="shopping_list_add_item", methods="POST")
      * @Route("/{account}/list/{list}/item/add", name="shopping_account_list_add_item", methods="POST")
      */
-    public function addItem(Request $request, Account $account = null, ShoppingList $list, ShoppingListItemManager $itemManager)
+    public function addItem(Request $request, ShoppingList $list, ShoppingListItemManager $itemManager, Account $account = null): RedirectResponse
     {
         $name = $request->request->get('name');
         if ($this->isCsrfTokenValid('add_item_'.$name, $request->request->get('_token'))) {
@@ -291,7 +291,7 @@ class ShoppingListController extends AbstractController
      * @param ShoppingList $list
      * @return RedirectResponse|Response
      */
-    public function addItems(Request $request, Account $account = null, ShoppingList $list)
+    public function addItems(Request $request, ShoppingList $list, Account $account = null)
     {
         $form = $this->createForm(ShoppingListAddItemsType::class, null, [
             'list' => $list,
@@ -299,6 +299,7 @@ class ShoppingListController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var ShoppingListItem[] $items */
             $items = $form->get('items')->getData();
 
             foreach ($items as $item) {
