@@ -18,6 +18,7 @@ use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AccountRepository")
+ *
  * @ORM\Table(name="shopping_account")
  */
 class Account
@@ -26,6 +27,7 @@ class Account
 
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;

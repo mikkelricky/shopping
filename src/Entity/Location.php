@@ -15,12 +15,14 @@ use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LocationRepository")
+ *
  * @ORM\Table(name="shopping_location")
  */
 class Location
 {
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
@@ -47,6 +49,7 @@ class Location
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Store", inversedBy="locations")
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private $store;
