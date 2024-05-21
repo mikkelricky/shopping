@@ -51,7 +51,6 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.35",
-        "friendsoftwig/twigcs": "^6.2",
         "hautelook/alice-bundle": "^2.12",
         "phpstan/phpstan": "^1.10",
         "phpunit/phpunit": "^9.6",
@@ -63,7 +62,8 @@
         "symfony/phpunit-bridge": "^6.2.7",
         "symfony/stopwatch": "6.3.*",
         "symfony/web-profiler-bundle": "6.3.*",
-        "vimeo/psalm": "^5.15"
+        "vimeo/psalm": "^5.15",
+        "vincentlanglet/twig-cs-fixer": "^2.8"
     },
     "config": {
         "allow-plugins": {
@@ -104,32 +104,6 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ],
-        "coding-standards-check/php-cs-fixer": [
-            "php-cs-fixer fix --dry-run"
-        ],
-        "coding-standards-check/twigcs": [
-            "twigcs templates"
-        ],
-        "coding-standards-check": [
-            "@coding-standards-check/php-cs-fixer",
-            "@coding-standards-check/twigcs"
-        ],
-        "coding-standards-apply/php-cs-fixer": [
-            "php-cs-fixer fix"
-        ],
-        "coding-standards-apply": [
-            "@coding-standards-apply/php-cs-fixer"
-        ],
-         "code-analysis/phpstan": [
-            "phpstan analyse"
-        ],
-        "code-analysis/psalm": [
-            "psalm src tests"
-        ],
-        "code-analysis": [
-            "@code-analysis/phpstan",
-            "@code-analysis/psalm"
         ],
         "update-translations": [
             "# We need a translation from en to en (!) (without prefix) to be able to process placeholders in en.",

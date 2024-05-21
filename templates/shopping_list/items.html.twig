@@ -104,7 +104,7 @@
 
             <div class="d-flex">
                 <div class="p-2">
-                    {#% set items = items|sort((a, b) => b.updatedAt <=> a.updatedAt) %#}
+                    {# % set items = items|sort((a, b) => b.updatedAt <=> a.updatedAt) % #}
                     <div id="order-by">
                         <button id="order-by-toggle" type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#order-by-modal" title="{{ 'Order-By'|trans }}">
                             <span class="fas fa-sort-amount-up-alt"></span>

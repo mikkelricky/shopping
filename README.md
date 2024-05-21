@@ -36,19 +36,7 @@ docker compose exec phpfpm bin/console hautelook:fixtures:load --no-interaction
 ## Coding standards
 
 ```sh
-docker compose exec phpfpm composer coding-standards-check
-```
-
-```sh
-docker compose exec phpfpm composer coding-standards-apply
-```
-
-```sh
-docker compose run --rm node yarn coding-standards-check
-```
-
-```sh
-docker compose run --rm node yarn coding-standards-apply
+task dev:coding-standards:check
 ```
 
 ```sh

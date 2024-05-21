@@ -129,9 +129,6 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.3"
     },
-    "friendsoftwig/twigcs": {
-        "version": "v3.2.2"
-    },
     "gedmo/doctrine-extensions": {
         "version": "v3.4.0"
     },
@@ -644,6 +641,15 @@
     },
     "vimeo/psalm": {
         "version": "4.19.0"
+    },
+    "vincentlanglet/twig-cs-fixer": {
+        "version": "2.8",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "0.6",
+            "ref": "e4da12a48e8138479bd24a675321bcfd84950266"
+        }
     },
     "webimpress/safe-writer": {
         "version": "2.1.0"

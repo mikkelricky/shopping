@@ -1,0 +1,106 @@
+# https://taskfile.dev
+
+version: '3'
+
+tasks:
+  dev:start:
+    desc: Start the development docker compose setup
+    cmds:
+      - task dev:compose -- pull
+      - task dev:compose -- up --detach --remove-orphans --build
+      - task dev:composer -- install
+      - task dev:console -- doctrine:migrations:migrate --no-interaction
+      - task dev:open
+
+  dev:open:
+    desc: Open development site
+    cmds:
+      # https://frankenphp.dev/docs/#docker
+      - open "https://localhost/admin"
+
+  dev:fixtures:load:
+    decs: Load fixtures
+    prompt: Really load fixtures?
+    cmds:
+      - task dev:console -- doctrine:fixtures:load --no-interaction
+
+  dev:coding-standards:markdown:apply:
+    desc: Apply Markdown coding standards
+    cmds:
+      - docker run --rm --volume $PWD:/md peterdavehello/markdownlint markdownlint --ignore LICENSE.md --ignore node_modules/ --ignore vendor/ '**/*.md' --fix
+
+  dev:coding-standards:markdown:check:
+    desc: Apply and check Markdown coding standards
+    cmds:
+      - task: dev:coding-standards:markdown:apply
+      - docker run --rm --volume $PWD:/md peterdavehello/markdownlint markdownlint --ignore LICENSE.md --ignore node_modules/ --ignore vendor/ '**/*.md'
+
+  dev:coding-standards:php:apply:
+    desc: Apply PHP coding standards
+    cmds:
+      - task dev:php -- vendor/bin/php-cs-fixer fix
+
+  dev:coding-standards:php:check:
+    desc: Apply and check PHP coding standards
+    cmds:
+      - task: dev:coding-standards:php:apply
+      - task dev:php -- vendor/bin/php-cs-fixer check
+
+  dev:coding-standards:twig:apply:
+    desc: Apply Twig coding standards
+    cmds:
+      - task dev:php -- vendor/bin/twig-cs-fixer --fix
+
+  dev:coding-standards:twig:check:
+    desc: Apply and check Twig coding standards
+    cmds:
+      - task: dev:coding-standards:twig:apply
+      - task dev:php -- vendor/bin/twig-cs-fixer
+
+  dev:coding-standards:check:
+    desc: Apply and check coding standards
+    cmds:
+      - task dev:coding-standards:markdown:apply
+      - task dev:coding-standards:markdown:check
+      - task dev:coding-standards:php:apply
+      - task dev:coding-standards:php:check
+      - task dev:coding-standards:twig:apply
+      - task dev:coding-standards:twig:check
+
+  dev:code-analysis:
+    desc: Analyse code
+    cmds:
+      - task dev:php -- vendor/bin/phpstan
+
+  dev:translations:update:
+    cmds:
+        # We need a translation from en to en (!) (without prefix) to be able to process placeholders in en.
+        - DEFAULT_LOCALE=en bin/console translation:extract --clean --force en --prefix=''
+        - DEFAULT_LOCALE=en bin/console translation:extract --clean --force da
+        # Mark default translations (prefixed with `__`) as “Needs work” in Danish translations
+        - sed --in-place='' 's/<target>__/<target state=\"needs-l10n\">__/' translations/*.da.*xlf
+
+  dev:compose:
+    desc: Run docker compose command
+    cmds:
+      - docker compose {{.CLI_ARGS}}
+
+  dev:composer:
+    desc: Run composer command
+    cmds:
+      - docker run --rm --interactive --tty --volume $PWD:/app composer:latest -- {{.CLI_ARGS}}
+
+  dev:console:
+    desc: Run console command
+    cmds:
+      - task dev:php -- bin/console {{.CLI_ARGS}}
+
+  dev:php:
+    desc: Run php command
+    cmds:
+      - task dev:compose -- exec php php {{.CLI_ARGS}}
+
+  dev:sql:cli:
+    desc: Open MySQL cli
+    cmds:
+      - "mysql --host=$(docker compose port database 3306 | cut -d: -f1) --port=$(docker compose port database 3306 | cut -d: -f2) --user=db --password=db db"
