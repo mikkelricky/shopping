@@ -139,8 +139,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
 
     /**
      * @see UserInterface
-     *
-     * @return void
      */
     public function eraseCredentials(): void
     {
