@@ -11,15 +11,18 @@
 namespace App\Command;
 
 use App\Service\StoreManager;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Logger\ConsoleLogger;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(
+    name: 'app:store:fetch',
+    description: 'fetch stores',
+)]
 class StoreFetchCommand extends Command
 {
-    protected static $defaultName = 'app:store:fetch';
-
     public function __construct(private readonly StoreManager $storeManager)
     {
         parent::__construct();

@@ -22,7 +22,7 @@ class SallingGroup implements StoreFetcherInterface
         'bilka' => 'Bilka',
         'salling' => 'Salling',
         'foetex' => 'Føtex',
-         // 'carlsjr' => 'Carl\'s Jr.',
+        // 'carlsjr' => 'Carl\'s Jr.',
         'netto' => 'Netto',
         // 'br' => 'BR',
     ];
@@ -96,7 +96,7 @@ class SallingGroup implements StoreFetcherInterface
      *
      * @psalm-return array<string>|null
      */
-    private function getLinks(ResponseInterface $response): array|null
+    private function getLinks(ResponseInterface $response): ?array
     {
         $headers = $response->getHeaders();
         if (!isset($headers['link'])) {

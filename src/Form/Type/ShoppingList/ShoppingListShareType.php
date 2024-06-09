@@ -30,7 +30,7 @@ class ShoppingListShareType extends AbstractType
             ])
             ->add('sender', TextType::class, [
                 'required' => false,
-//                'help' => ''
+                //                'help' => ''
             ])
             ->add('message', TextareaType::class, [
                 'required' => false,

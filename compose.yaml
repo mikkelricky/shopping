@@ -1,0 +1,22 @@
+services:
+  database:
+    image: mysql:8.0.36
+    ports:
+      - '3306'
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_USER=db
+      - MYSQL_PASSWORD=db
+      - MYSQL_DATABASE=db
+
+  php:
+    # image: dunglas/frankenphp
+    build: .
+    depends_on:
+      - database
+    ports:
+      - '80:80'
+      - '443:443'
+      - '443:443/udp'
+    volumes:
+      - .:/app

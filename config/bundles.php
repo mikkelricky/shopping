@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of Shopping.
+ *
+ * (c) 2018– Mikkel Ricky
+ *
+ * This source file is subject to the MIT license.
+ */
+
 return [
     Symfony\Bundle\FrameworkBundle\FrameworkBundle::class => ['all' => true],
     Symfony\Bundle\TwigBundle\TwigBundle::class => ['all' => true],

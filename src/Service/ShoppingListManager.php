@@ -69,7 +69,7 @@ class ShoppingListManager
         return true;
     }
 
-    public function applyFilter(Collection $items, array $filter = null, array $orderBy = null): Collection
+    public function applyFilter(Collection $items, ?array $filter = null, ?array $orderBy = null): Collection
     {
         if (null !== $filter) {
             $items = $items->filter(static function (ShoppingListItem $item) use ($filter) {
@@ -106,7 +106,7 @@ class ShoppingListManager
         return $items;
     }
 
-    private function send(Email $email, string|null $addresses): void
+    private function send(Email $email, ?string $addresses): void
     {
         $from = new Address($this->from['address'], $this->from['name'] ?? '');
         $email

@@ -323,7 +323,11 @@
       </trans-unit>
       <trans-unit id="yeM.oC3" resname="Prefix item name with a number and optional unit to set a quantity, e.g. “2 l milk”.">
         <source>Prefix item name with a number and optional unit to set a quantity, e.g. “2 l milk”.</source>
-        <target state="needs-l10n">__Prefix item name with a number and optional unit to set a quantity, e.g. “2 l milk”.</target>
+        <target state="translated">Skriv antal og evt. enhed foran for at sætte et kvantum, fx “2 l mælk”.</target>
+      </trans-unit>
+      <trans-unit id="PTydFBx" resname="Shopping list">
+        <source>Shopping list</source>
+        <target state="translated">Indkøbsliste</target>
       </trans-unit>
     </body>
   </file>

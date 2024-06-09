@@ -22,7 +22,7 @@ class ItemNameValidator extends ConstraintValidator
     {
         \assert($constraint instanceof ItemName);
 
-        if (empty($value) || is_numeric($value)) {
+        if (empty($value)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $value)
                 ->addViolation();

@@ -1,4 +1,10 @@
 services:
+  mail:
+    image: axllent/mailpit
+    ports:
+      - "1025"
+      - "8025"
+
   node:
     image: node:20
     profiles:
@@ -13,10 +19,8 @@ services:
     image: mcr.microsoft.com/playwright:v1.39.0-jammy
     profiles:
       - test
-    networks:
-      - app
     depends_on:
-      - nginx
+      - php
     volumes:
       - .:/app
       - /tmp/.X11-unix:/tmp/.X11-unix

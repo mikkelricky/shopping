@@ -1,6 +1,6 @@
 <div id="settings">
     <button id="settings-toggle" type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#settings-modal" title="{{ 'Settings'|trans }}">
-        <span class="fas fa-cog"></span>
+        {{ icon('gear') }}
     </button>
 
     <div class="modal fade" id="settings-modal" tabindex="-1" role="dialog" aria-labelledby="settings-modal-label" aria-hidden="true">
@@ -11,7 +11,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    {#{ icon('language') }#}
+                    {# { icon('language') } #}
                     {{ 'Language'|trans }}
 
                     {% set current_locale = app.request.attributes.get('_route_params')['_locale']|default('en') %}

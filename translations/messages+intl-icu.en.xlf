@@ -325,6 +325,10 @@
         <source>Prefix item name with a number and optional unit to set a quantity, e.g. “2 l milk”.</source>
         <target>Prefix item name with a number and optional unit to set a quantity, e.g. “2 l milk”.</target>
       </trans-unit>
+      <trans-unit id="PTydFBx" resname="Shopping list">
+        <source>Shopping list</source>
+        <target>Shopping list</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
