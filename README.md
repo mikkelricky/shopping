@@ -17,12 +17,12 @@ docker compose exec phpfpm composer update-translations
 ```
 
 ```sh
-docker compose run --rm node yarn install
-docker compose run --rm node yarn build
+docker compose run --rm node npm install
+docker compose run --rm node npm run build
 ```
 
 ```sh
-docker compose run --rm node yarn watch
+docker compose run --rm node npm run watch
 ```
 
 ## Fixtures
@@ -46,7 +46,7 @@ docker run --volume ${PWD}:/code --rm pipelinecomponents/yamllint yamllint fixtu
 ## Testing
 
 ```sh
-docker compose run --rm node yarn install
+docker compose run --rm node npm install
 docker compose run --rm playwright npx playwright install
 docker compose run --rm playwright npx playwright test
 open playwright-report/index.html
