@@ -81,7 +81,7 @@ abstract class AbstractController extends BaseController
         parent::addFlash($type, $message);
     }
 
-    protected function addFlashAction(array $action = null): void
+    protected function addFlashAction(?array $action = null): void
     {
         $this->flashActionManager->addFlashAction($action, $this->lastFlashType, $this->lastFlashMessage);
     }

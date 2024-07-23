@@ -49,7 +49,7 @@ class ShoppingListController extends AbstractController
 
     #[Route(path: '/list/new', name: 'shopping_list_new', methods: 'GET|POST')]
     #[Route(path: '/{account}/list/new', name: 'shopping_account_list_new', methods: 'GET|POST')]
-    public function new(Request $request, Account $account = null): Response
+    public function new(Request $request, ?Account $account = null): Response
     {
         $list = new ShoppingList();
         $list->setAccount($account);
@@ -143,7 +143,7 @@ class ShoppingListController extends AbstractController
 
     #[Route(path: '/list/{id}/items', name: 'shopping_list_items', methods: 'GET|POST')]
     #[Route(path: '/{account}/list/{id}/items', name: 'shopping_account_list_items', methods: 'GET|POST')]
-    public function items(Request $request, ShoppingList $list, ShoppingListItemManager $itemManager, Account $account = null): Response
+    public function items(Request $request, ShoppingList $list, ShoppingListItemManager $itemManager, ?Account $account = null): Response
     {
         $item = new ShoppingListItem();
         $form = $this->createForm(ShoppingListCreateItemType::class, $item);
@@ -173,7 +173,7 @@ class ShoppingListController extends AbstractController
         $filter = $request->get('filter');
         $order = $request->get('order');
 
-        return $this->renderForm('shopping_list/items.html.twig', [
+        return $this->render('shopping_list/items.html.twig', [
             'account' => $account,
             'list' => $list,
             'not_done_items' => $this->listManager->applyFilter($list->getNotDoneItems(), $filter, $order)->getValues(),
@@ -261,7 +261,7 @@ class ShoppingListController extends AbstractController
 
     #[Route(path: '/list/{id}/log', name: 'shopping_list_log', methods: 'GET')]
     #[Route(path: '/{account}/list/{id}/log', name: 'shopping_account_list_log', methods: 'GET')]
-    public function log(ShoppingList $list, Account $account = null): Response
+    public function log(ShoppingList $list, ?Account $account = null): Response
     {
         return $this->render('shopping_list/log.html.twig', [
             'account' => $account,
@@ -271,7 +271,7 @@ class ShoppingListController extends AbstractController
 
     #[Route(path: '/list/{id}/item/add', name: 'shopping_list_add_item', methods: 'POST')]
     #[Route(path: '/{account}/list/{id}/item/add', name: 'shopping_account_list_add_item', methods: 'POST')]
-    public function addItem(Request $request, ShoppingList $list, ShoppingListItemManager $itemManager, Account $account = null): RedirectResponse
+    public function addItem(Request $request, ShoppingList $list, ShoppingListItemManager $itemManager, ?Account $account = null): RedirectResponse
     {
         $name = $request->request->get('name');
         if ($this->isCsrfTokenValid('add_item_'.$name, $request->request->get('_token'))) {
@@ -296,7 +296,7 @@ class ShoppingListController extends AbstractController
      */
     #[Route(path: '/list/{id}/items/add', name: 'shopping_list_add_items', methods: 'GET|POST')]
     #[Route(path: '/{account}/list/{id}/items/add', name: 'shopping_account_list_add_items', methods: 'GET|POST')]
-    public function addItems(Request $request, ShoppingList $list, Account $account = null)
+    public function addItems(Request $request, ShoppingList $list, ?Account $account = null)
     {
         $form = $this->createForm(ShoppingListAddItemsType::class, null, [
             'list' => $list,

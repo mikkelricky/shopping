@@ -1,0 +1,139 @@
+# https://taskfile.dev
+
+version: '3'
+
+tasks:
+  dev:start:
+    desc: Start the development docker compose setup
+    cmds:
+      - task dev:compose -- pull
+      - task dev:compose -- up --detach --remove-orphans --build
+      - task dev:composer -- install
+      - task dev:console -- doctrine:migrations:migrate --no-interaction
+      - task dev:open
+
+  dev:open:
+    desc: Open development site
+    cmds:
+      # https://frankenphp.dev/docs/#docker
+      - open "https://localhost/"
+
+  dev:fixtures:load:
+    decs: Load fixtures
+    prompt: Really load fixtures?
+    cmds:
+      - task dev:console -- doctrine:fixtures:load --no-interaction
+
+  dev:coding-standards:javascript:apply:
+    desc: Apply JavaScript coding standards
+    cmds:
+      - docker compose run --rm node yarn install
+      - docker compose run --rm node yarn standard --fix "assets/**/*.js"
+
+  dev:coding-standards:javascript:check:
+    desc: Check JavaScript coding standards
+    cmds:
+      - '[ -n "$TASK_NO_APPLY" ] || task dev:coding-standards:javascript:apply'
+      - docker compose run --rm node yarn install
+      - docker compose run --rm node yarn standard "assets/**/*.js"
+
+  dev:coding-standards:markdown:apply:
+    desc: Apply Markdown coding standards
+    cmds:
+      - docker run --rm --volume $PWD:/md peterdavehello/markdownlint markdownlint --ignore LICENSE.md --ignore node_modules/ --ignore vendor/ '**/*.md' --fix
+
+  dev:coding-standards:markdown:check:
+    desc: Check and check Markdown coding standards
+    cmds:
+      - '[ -n "$TASK_NO_APPLY" ] || task dev:coding-standards:markdown:apply'
+      - docker run --rm --volume $PWD:/md peterdavehello/markdownlint markdownlint --ignore LICENSE.md --ignore node_modules/ --ignore vendor/ '**/*.md'
+
+  dev:coding-standards:php:apply:
+    desc: Apply PHP coding standards
+    cmds:
+      - task dev:composer -- install
+      - task dev:php -- vendor/bin/php-cs-fixer fix
+
+  dev:coding-standards:php:check:
+    desc: Check and check PHP coding standards
+    cmds:
+      - '[ -n "$TASK_NO_APPLY" ] || task dev:coding-standards:php:apply'
+      - task dev:composer -- install
+      - task dev:php -- vendor/bin/php-cs-fixer check
+
+  dev:coding-standards:scss:apply:
+    desc: Apply SCSS coding standards
+    cmds:
+      - docker compose run --rm node yarn install
+      - docker compose run --rm node yarn stylelint --fix "assets/**/*.scss"
+
+  dev:coding-standards:scss:check:
+    desc: Check SCSS coding standards
+    cmds:
+      - '[ -n "$TASK_NO_APPLY" ] || task dev:coding-standards:scss:apply'
+      - docker compose run --rm node yarn install
+      - docker compose run --rm node yarn stylelint "assets/**/*.scss"
+
+  dev:coding-standards:twig:apply:
+    desc: Apply Twig coding standards
+    cmds:
+      - task dev:composer -- install
+      - task dev:php -- vendor/bin/twig-cs-fixer --fix
+
+  dev:coding-standards:twig:check:
+    desc: Check and check Twig coding standards
+    cmds:
+      - '[ -n "$TASK_NO_APPLY" ] || task dev:coding-standards:twig:apply'
+      - task dev:composer -- install
+      - task dev:php -- vendor/bin/twig-cs-fixer
+
+  dev:coding-standards:check:
+    desc: Apply and check coding standards
+    cmds:
+      - task dev:coding-standards:javascript:check
+      - task dev:coding-standards:markdown:check
+      - task dev:coding-standards:php:check
+      - task dev:coding-standards:scss:check
+      - task dev:coding-standards:twig:check
+
+  dev:code-analysis:php:
+    desc: Analyse code
+    cmds:
+      - task dev:composer -- install
+      - task dev:php -- vendor/bin/phpstan
+
+  dev:translations:update:
+    cmds:
+        - task dev:composer -- install
+        # We need a translation from en to en (!) (without prefix) to be able to process placeholders in en.
+        - DEFAULT_LOCALE=en task dev:console -- translation:extract --clean --force en --prefix=''
+        - DEFAULT_LOCALE=en task dev:console -- translation:extract --clean --force da
+        # Mark default translations (prefixed with `__`) as “Needs work” in Danish translations
+        - sed --in-place='' 's/<target>__/<target state=\"needs-l10n\">__/' translations/*.da.*xlf
+
+  dev:compose:
+    desc: Run docker compose command
+    cmds:
+      - docker compose {{.CLI_ARGS}}
+
+  dev:composer:
+    desc: Run composer command
+    cmds:
+      - docker run --rm --interactive --volume $PWD:/app composer:latest -- {{.CLI_ARGS}}
+
+  dev:console:
+    desc: Run console command
+    cmds:
+      - task dev:php -- bin/console {{.CLI_ARGS}}
+
+  dev:php:
+    desc: Run php command
+    cmds:
+      # @todo skip `composer install` and use `docker compose exec php` if compose stup running.
+      - task dev:composer -- install
+      - task dev:compose -- run --rm php php {{.CLI_ARGS}}
+
+  dev:sql:cli:
+    desc: Open MySQL cli
+    cmds:
+      - "mysql --host=$(docker compose port database 3306 | cut -d: -f1) --port=$(docker compose port database 3306 | cut -d: -f2) --user=db --password=db db"

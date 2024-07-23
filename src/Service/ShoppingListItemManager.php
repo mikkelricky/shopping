@@ -95,7 +95,7 @@ class ShoppingListItemManager
     /**
      * Parse item name into name and quantity, e.g.
      * '2 l milk' => ['milk', '2 l']
-     * '3 French hens' => ['French hens', '3']
+     * '3 French hens' => ['French hens', '3'].
      */
     private function parseName(string $name): array
     {

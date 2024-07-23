@@ -23,7 +23,7 @@ class StoreController extends AbstractController
 {
     #[Route(path: '/store', name: 'store_index', methods: 'GET')]
     #[Route(path: '/{account}/store', name: 'store_index_account', methods: 'GET')]
-    public function index(StoreRepository $storeRepository, Account $account = null): Response
+    public function index(StoreRepository $storeRepository, ?Account $account = null): Response
     {
         return $this->render('store/index.html.twig', [
             'stores' => $storeRepository->findBy([], ['name' => 'ASC']),
@@ -33,7 +33,7 @@ class StoreController extends AbstractController
 
     #[Route(path: '/new', name: 'store_new', methods: ['GET', 'POST'])]
     #[Route(path: '/{account}/new', name: 'store_new_account', methods: ['GET', 'POST'])]
-    public function new(Request $request, Account $account = null): Response
+    public function new(Request $request, ?Account $account = null): Response
     {
         $store = new Store();
         $form = $this->createForm(StoreType::class, $store);
