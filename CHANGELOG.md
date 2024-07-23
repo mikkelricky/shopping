@@ -7,4 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* [PR-5](https://github.com/mikkelricky/shopping/pull/5)
+  Added release actions
+
 [Unreleased]: https://github.com/mikkelricky/shopping

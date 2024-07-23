@@ -111,6 +111,10 @@ tasks:
         # Mark default translations (prefixed with `__`) as “Needs work” in Danish translations
         - sed --in-place='' 's/<target>__/<target state=\"needs-l10n\">__/' translations/*.da.*xlf
 
+  dev:release:test:
+      cmds:
+        - task dev:compose -- run --rm php bin/create-release dev-test
+
   dev:compose:
     desc: Run docker compose command
     cmds:

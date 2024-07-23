@@ -62,3 +62,9 @@ open playwright-report/index.html
 xhost + 127.0.0.1
 docker compose run --rm --env DISPLAY=host.docker.internal:0 playwright npx playwright test --ui
 ```
+
+## Release
+
+``` shell
+task dev:release:test
+```
