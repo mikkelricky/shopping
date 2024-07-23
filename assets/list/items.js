@@ -57,7 +57,7 @@ $(() => {
 
           cb(
             strs
-              .filter(str => str.includes(name))
+              .filter(str => str.toLowerCase().includes(name.toLowerCase()))
               .map(name => quantity ? quantity + ' ' + name : name)
           )
         }
