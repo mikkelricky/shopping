@@ -11,6 +11,13 @@ if [ -z "$tag" ]; then
   exit
 fi
 
+section () {
+    bold=$(tput -Txterm-256color bold)
+    normal=$(tput -Txterm-256color sgr0)
+
+    echo "${bold}$@${normal}"
+}
+
 cd "$project_dir"
 
 # Configuration start
@@ -26,26 +33,30 @@ if ! git diff --exit-code composer.json; then
   exit 1
 fi
 
-# Make sure that `composer.json` has the correct version.
+section "Settings version (${tag}) in composer.json"
 composer config version "${tag}"
+
+section "Building release"
 
 # Build release start
 
-docker compose run --rm --env AP_ENV=prod composer install --no-dev
+docker compose run --rm --env AP_ENV=prod composer install --no-dev --classmap-authoritative
 docker compose run --rm --env AP_ENV=prod node npm install
 docker compose run --rm --env AP_ENV=prod node npm run build
 
 # Build release end
+
+section "Packaging release"
 
 # Package release
 release_dir=release
 target_dir="$release_dir/$app_name"
 mkdir -p "$target_dir"
 
-rsync --verbose --archive --compress --filter=':- .gitignore' --exclude-from "$script_dir/release-exclude.txt" . "$target_dir"
+rsync --archive --compress --filter=':- .gitignore' --exclude-from "$script_dir/release-exclude.txt" . "$target_dir"
 # Copy folders ignored by git
 # rsync --verbose --archive --compress vendor public "$target_dir"
-rsync --verbose --archive --compress public vendor "$target_dir"
+rsync --archive --compress public vendor "$target_dir"
 
 # Replace %%VERSION%% with actual version in build
 find $target_dir -type f -print0 | xargs -0 sed -i "s/%%VERSION%%/${tag}/g"
@@ -56,13 +67,12 @@ name="${app_name}-${tag#dev-}.tar.gz"
 tar --create --file "$name" -C "$release_dir" $app_name
 sha256sum "$name" >| checksum.txt
 
+section "Cleaning up"
 # Clean up
 rm -fr $release_dir
 
 git checkout composer.json
 
-echo
-echo "Release content ($name)"
-echo
+section "Release content ($name)"
+
 tar tvf "$name" | grep -v '/$'
-echo

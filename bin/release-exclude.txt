@@ -35,7 +35,7 @@ fixtures/
 node_modules
 node_modules/
 npm-debug.log
-package.json
+package*.json
 phpcs.xml
 phpstan.*
 phpunit.xml
@@ -49,5 +49,3 @@ test-results/
 tests/
 var/
 webpack.config.js
-yarn-error.log
-yarn.lock
