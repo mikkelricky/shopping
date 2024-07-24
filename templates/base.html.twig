@@ -17,10 +17,10 @@
         {% block container %}
             <div class="container-fluid">
                 {% block flashes %}
-                    {% include '_flashes.html.twig' %}
+                    {{ include('_flashes.html.twig') }}
                 {% endblock %}
                 {% block settings %}
-                  {% include '_settings.html.twig' %}
+                  {{ include('_settings.html.twig') }}
                 {% endblock %}
                 {% block body %}{% endblock %}
             </div>

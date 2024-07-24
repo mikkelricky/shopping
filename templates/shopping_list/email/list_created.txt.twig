@@ -1,7 +1,7 @@
-{{ 'Your shopping list {name} is ready at {url}'|trans({'name': list.name, 'url': url('shopping_account_list_items', {account: list.account.id, id: list.id})}) }}
+{{ 'Your shopping list {name} is ready at {url}'|trans({name: list.name, url: url('shopping_account_list_items', {account: list.account.id, id: list.id})}) }}
 
-{{ 'You can find all your shopping lists at {url}'|trans({'url': url('shopping_account', {account: list.account.id})}) }}
+{{ 'You can find all your shopping lists at {url}'|trans({url: url('shopping_account', {account: list.account.id})}) }}
 
 {{ 'Don\'t share these urls with anyone – they will give access to all your shopping lists!'|trans }}
 
-{{ 'If you wan\'t to share the list {name} with someone, go to {url}'|trans({'name': list.name, 'url': url('shopping_account_list_share', {account: list.account.id, id: list.id})}) }}
+{{ 'If you wan\'t to share the list {name} with someone, go to {url}'|trans({name: list.name, url: url('shopping_account_list_share', {account: list.account.id, id: list.id})}) }}

@@ -6,8 +6,8 @@
     <h1>Edit Store</h1>
 
     {{ include('store/_form.html.twig', {
-        'button_label': 'Update store',
-        'cancel_label': 'Back to list'|trans,
-        'cancel_url': path('store_index', {account: account.id}),
+        button_label: 'Update store',
+        cancel_label: 'Back to list'|trans,
+        cancel_url: path('store_index', {account: account.id}),
         }) }}
 {% endblock %}
