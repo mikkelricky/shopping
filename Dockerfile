@@ -9,3 +9,9 @@ RUN install-php-extensions \
     intl \
     zip \
     opcache
+
+# Needed for testing creating release
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+
+RUN apt-get update \
+    && apt-get --yes install git rsync

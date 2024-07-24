@@ -1,10 +1,10 @@
 {% if data.sender|default(false) %}
-{{ '{sender} has shared the shopping list {name} with you.'|trans({'sender': data.sender, 'name': list.name}) }}
+{{ '{sender} has shared the shopping list {name} with you.'|trans({sender: data.sender, name: list.name}) }}
 {% else %}
-{{ 'You now have access to the shopping list {name}.'|trans({'name': list.name}) }}
+{{ 'You now have access to the shopping list {name}.'|trans({name: list.name}) }}
 {% endif %}
 
-{{ 'Go to {url} and start shopping!'|trans({'url': url('shopping_list_items', {id: list.id})}) }}
+{{ 'Go to {url} and start shopping!'|trans({url: url('shopping_list_items', {id: list.id})}) }}
 
 {% if data.message|default(false) %}
 {{ data.message }}

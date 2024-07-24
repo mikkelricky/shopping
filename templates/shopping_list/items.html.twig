@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'Shopping list {name}'|trans({'name': list.name}) }}{% endblock %}
+{% block title %}{{ 'Shopping list {name}'|trans({name: list.name}) }}{% endblock %}
 
 {% block head %}
     <link rel="manifest" href="{{ path('shopping_list_manifest', {id: list.id, v: app_version}) }}" />
@@ -31,7 +31,7 @@
     <form method="post" action="{{ path('shopping_list_item_done', app.request.query.all|merge({item: item.id})) }}" class="single-action">
         <input type="hidden" name="_method" value="PUT">
         <input type="hidden" name="_token" value="{{ csrf_token('item_done' ~ item.id) }}">
-        <button class="btn btn-light">{{ icon('square') }} <span class="visually-hidden">{{ 'Mark {name} as done'|trans({'name': item.name}) }}</span></button>
+        <button class="btn btn-light">{{ icon('square') }} <span class="visually-hidden">{{ 'Mark {name} as done'|trans({name: item.name}) }}</span></button>
     </form>
 {% endmacro %}
 
@@ -39,7 +39,7 @@
     <form method="post" action="{{ path('shopping_list_item_done', app.request.query.all|merge({item: item.id})) }}" class="single-action">
         <input type="hidden" name="_method" value="PUT">
         <input type="hidden" name="_token" value="{{ csrf_token('item_done_undo' ~ item.id) }}">
-        <button class="btn btn-light">{{ icon('check-square') }} <span class="visually-hidden">{{ 'Mark {name} as not done'|trans({'name': item.name}) }}</span></button>
+        <button class="btn btn-light">{{ icon('check-square') }} <span class="visually-hidden">{{ 'Mark {name} as not done'|trans({name: item.name}) }}</span></button>
     </form>
 {% endmacro %}
 
@@ -64,7 +64,7 @@
                 {% if item.quantity %}
                     <span class="item-quantity">({{ item.quantity }})</span>
                 {% endif %}
-                {% if item.doneAt %}<br/><small>{{ 'Item done on {done_at, date, full} at {done_at, time, short}'|trans({'done_at': item.doneAt}) }}</small>{% endif %}
+                {% if item.doneAt %}<br/><small>{{ 'Item done on {done_at, date, full} at {done_at, time, short}'|trans({done_at: item.doneAt}) }}</small>{% endif %}
             </div>
             <div class="px-2 ms-auto item-stores">
                 {% if item.stores|length > 0 %}
@@ -120,7 +120,7 @@
                                     <div class="modal-body">
                                         <table class="table table-borderless">
                                         {% for label, property in {
-                                            'Name': 'name',
+                                            Name: 'name',
                                             'Updated at': 'updatedAt'
                                             } %}
                                             <tr>
@@ -129,7 +129,7 @@
                                                     <div class="btn-group" role="group">
                                                         {% for direction in ['asc', 'desc'] %}
                                                             {% set current = app.request.query.all.order[property]|default(null) == direction %}
-                                                            <a class="btn {{ current ? 'btn-success' : 'btn-light' }}" href="{{ current_path({'order': {(property): direction}}) }}">{{ direction }}</a>
+                                                            <a class="btn {{ current ? 'btn-success' : 'btn-light' }}" href="{{ current_path({order: {(property): direction}}) }}">{{ direction }}</a>
                                                         {% endfor %}
                                                     </div>
                                                 </td>
@@ -145,14 +145,14 @@
 
                 <div class="p-2">
                     {% block settings %}
-                        {% include '_settings.html.twig' %}
+                        {{ include('_settings.html.twig') }}
                     {% endblock %}
                 </div>
             </div>
         </header>
 
         <article>
-            {% include '_flashes.html.twig' %}
+            {{ include('_flashes.html.twig') }}
             {% if filter %}
                 <div class="alert alert-info">
                     <div class="d-flex justify-content-between align-items-baseline">
@@ -183,11 +183,11 @@
                 <div class="d-grid gap-2">
                     {% if current_display != 'all' %}
                     <a class="btn btn-light btn-block" href="{{ current_path({display: 'all'}) }}">
-                        {{ '{count, plural, one {Show one done item.} other {Show # done items.}}'|trans({'count': done_items|length}) }}
+                        {{ '{count, plural, one {Show one done item.} other {Show # done items.}}'|trans({count: done_items|length}) }}
                     </a>
                 {% else %}
                     <a class="btn btn-light btn-block" href="{{ current_path({display: null}) }}">
-                        {{ '{count, plural, one {Hide one done item.} other {Hide # done items.}}'|trans({'count': done_items|length}) }}
+                        {{ '{count, plural, one {Hide one done item.} other {Hide # done items.}}'|trans({count: done_items|length}) }}
                     </a>
                 {% endif %}
                 </div>
@@ -205,7 +205,7 @@
                 <div class="d-flex flex-row">
                     <div class="flex-grow-1">
                         {{ form_row(add_item_form.name, {
-                            label_attr: {'class': 'visually-hidden'},
+                            label_attr: {class: 'visually-hidden'},
                             attr: {'data-typeahead-dataset-selector': '#done-items-names'}
                             }) }}
                     </div>

@@ -14,6 +14,7 @@
         "jquery": "^3.7.1",
         "markdownlint-cli": "^0.37.0",
         "playwright-mailhog": "^1.1.0",
+        "prettier": "^3.3.3",
         "regenerator-runtime": "^0.14.0",
         "sass": "^1.69.3",
         "sass-loader": "^13.3.2",
@@ -31,11 +32,9 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress",
-        "coding-standards-check/markdownlint": "markdownlint --ignore '**/node_modules/**' --ignore '**/vendor/**' '*.md' 'web/modules/custom/**/*.md' 'documentation/*.md'",
-        "coding-standards-check/standard": "standard webpack.config.js assets/ playwright/",
+        "coding-standards-check/prettier": "prettier webpack.config.js assets/ playwright/",
         "coding-standards-check": "yarn coding-standards-check/markdownlint && yarn coding-standards-check/standard",
-        "coding-standards-apply/markdownlint": "markdownlint --fix '*.md' 'web/modules/custom/**/*.md' 'documentation/*.md'",
-        "coding-standards-apply/standard": "standard webpack.config.js assets/ playwright/ --fix",
+        "coding-standards-apply/prettier": "prettier webpack.config.js assets/ playwright/ --fix",
         "coding-standards-apply": "yarn coding-standards-apply/markdownlint && yarn coding-standards-apply/standard"
     }
 }

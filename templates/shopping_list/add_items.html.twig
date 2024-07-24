@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'Add items to list {name}'|trans({'name': list.name}) }}{% endblock %}
+{% block title %}{{ 'Add items to list {name}'|trans({name: list.name}) }}{% endblock %}
 
 {% block body %}
     {% import 'shopping_list/_helpers.html.twig' as helper %}
     <h1>
         {{ helper.account_home(account) }}
-        {{ 'Add items to list {name}'|trans({'name': list.name}) }}
+        {{ 'Add items to list {name}'|trans({name: list.name}) }}
     </h1>
 
     {{ form_start(form) }}

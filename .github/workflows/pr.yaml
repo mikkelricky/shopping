@@ -24,23 +24,14 @@ jobs:
       - name: Check coding standards
         run: TASK_NO_APPLY=true task dev:coding-standards:markdown:check
 
-  coding-standards-javascript:
-    name: JavaScript coding standards
+  coding-standards-prettier:
+    name: Prettier coding standards
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: pnorton5432/setup-task@v1
       - name: Check coding standards
-        run: TASK_NO_APPLY=true task dev:coding-standards:javascript:check
-
-  coding-standards-scss:
-    name: SCSS coding standards
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnorton5432/setup-task@v1
-      - name: Check coding standards
-        run: TASK_NO_APPLY=true  task dev:coding-standards:scss:check
+        run: TASK_NO_APPLY=true task dev:coding-standards:prettier:check
 
   coding-standards-php:
     name: PHP coding standards

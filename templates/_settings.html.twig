@@ -18,10 +18,10 @@
 
                     <div class="btn-group" role="group" aria-label="Language">
                     {% for name, locale in {
-                        'Dansk': 'da',
-                        'English': 'en'
+                        Dansk: 'da',
+                        English: 'en'
                         } %}
-                        <a class="btn {{ locale == current_locale ? 'btn-primary' : 'btn-secondary' }}" href="{{ current_path({'_locale': locale}) }}">{{ name }} ({{ locale }})</a>
+                        <a class="btn {{ locale == current_locale ? 'btn-primary' : 'btn-secondary' }}" href="{{ current_path({_locale: locale}) }}">{{ name }} ({{ locale }})</a>
                     {% endfor %}
                     </div>
                 </div>
