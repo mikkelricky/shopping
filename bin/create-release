@@ -31,7 +31,9 @@ composer config version "${tag}"
 
 # Build release start
 
-APP_ENV=prod composer install --no-dev
+docker compose run --rm --env AP_ENV=prod composer install --no-dev
+docker compose run --rm --env AP_ENV=prod node npm install
+docker compose run --rm --env AP_ENV=prod node npm run build
 
 # Build release end
 

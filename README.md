@@ -2,7 +2,7 @@
 
 ```sh
 docker compose pull
-docker compose up --detach --wait
+docker compose up --build --detach --wait
 open "http://$(docker compose port php 80)"
 open "http://$(docker compose port mail 8025)"
 ```

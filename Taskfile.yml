@@ -109,7 +109,7 @@ tasks:
   dev:composer:
     desc: Run composer command
     cmds:
-      - docker run --rm --interactive --volume $PWD:/app composer:latest -- {{.CLI_ARGS}}
+      - docker compose run --rm --interactive composer {{.CLI_ARGS}}
 
   dev:console:
     desc: Run console command
