@@ -20,3 +20,8 @@ services:
       - '443:443/udp'
     volumes:
       - .:/app
+
+  composer:
+    image: composer:latest
+    volumes:
+      - .:/app

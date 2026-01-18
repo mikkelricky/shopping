@@ -1,7 +1,9 @@
-@import '~bootstrap/scss/bootstrap';
-@import '~bootstrap-icons/font/bootstrap-icons';
+@import "~bootstrap/scss/bootstrap";
+@import "~bootstrap-icons/font/bootstrap-icons";
 
-html, body, body > div {
+html,
+body,
+body > div {
   margin: 0;
   height: 100%;
   min-height: 100%;
@@ -51,7 +53,7 @@ form {
 
 label.required {
   &::after {
-    content: '*';
+    content: "*";
   }
 }
 

@@ -1,6 +1,6 @@
 // the ~ allows you to reference things in node_modules
-@import '~bootstrap/scss/bootstrap';
-@import '~bootstrap-icons/font/bootstrap-icons';
+@import "~bootstrap/scss/bootstrap";
+@import "~bootstrap-icons/font/bootstrap-icons";
 
 .link-unstyled,
 .link-unstyled:link,
@@ -25,17 +25,17 @@ form {
 
 label.required {
   &::after {
-    content: '*';
+    content: "*";
   }
 }
 
 #settings-toggle {
-    position: absolute;
-    right: 0;
+  position: absolute;
+  right: 0;
 }
 
 .shopping-list-items {
-    td {
-        vertical-align: middle;
-    }
+  td {
+    vertical-align: middle;
+  }
 }

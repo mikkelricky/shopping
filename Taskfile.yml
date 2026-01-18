@@ -24,19 +24,6 @@ tasks:
     cmds:
       - task dev:console -- doctrine:fixtures:load --no-interaction
 
-  dev:coding-standards:javascript:apply:
-    desc: Apply JavaScript coding standards
-    cmds:
-      - docker compose run --rm node yarn install
-      - docker compose run --rm node yarn standard --fix "assets/**/*.js"
-
-  dev:coding-standards:javascript:check:
-    desc: Check JavaScript coding standards
-    cmds:
-      - '[ -n "$TASK_NO_APPLY" ] || task dev:coding-standards:javascript:apply'
-      - docker compose run --rm node yarn install
-      - docker compose run --rm node yarn standard "assets/**/*.js"
-
   dev:coding-standards:markdown:apply:
     desc: Apply Markdown coding standards
     cmds:
@@ -61,18 +48,18 @@ tasks:
       - task dev:composer -- install
       - task dev:php -- vendor/bin/php-cs-fixer check
 
-  dev:coding-standards:scss:apply:
-    desc: Apply SCSS coding standards
+  dev:coding-standards:prettier:apply:
+    desc: Apply Prettier coding standards
     cmds:
-      - docker compose run --rm node yarn install
-      - docker compose run --rm node yarn stylelint --fix "assets/**/*.scss"
+      - docker compose run --rm node npm install
+      - docker compose run --rm node npm run coding-standards-apply/prettier
 
-  dev:coding-standards:scss:check:
-    desc: Check SCSS coding standards
+  dev:coding-standards:prettier:check:
+    desc: Check Prettier coding standards
     cmds:
-      - '[ -n "$TASK_NO_APPLY" ] || task dev:coding-standards:scss:apply'
-      - docker compose run --rm node yarn install
-      - docker compose run --rm node yarn stylelint "assets/**/*.scss"
+      - '[ -n "$TASK_NO_APPLY" ] || task dev:coding-standards:prettier:apply'
+      - docker compose run --rm node npm install
+      - docker compose run --rm node npm run coding-standards-check/prettier
 
   dev:coding-standards:twig:apply:
     desc: Apply Twig coding standards
@@ -90,10 +77,9 @@ tasks:
   dev:coding-standards:check:
     desc: Apply and check coding standards
     cmds:
-      - task dev:coding-standards:javascript:check
       - task dev:coding-standards:markdown:check
       - task dev:coding-standards:php:check
-      - task dev:coding-standards:scss:check
+      - task dev:coding-standards:prettier:check
       - task dev:coding-standards:twig:check
 
   dev:code-analysis:php:
@@ -111,6 +97,10 @@ tasks:
         # Mark default translations (prefixed with `__`) as “Needs work” in Danish translations
         - sed --in-place='' 's/<target>__/<target state=\"needs-l10n\">__/' translations/*.da.*xlf
 
+  dev:release:test:
+      cmds:
+        - task dev:compose -- run --rm php bin/create-release dev-test
+
   dev:compose:
     desc: Run docker compose command
     cmds:
@@ -119,7 +109,7 @@ tasks:
   dev:composer:
     desc: Run composer command
     cmds:
-      - docker run --rm --interactive --volume $PWD:/app composer:latest -- {{.CLI_ARGS}}
+      - docker compose run --rm --interactive composer {{.CLI_ARGS}}
 
   dev:console:
     desc: Run console command

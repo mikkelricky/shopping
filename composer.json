@@ -92,7 +92,7 @@
             "symfony/flex": true,
             "symfony/runtime": true
         },
-        "optimize-autoloader": true,
+        "classmap-authoritative": true,
         "preferred-install": {
             "*": "dist"
         },

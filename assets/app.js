@@ -4,14 +4,16 @@
 // const imagesContext = require.context('./images', true, /\.(png|jpg|jpeg|gif|ico|svg|webp)$/)
 // imagesContext.keys().forEach(imagesContext)
 
-require('./styles/app.scss')
+require("./styles/app.scss");
 
-const bootstrap = require('bootstrap')
+const bootstrap = require("bootstrap");
 
 // https://getbootstrap.com/docs/5.1/components/tooltips/#example-enable-tooltips-everywhere
-Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-  .forEach(el => new bootstrap.Tooltip(el))
+Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]')).forEach(
+  (el) => new bootstrap.Tooltip(el),
+);
 
 // console.debug(document.querySelectorAll('.modal'))
-Array.from(document.querySelectorAll('.modal'))
-  .forEach(el => new bootstrap.Modal(el))
+Array.from(document.querySelectorAll(".modal")).forEach(
+  (el) => new bootstrap.Modal(el),
+);

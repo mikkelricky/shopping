@@ -38,3 +38,7 @@ yarn-error.log
 ###> vincentlanglet/twig-cs-fixer ###
 /.twig-cs-fixer.cache
 ###< vincentlanglet/twig-cs-fixer ###
+
+*.tar.gz
+checksum.txt
+release/

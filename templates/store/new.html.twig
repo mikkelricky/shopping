@@ -6,8 +6,8 @@
     <h1>{{ 'Create store'|trans }}</h1>
 
     {{ include('store/_form.html.twig', {
-        'button_label': 'Create store',
-        'cancel_label': 'Cancel'|trans,
-        'cancel_url': account ? path('store_index_account', {account: account.id}) : path('store_index'),
+        button_label: 'Create store',
+        cancel_label: 'Cancel'|trans,
+        cancel_url: account ? path('store_index_account', {account: account.id}) : path('store_index'),
         }) }}
 {% endblock %}
